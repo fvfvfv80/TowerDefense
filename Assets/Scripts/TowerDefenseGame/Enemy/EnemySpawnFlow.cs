@@ -1,17 +1,15 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    //이번씬 또는 슈팅겜의 에네미 스폰 디렉터
-    public class EnemySpawnDirector : MonoBehaviour
+    public class EnemySpawnFlow : MonoBehaviour
     {
         [SerializeField]
         private EnemySystem enemySystem;
 
         [SerializeField]
-        private TowerDefenseFlow towerDefenseFlow;
+        private TowerDefenseEnemyRole enemyRole;
 
         [SerializeField]
         private GameObject enemyHPPrefab;
@@ -20,34 +18,29 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private Transform hpUIParent;
 
         [SerializeField]
-        private float spawnTime;
-
-        [SerializeField]
-        private Transform[] wayPoints;
+        private Transform[] wayPoints; //시스템으로 갈수도있음
 
 
-        private void Awake()
+
+
+        public EnemyActor SpawnEnemy(GameObject enemyPrefab)
         {
-            StartCoroutine(nameof(SpawnEnemy));
-        }
+            var enemyActor = enemySystem.GetEnemy(enemyPrefab);
 
-        private IEnumerator SpawnEnemy()
-        {
-            while (true)
-            {
+            enemyActor.Init(enemyRole);
+            enemyActor.Setup(wayPoints);
 
-                var enemyActor = enemySystem.SpawnEnemyActor();
-
-                enemyActor.Init(enemySystem,towerDefenseFlow);
-                enemyActor.Setup(wayPoints);
-
-                SpawnEnemyHP(enemyActor);
-
-                yield return new WaitForSeconds(spawnTime);
-            }
+            SpawnEnemyHP(enemyActor);
+            return enemyActor;
         }
 
 
+        public void DestroyEnemy(EnemyActor enemy)
+        {
+            enemySystem.
+            EnemyList.Remove(enemy);
+            Destroy(enemy.gameObject);
+        }
 
         private void SpawnEnemyHP(EnemyActor enemyActor)
         {
@@ -64,5 +57,13 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             clone.GetComponent<EnemyHPViewer>().Setup(enemyActor.EnemyHP);
         }
 
+        public void DespawnEnemy(EnemyActor enemyActor)
+        {
+            enemySystem.ReturnEnemy(enemyActor);
+        }
+
+
     }
 }
+
+

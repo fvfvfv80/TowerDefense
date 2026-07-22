@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public interface ITowerHandler
+    public interface ITowerWeaponHandler
     {
-
+        public IEnumerable<BaseActor> GetTargetList();
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Player
 {

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Enemy;
-using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour

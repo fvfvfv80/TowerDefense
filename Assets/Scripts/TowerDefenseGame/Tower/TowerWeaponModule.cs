@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Enemy;
+using Assets.Scripts.TowerDefenseGame.Tower;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -20,14 +22,18 @@ public class TowerWeaponModule : MonoBehaviour
     private float attackRange = 2.0f;
 
 
-    private EnemySystem _enemySystem; //웨폰 디렉터? 또는 배틀 디렉터? 
     private Transform _attackTarget = null;
     private WeaponState _weaponState;
 
-    public void Setup(EnemySystem enemySystem)
-    {
-        _enemySystem = enemySystem;
+    private ITowerWeaponHandler _weaponHandler;
 
+    public void Init(ITowerWeaponHandler weaponHandler)
+    {
+        _weaponHandler = weaponHandler;
+    }
+
+    public void Setup()
+    {
         ChangeState(WeaponState.SearchClosestTarget);
     }
 
@@ -64,14 +70,15 @@ public class TowerWeaponModule : MonoBehaviour
 
         while (true)
         {
-            for (int i = 0; i < _enemySystem.EnemyList.Count; i++)
+            var targetList = _weaponHandler.GetTargetList();
+            foreach(var target in targetList)
             {
-                float distance = Vector3.Distance(_enemySystem.EnemyList[i].transform.position, transform.position);
+                float distance = Vector3.Distance(target.transform.position, transform.position);
 
                 if (distance <= attackRange && distance <= closestDistSqr)
                 {
                     closestDistSqr = distance;
-                    _attackTarget = _enemySystem.EnemyList[i].transform;
+                    _attackTarget = target.transform;
                 }
             }
 
@@ -117,5 +124,6 @@ public class TowerWeaponModule : MonoBehaviour
 
         clone.GetComponent<Projectile>().Setup(_attackTarget,1);
     }
-    
+
+
 }

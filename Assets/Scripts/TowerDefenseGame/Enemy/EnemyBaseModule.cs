@@ -11,11 +11,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public int Gold => gold;
 
-        public Action OnDie;
-        public void KillEnemy()
-        {
-            OnDie?.Invoke();
-        }
         
     }
 }

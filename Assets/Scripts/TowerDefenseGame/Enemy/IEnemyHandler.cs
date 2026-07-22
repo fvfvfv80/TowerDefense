@@ -9,8 +9,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
     {
         public void Hit();
 
-        public void ReachGoal();
-
         public void Despawn(EnemyDestroyType type);
     }
 }

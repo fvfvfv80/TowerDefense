@@ -8,12 +8,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private Transform hudPoint;
 
-
-        private EnemySystem _enemySystem;
-
-        private TowerDefenseFlow _towerDefenseFlow;
-
-        //private SimpleEnemyBehavior _simpleEnemyRole; //점차 enemyactor의 IenemyHanlder 규모가 커지거나 다양해질 것 같으면 분리
+        private TowerDefenseEnemyRole _enemyRole;
 
         public EnemyBaseModule EnemyBase { get; private set; }
 
@@ -24,7 +19,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         public EnemyHPModule EnemyHP { get; private set; }
 
         public Transform HUDPoint => hudPoint;
-
 
 
         //enemyActor는 prefab에 관련된 코드니까 prefab을 생성하는 enemyspawner를 알아도 상관없음
@@ -40,16 +34,14 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         }
 
 
-
-        public void Init(EnemySystem enemySystem,TowerDefenseFlow towerDefenseFlow)
+        public void Init(TowerDefenseEnemyRole enemyRole)
         {
-            _enemySystem = enemySystem;
-            _towerDefenseFlow = towerDefenseFlow;
+            _enemyRole = enemyRole;
 
             EnemyMovement.Init(this);
             EnemyHP.Init(this);
-
         }
+
 
         public void Setup(Transform[] wayPoints)
         {
@@ -68,22 +60,19 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public void Despawn(EnemyDestroyType type)
         {
-            if(type == EnemyDestroyType.Arrive)
+            if (type == EnemyDestroyType.Arrive)
             {
-                _towerDefenseFlow.NotifyEnemyGoal();
+                _enemyRole.AttackPlayer();
             }
-            else if(type == EnemyDestroyType.Kill)
+            else if (type == EnemyDestroyType.Kill)
             {
-                _towerDefenseFlow.AddPlayerGold(EnemyBase.Gold);
+                _enemyRole.DropGold(EnemyBase.Gold);
             }
 
-            _enemySystem.DespawnEnemy(this);
+            _enemyRole.DespawnEnemy(this);
+
         }
 
-        public void ReachGoal()
-        {
-            throw new System.NotImplementedException();
-        }
 
         #endregion
     }

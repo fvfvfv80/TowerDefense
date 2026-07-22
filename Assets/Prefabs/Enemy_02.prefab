@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2296257546868487985}
   - component: {fileID: -5813597679605673509}
   m_Layer: 0
-  m_Name: Enemy_01
+  m_Name: Enemy_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3c5f54037024849acd9d73f49bf006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyBaseModule
-  gold: 10
+  gold: 15
 --- !u!114 &-1307897197778378025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412074913255e6743b7e994658988e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyMovementModule
-  timeOffset: 1
+  timeOffset: 0.75
 --- !u!114 &-2296257546868487985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ccf177ad7df8d64ab56437834259995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyHPModule
-  maxHP: 5
+  maxHP: 10
   enemyBase: {fileID: -5547406944408241163}
 --- !u!114 &-5813597679605673509
 MonoBehaviour:
@@ -222,7 +222,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a1e6bbd4d9a3f424e8194e6132a2c87f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e4e8b8d20b8239439d13e519c00f7c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
