@@ -3,7 +3,7 @@ using Assets.Scripts.TowerDefenseGame.Player;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame
+namespace Assets.Scripts.TowerDefenseGame.UI
 {
     public class StageUIViewer : MonoBehaviour
     {

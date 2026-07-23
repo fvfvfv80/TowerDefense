@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.TowerDefenseGame.Enemy;
-using Assets.Scripts.TowerDefenseGame.Tower;
-using System;
+﻿using Assets.Scripts.TowerDefenseGame.Tower;
 using System.Collections;
 using UnityEngine;
 
@@ -11,21 +9,26 @@ public class TowerWeaponModule : MonoBehaviour
 
     [SerializeField]
     private Transform spawnPoint;
-
     [SerializeField]
     private Transform projectilePrefab;
-
     [SerializeField]
     private float attackRate = 0.5f;
-
     [SerializeField]
     private float attackRange = 2.0f;
+    [SerializeField]
+    private int attackDamage = 1;
 
 
     private Transform _attackTarget = null;
     private WeaponState _weaponState;
+    private int _level;
 
     private ITowerWeaponHandler _weaponHandler;
+
+    public float Damage => attackDamage;
+    public float Rate => attackRate;
+    public float Range => attackRange;
+    public int Level => _level + 1;
 
     public void Init(ITowerWeaponHandler weaponHandler)
     {

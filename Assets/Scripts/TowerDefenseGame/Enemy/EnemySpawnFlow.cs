@@ -35,13 +35,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         }
 
 
-        public void DestroyEnemy(EnemyActor enemy)
-        {
-            enemySystem.
-            EnemyList.Remove(enemy);
-            Destroy(enemy.gameObject);
-        }
-
         private void SpawnEnemyHP(EnemyActor enemyActor)
         {
             var clone = Instantiate(enemyHPPrefab);

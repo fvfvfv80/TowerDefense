@@ -8,5 +8,6 @@ namespace Assets.Scripts.TowerDefenseGame.Player
     public interface IPlayerHandler
     {
         void BuildTower(Transform tileTransform);
+        void SelectTower(Transform towerTransform);
     }
 }

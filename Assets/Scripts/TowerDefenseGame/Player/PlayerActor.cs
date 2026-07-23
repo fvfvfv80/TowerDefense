@@ -5,11 +5,11 @@ namespace Assets.Scripts.TowerDefenseGame.Player
     public class PlayerActor : BaseActor, IPlayerHandler
     {
         [SerializeField]
-        private PlayerTowerBuildFlow towerBuildFlow;
+        private TowerDefensePlayerRole playerRole;
 
         private PlayerHPModule _playerHP;
 
-        private PlayerBuildInputModule _playerBuildInput;
+        private PlayerInputModule _playerBuildInput;
 
         private PlayerGoldModule _playerGold;
 
@@ -21,7 +21,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         public void Init()
         {
             _playerHP = GetComponent<PlayerHPModule>();
-            _playerBuildInput = GetComponent<PlayerBuildInputModule>();
+            _playerBuildInput = GetComponent<PlayerInputModule>();
             _playerGold = GetComponent<PlayerGoldModule>();
 
             _playerBuildInput.Init(this);
@@ -29,7 +29,12 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         #region PlayerHandle
         public void BuildTower(Transform tileTransform)
         {
-            towerBuildFlow.TryBuildTower(tileTransform);
+            playerRole.TryBuildTower(tileTransform);
+        }
+
+        public void SelectTower(Transform towerTransform)
+        {
+            playerRole.ShowTowerDetail(towerTransform);
         }
         #endregion
     }

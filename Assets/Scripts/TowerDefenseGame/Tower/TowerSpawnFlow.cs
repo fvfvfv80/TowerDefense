@@ -12,8 +12,9 @@ public class TowerSpawnFlow : MonoBehaviour
 
     public TowerActor SpawnTower(Transform tileTransform)
     {
-        //선택한 위치에 타워 생성
-        var clone = Instantiate(towerPrefab, tileTransform.position, quaternion.identity);
+        Vector3 position = tileTransform.position + Vector3.back;
+        
+        var clone = Instantiate(towerPrefab, position, quaternion.identity);
 
         var towerActor = clone.GetComponent<TowerActor>();
 

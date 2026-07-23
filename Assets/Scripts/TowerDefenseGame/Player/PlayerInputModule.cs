@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerBuildInputModule : MonoBehaviour
+public class PlayerInputModule : MonoBehaviour
 {
     private IPlayerHandler _playerHandler;
 
@@ -27,7 +27,7 @@ public class PlayerBuildInputModule : MonoBehaviour
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        
+
         if (!context.performed)
             return;
 
@@ -36,13 +36,17 @@ public class PlayerBuildInputModule : MonoBehaviour
 
         Ray ray = _mainCamera.ScreenPointToRay(_screenPoint);
 
-        if (Physics.Raycast(ray,out var hit,Mathf.Infinity))
+        if (Physics.Raycast(ray, out var hit, Mathf.Infinity))
         {
-            if(hit.transform.CompareTag("Tile"))
+            if (hit.transform.CompareTag("Tile"))
             {
                 _playerHandler.BuildTower(hit.transform);
             }
-        }
+            else if (hit.transform.CompareTag("Tower"))
+            {
+                _playerHandler.SelectTower(hit.transform);
+            }
+        } 
     }
 
 
