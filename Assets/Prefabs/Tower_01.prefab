@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1993547647128993172}
   - component: {fileID: 804355671395106312}
+  - component: {fileID: 3398763859538215050}
   - component: {fileID: 508888955194423644}
   - component: {fileID: 773830267930710100}
   m_Layer: 0
@@ -79,6 +80,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21cf76f7add32f4792c42eaa45e0b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerActor
+--- !u!114 &3398763859538215050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005878003273553492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78542a6fb42ba33408525a37f48d72c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerBaseModule
+  towerTemplate: {fileID: 11400000, guid: 751663ca3ffeff5488ba1af4e8453d6e, type: 2}
+  towerRenderer: {fileID: 9216722736597025951}
 --- !u!114 &508888955194423644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +110,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6036065688658813569, guid: 0e063f81c9320a44193cf46f4a241a00, type: 3}
   attackRate: 0.5
   attackRange: 2
+  attackDamage: 1
 --- !u!65 &773830267930710100
 BoxCollider:
   m_ObjectHideFlags: 0

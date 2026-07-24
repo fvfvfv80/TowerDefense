@@ -6,6 +6,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 {
     public interface ITowerWeaponHandler
     {
+        public TowerTemplateSO TowerTemplate { get; } 
         public IEnumerable<BaseActor> GetTargetList();
     }
 }

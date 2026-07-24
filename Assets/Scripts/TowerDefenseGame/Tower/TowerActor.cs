@@ -12,13 +12,16 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         private TowerDefenseTowerRole _towerRole;
 
 
+        public TowerBaseModule towerBaseModule => _towerBase;
         public TowerWeaponModule TowerWeaponModule => _towerWeapon;
+
+        public TowerTemplateSO TowerTemplate => _towerBase.TowerTemplate;
 
         public void Init(TowerDefenseTowerRole towerRole)
         {
             _towerRole = towerRole;
 
-           // _towerBase = GetComponent<TowerBaseModule>();
+            _towerBase = GetComponent<TowerBaseModule>();
             _towerWeapon = GetComponent<TowerWeaponModule>();
 
             _towerWeapon.Init(this);
@@ -27,6 +30,12 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public void Setup()
         {
             _towerWeapon.Setup();
+        }
+
+        public void UpgradeTower()
+        {
+            _towerBase.Upgrade();
+            _towerWeapon.Upgrade();
         }
 
         public IEnumerable<BaseActor> GetTargetList()

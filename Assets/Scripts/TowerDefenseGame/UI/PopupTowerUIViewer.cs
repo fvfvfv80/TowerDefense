@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Tower;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,9 +19,13 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         [SerializeField]
         private TextMeshProUGUI textLevel;
         [SerializeField]
+        private Button buttonUpgrade;
+
+        [SerializeField]
         private TowerAttackRangeDisplayModule towerAttackRange;
 
-        private TowerWeaponModule _currentTower;
+
+        private TowerActor _currentTower;
 
         private void Awake()
         {
@@ -34,15 +37,18 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
                 OffPopup();
         }
-        public void OnPopup(Transform towerTransform)
+
+        //이름이..
+        public void OnPopup(TowerActor towerActor)
         {
-            _currentTower = towerTransform.GetComponent<TowerWeaponModule>();
+            _currentTower = towerActor;
 
             UpdatetowerData();
             gameObject.SetActive(true);
 
-            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.Range);
+            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerWeaponModule.Range);
         }
+
 
         public void OffPopup()
         {
@@ -52,12 +58,23 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
         private void UpdatetowerData()
         {
-            textDamage.text = $"Damage: {_currentTower.Damage}";
-            textRate.text = $"Rate: {_currentTower.Rate}";
-            textRange.text = $"Range: {_currentTower.Range}";
-            textLevel.text = $"Level: {_currentTower.Level}";
+            var towerWeapon = _currentTower.TowerWeaponModule;
+            var towerBase = _currentTower.towerBaseModule;
+            imageTower.sprite = towerBase.TowerImage;
+
+            textDamage.text = $"Damage: {towerWeapon.Damage}";
+            textRate.text = $"Rate: {towerWeapon.Rate}";
+            textRange.text = $"Range: {towerWeapon.Range}";
+            textLevel.text = $"Level: {towerBase.Level}";
+
+            buttonUpgrade.interactable = towerBase.Level < towerBase.MaxLevel;
         }
 
+        public void UpdatePopup()
+        {
+            UpdatetowerData();
+            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerWeaponModule.Range);
+        }
 
     }
 }

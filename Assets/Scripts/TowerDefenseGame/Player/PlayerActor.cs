@@ -34,7 +34,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
         public void SelectTower(Transform towerTransform)
         {
-            playerRole.ShowTowerDetail(towerTransform);
+            playerRole.SelectTower(towerTransform);
         }
         #endregion
     }

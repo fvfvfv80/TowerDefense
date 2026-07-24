@@ -14,5 +14,13 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             get => currentGold;
             set => currentGold = Mathf.Max(0, value);
         }
+
+        public bool CheckGoldEnough(int gold)//이런건 시스템에 들어가거나 할 수도 있겠군
+        {
+            if (gold > currentGold)
+                return false;
+
+            return true;
+        }
     }
 }

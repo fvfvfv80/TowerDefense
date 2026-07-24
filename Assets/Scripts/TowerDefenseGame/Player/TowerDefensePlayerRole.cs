@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.TowerDefenseGame.UI;
+﻿using Assets.Scripts.TowerDefenseGame.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Player
@@ -6,15 +6,21 @@ namespace Assets.Scripts.TowerDefenseGame.Player
     public class TowerDefensePlayerRole : MonoBehaviour
     {
         [SerializeField]
-        private PlayerTowerBuildFlow playerTowerBuildFlow;
+        private SelectedTowerMaintenanceFlow towerMaintenanceFlow;
 
         [SerializeField]
-        private PopupTowerUIViewer popupTower;
+        private PlayerTowerBuildFlow playerTowerBuildFlow;
 
-        public void ShowTowerDetail(Transform towerTransform)
+        
+        public void SelectTower(Transform towerTransform)
         {
-            popupTower.OnPopup(towerTransform);
+            var towerActor = towerTransform.GetComponent<TowerActor>();
+
+            towerMaintenanceFlow.SetSelectedTower(towerActor);
+            towerMaintenanceFlow.ShowTowerDetail();
         }
+
+
 
         public void TryBuildTower(Transform tileTransform)
         {
