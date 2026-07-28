@@ -26,6 +26,13 @@ public class TowerSpawnFlow : MonoBehaviour
         return towerActor;
     }
 
+    public GameObject SpawnFollowTower()
+    {
+        var clone = Instantiate(towerTemplate.followTowerPrefab);
+        return clone;
+
+    }
+
     //디스폰 시 처리해야되는 작업들을 여기서 처리
     public void DespawnTower(TowerActor towerActor)
     {

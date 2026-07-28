@@ -20,6 +20,14 @@ public class PlayerInputModule : MonoBehaviour
         _playerHandler = playerHandler;
     }
 
+    public Vector3 GetPointerWorldPosition()
+    {
+        Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(_screenPoint);
+        worldPosition.z = 0f;
+
+        return worldPosition;
+    }
+
     public void OnPoint(InputAction.CallbackContext context)
     {
         _screenPoint = context.ReadValue<Vector2>();

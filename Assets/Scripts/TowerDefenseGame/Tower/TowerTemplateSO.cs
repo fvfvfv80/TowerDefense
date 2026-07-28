@@ -7,6 +7,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     public class TowerTemplateSO : ScriptableObject
     {
         public GameObject towerPrefab;
+        public GameObject followTowerPrefab;
         public Weapon[] weapon;
 
         [System.Serializable]

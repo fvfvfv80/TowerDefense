@@ -18,14 +18,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private TowerActor _currentTower;
 
-        private bool _isSeleected;
 
-        public bool IsSelected = true;
 
         public void SetSelectedTower(TowerActor towerActor)
         {
             _currentTower = towerActor;
-            _isSeleected = true;
         }
 
         public void ShowTowerDetail()
