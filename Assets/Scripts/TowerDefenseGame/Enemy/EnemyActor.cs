@@ -2,13 +2,13 @@
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class EnemyActor : BaseActor, IEnemyHandler
+    public class EnemyActor : BaseActor, IEnemyModuleHost
     {
 
         [SerializeField]
         private Transform hudPoint;
 
-        private TowerDefenseEnemyRole _enemyRole;
+        private TowerDefenseEnemyRolePlay _enemyRolePlay;
 
         public EnemyBaseModule EnemyBase { get; private set; }
 
@@ -34,9 +34,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         }
 
 
-        public void Init(TowerDefenseEnemyRole enemyRole)
+        public void Init(TowerDefenseEnemyRolePlay enemyRolePlay)
         {
-            _enemyRole = enemyRole;
+            _enemyRolePlay = enemyRolePlay;
 
             EnemyMovement.Init(this);
             EnemyHP.Init(this);
@@ -53,23 +53,23 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         #region EnemyHandle
 
-        public void Hit()
+        public void HandleHit()
         {
             EnemyAnimation.PlayHitAnimation();
         }
 
-        public void Despawn(EnemyDestroyType type)
+        public void HandleDespawn(EnemyDestroyType type)
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyRole.AttackPlayer();
+                _enemyRolePlay.OrderAttackPlayer();
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyRole.DropGold(EnemyBase.Gold);
+                _enemyRolePlay.OrderDropGold(EnemyBase.Gold);
             }
 
-            _enemyRole.DespawnEnemy(this);
+            _enemyRolePlay.OrderDespawnEnemy(this);
 
         }
 

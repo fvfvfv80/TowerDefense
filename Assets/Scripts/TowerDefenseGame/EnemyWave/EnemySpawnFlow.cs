@@ -1,15 +1,13 @@
-using System.Collections.Generic;
+using Assets.Scripts.TowerDefenseGame.Enemy;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Enemy
+namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
     public class EnemySpawnFlow : MonoBehaviour
     {
-        [SerializeField]
-        private EnemySystem enemySystem;
 
         [SerializeField]
-        private TowerDefenseEnemyRole enemyRole;
+        private TowerDefenseEnemyRolePlay enemyRole;
 
         [SerializeField]
         private GameObject enemyHPPrefab;
@@ -25,7 +23,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public EnemyActor SpawnEnemy(GameObject enemyPrefab)
         {
-            var enemyActor = enemySystem.GetEnemy(enemyPrefab);
+            //오브젝트 풀링 가능
+            GameObject clone = Instantiate(enemyPrefab);
+            var enemyActor = clone.GetComponent<EnemyActor>();
 
             enemyActor.Init(enemyRole);
             enemyActor.Setup(wayPoints);
@@ -52,7 +52,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public void DespawnEnemy(EnemyActor enemyActor)
         {
-            enemySystem.ReturnEnemy(enemyActor);
+           // enemySystem.ReturnEnemy(enemyActor);
         }
 
 

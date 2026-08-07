@@ -14,11 +14,11 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private int _currentIndex = 0;
 
 
-        private IEnemyHandler _enemyEventHandler;
+        private IEnemyModuleHost _enemyHandler;
 
-        public void Init(IEnemyHandler enemyEventHandler)
+        public void Init(IEnemyModuleHost enemyHandler)
         {
-            _enemyEventHandler = enemyEventHandler;
+            _enemyHandler = enemyHandler;
         }
 
         public void Setup(Transform[] wayPoints)
@@ -51,7 +51,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
                 if (_currentIndex < _wayPointCount - 1) _currentIndex++;
                 else
                 {
-                    _enemyEventHandler.Despawn(EnemyDestroyType.Arrive);
+                    _enemyHandler.HandleDespawn(EnemyDestroyType.Arrive);
                 }
             }
         }

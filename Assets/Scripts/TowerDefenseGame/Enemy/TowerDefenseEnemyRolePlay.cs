@@ -4,13 +4,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class TowerDefenseEnemyRole : MonoBehaviour
+    public class TowerDefenseEnemyRolePlay : MonoBehaviour
     {
         [SerializeField]
-        private EnemySpawnFlow enemySpawner;
-
-        [SerializeField]
-        private EnemyWaveFlow enemyWave;
+        private EnemyWaveDirector enemyWaveDirector;
 
         [SerializeField]
         private PlayerHPModule _playerHP;
@@ -19,20 +16,19 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private PlayerGoldModule _playerGold;
 
 
-        public void DropGold(int gold)
+        public void OrderDropGold(int gold)
         {
             _playerGold.CurrentGold += gold;
         }
 
-        public void AttackPlayer()
+        public void OrderAttackPlayer()
         {
             _playerHP.TakeDamage(1);
         }
 
-        public void DespawnEnemy(EnemyActor enemyActor)
+        public void OrderDespawnEnemy(EnemyActor enemyActor)
         {
-            enemySpawner.DespawnEnemy(enemyActor);
-            enemyWave.ReduceEnemyCount();
+            enemyWaveDirector.DespawnEnemy(enemyActor);
         }
     }
 }

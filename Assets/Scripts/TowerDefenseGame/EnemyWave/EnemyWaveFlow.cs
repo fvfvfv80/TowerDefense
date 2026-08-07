@@ -1,33 +1,70 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Enemy;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
+
+    [System.Serializable]
+    public struct Wave
+    {
+        public float spawnTime;
+        public int maxEnemyCount;
+        public GameObject[] enemyPrefabs;
+
+    }
+
+    public interface IEnemyWaveFlowHost
+    {
+        public EnemyActor SpawnEnemy(GameObject enemyPrefab);
+
+
+    }
+
     public class EnemyWaveFlow : MonoBehaviour
     {
         [SerializeField]
-        private EnemySpawnFlow enemySpawner;
+        private Wave[] waves;
+
+        [SerializeField]
+        private IEnemyWaveFlowHost enemyWaveFlowHost;
+
+        private int _currentWaveIndex = -1;
 
         private Wave _currentWave;
 
-        private int _currentEnemyCount;
+        private List<EnemyActor> _currentWaveEnemyList = new();
 
-        public int CurrentEnemyCount => _currentEnemyCount;
+        public List<EnemyActor> CurrentWaveEnemyList => _currentWaveEnemyList;
 
-        public int MaxEnemyCount => _currentWave.maxEnemyCount;
+        public int CurrentEnemyCount => _currentWaveEnemyList.Count;
+
+        public int MaxWaveEnemyCount => _currentWave.maxEnemyCount;
+
+        public int CurrentWaveCount => _currentWaveIndex + 1;
+
+        public int MaxWave => waves.Length;
 
 
-        private void Awake()
+        public void BindFlowHost(IEnemyWaveFlowHost flowHost)
         {
+            enemyWaveFlowHost = flowHost;
+        }
 
+        public void TryStartWave()
+        {
+            if (_currentWaveIndex < waves.Length - 1)
+            {
+                _currentWaveIndex++;
+
+                StartWave(waves[_currentWaveIndex]);
+            }
         }
 
         public void StartWave(Wave wave)
         {
             _currentWave = wave;
-
-            _currentEnemyCount = _currentWave.maxEnemyCount;
 
             StartCoroutine(nameof(SpawnEnemy));
         }
@@ -36,12 +73,14 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         {
             int spawnEnemyCount = 0;
 
-
-            while (spawnEnemyCount < _currentWave.maxEnemyCount)
+            while (CurrentEnemyCount == 0 && spawnEnemyCount < _currentWave.maxEnemyCount)
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
 
-                var enemyActor = enemySpawner.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+                var enemyActor = enemyWaveFlowHost.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+                //enemySpawner.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+
+                _currentWaveEnemyList.Add(enemyActor);
 
                 spawnEnemyCount++;
 
@@ -49,10 +88,10 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             }
         }
 
-       
-        public void ReduceEnemyCount()
+
+        public void DespawnEnemy(EnemyActor enemyActor)
         {
-            _currentEnemyCount--;
+            _currentWaveEnemyList.Remove(enemyActor);
         }
     }
 }
