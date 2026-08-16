@@ -42,7 +42,7 @@ public class PlayerInputGameplay : MonoBehaviour
         {
             if (hit.transform.CompareTag("Tile"))
             {
-                _playerInputHost.RequesteBuildTower(hit.transform);
+                _playerInputHost.RequestBuildTower(hit.transform);
             }
             else if (hit.transform.CompareTag("Tower"))
             {

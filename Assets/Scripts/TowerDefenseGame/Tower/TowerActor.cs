@@ -10,7 +10,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private TowerWeaponModule _towerWeaponModule;
 
-        private TowerUpgradeGameplay _towerUpgradeModule;
+        private TowerUpgradeGameplay _towerUpgradeGameplay;
 
         private TowerRoleFlow _towerRoleFlow;
 
@@ -25,10 +25,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
             _towerBaseModule = GetComponent<TowerBaseModule>();
             _towerWeaponModule = GetComponent<TowerWeaponModule>();
-            _towerUpgradeModule = GetComponent<TowerUpgradeGameplay>();
+            _towerUpgradeGameplay = GetComponent<TowerUpgradeGameplay>();
 
             _towerWeaponModule.Init(this);
-            _towerUpgradeModule.Init(this);
+            _towerUpgradeGameplay.Init(this);
         }
 
         public void Setup()
@@ -48,7 +48,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         
         public void UpgradeTower()
         {
-            _towerUpgradeModule.UpgradeTower();
+            _towerUpgradeGameplay.UpgradeTower();
         }
 
         public void Release()

@@ -44,7 +44,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             if (_currentHP <= 0)
             {
                 _isDie = true;
-                _enemyModuleHost.RequestReachGoal(EnemyDestroyType.Kill);
+                _enemyModuleHost.RequestDespawn(EnemyDestroyType.Kill);
             }
             OnHpChanged?.Invoke(this);
         }

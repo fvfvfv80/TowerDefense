@@ -85,12 +85,14 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
        
         public bool TryDemolishTower(TowerActor towerActor, out int sellPrice)
         {
+
+            sellPrice = towerData.weapon[towerActor.TowerBaseModule.Level].sell;
+
+
             _towerPlacementDict[towerActor].IsBuildTower = false;
             _towerPlacementDict.Remove(towerActor);
 
             towerSpawnModule.DespawnTower(towerActor);
-
-            sellPrice = towerData.weapon[towerActor.TowerBaseModule.Level].sell;
 
 
             return true;

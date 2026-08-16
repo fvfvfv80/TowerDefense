@@ -12,7 +12,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
     {
 
         [SerializeField]
-        private PlayerInputGameplay playerInputModule;
+        private PlayerInputGameplay playerInputGameplay;
 
         private PlayerTowerBuildFlow _playerTowerBuildFlow;
 
@@ -35,9 +35,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         {
             _flowCreator = flowCreator;
 
-            playerInputModule = GetComponent<PlayerInputGameplay>();
+            playerInputGameplay = GetComponent<PlayerInputGameplay>();
 
-            playerInputModule.Init(this);
+            playerInputGameplay.Init(this);
         }
 
 
@@ -51,7 +51,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             HandleBuildEnterRequest();
         }
 
-        public void RequesteBuildTower(Transform tileTransform)
+        public void RequestBuildTower(Transform tileTransform)
         {
             _playerTowerBuildFlow?.BuildTower(tileTransform);
         }
@@ -65,7 +65,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
             _selectedTowerMaintenanceFlow = _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
 
-            _selectedTowerMaintenanceFlow.Completed += HandleMainenanceFlowEnd;
+            _selectedTowerMaintenanceFlow.Completed += HandleMaintenanceFlowEnd;
 
             _selectedTowerMaintenanceFlow.StartMaintenance(towerActor);
 
@@ -90,11 +90,11 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             //정비중이면 먼저 꺼지게?
             if (IsMaintaining)
             {
-                _selectedTowerMaintenanceFlow.EndFlow();
+                EndMaintenanceFlow();
             }
             else if (IsBuilding)
             {
-                _playerTowerBuildFlow?.EndFlow();
+                EndBuildFlow();
             }
           
         }
@@ -107,7 +107,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         private void HandleBuildEnterRequest()
         {
             //진행중인 플로우 종료
-            EndMainenanceFlow();
+            EndMaintenanceFlow();
             EndBuildFlow();
 
             _playerTowerBuildFlow = _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
@@ -123,9 +123,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             EndBuildFlow();
         }
 
-        private void HandleMainenanceFlowEnd()
+        private void HandleMaintenanceFlowEnd()
         {
-            EndMainenanceFlow();
+            EndMaintenanceFlow();
         }
 
 
@@ -135,7 +135,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             _playerTowerBuildFlow = null;
         }
 
-        private void EndMainenanceFlow()
+        private void EndMaintenanceFlow()
         {
             _selectedTowerMaintenanceFlow?.EndFlow();
             _selectedTowerMaintenanceFlow = null;

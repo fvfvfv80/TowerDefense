@@ -74,7 +74,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             EnemyAnimation.PlayHitAnimation();
         }
 
-        public void RequestReachGoal(EnemyDestroyType type)
+        public void RequestDespawn(EnemyDestroyType type)
         {
             if (type == EnemyDestroyType.Arrive)
             {
