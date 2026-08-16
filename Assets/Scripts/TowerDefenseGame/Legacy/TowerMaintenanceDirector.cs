@@ -1,7 +1,8 @@
-﻿using Assets.Scripts.TowerDefenseGame.UI;
+﻿using Assets.Scripts.TowerDefenseGame.Tower;
+using Assets.Scripts.TowerDefenseGame.UI;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Legacy
 {
 
     //타워 빌드 디렉터랑 함께 매니지먼트 디렉터로도 합치기 가능

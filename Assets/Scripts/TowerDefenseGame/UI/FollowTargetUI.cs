@@ -20,7 +20,7 @@ public class FollowTargetUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(target ==null)
+        if (target == null)
         {
             Destroy(gameObject);
             return;

@@ -11,12 +11,10 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
         void RequestEnterTowerBuild();
 
-        void RequestCancelTowerBuild();
-
         void RequestUpgradeTower();
 
         void RequestSellTower();
 
-        void RequestCancelTowerMaintenance();
+        void RequestCancelPlayerAction();
     }
 }

@@ -69,12 +69,12 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         #region EnemyHandle
 
-        public void HandleHit()
+        public void RequestHit()
         {
             EnemyAnimation.PlayHitAnimation();
         }
 
-        public void HandleDespawn(EnemyDestroyType type)
+        public void RequestReachGoal(EnemyDestroyType type)
         {
             if (type == EnemyDestroyType.Arrive)
             {

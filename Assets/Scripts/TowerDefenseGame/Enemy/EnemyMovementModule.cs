@@ -51,7 +51,8 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
                 if (_currentIndex < _wayPointCount - 1) _currentIndex++;
                 else
                 {
-                    _enemyHandler.HandleDespawn(EnemyDestroyType.Arrive);
+                    _enemyHandler.RequestReachGoal(EnemyDestroyType.Arrive);
+                    break;
                 }
             }
         }

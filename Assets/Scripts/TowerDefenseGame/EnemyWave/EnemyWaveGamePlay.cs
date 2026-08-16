@@ -17,7 +17,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
     }
 
 
-    public class EnemyWaveGamePlay : MonoBehaviour
+    public class EnemyWaveGameplay : MonoBehaviour
     {
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;

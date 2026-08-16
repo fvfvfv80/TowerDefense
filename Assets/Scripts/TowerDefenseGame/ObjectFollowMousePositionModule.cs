@@ -15,10 +15,6 @@ namespace Assets.Scripts.TowerDefenseGame
             _mainCamera = Camera.main;
         }
 
-        public void Setup(PlayerInputModule playerInput)
-        {
-           
-        }
 
 
         public Vector3 GetPointerWorldPosition()

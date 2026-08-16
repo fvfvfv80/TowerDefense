@@ -143,7 +143,7 @@ public class TowerWeaponModule : MonoBehaviour
     {
         var clone = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
 
-        clone.GetComponent<Projectile>().Setup(_attackTarget,1);
+        clone.GetComponent<Projectile>().Setup(_attackTarget, attackDamage);
     }
 
 

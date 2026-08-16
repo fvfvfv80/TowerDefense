@@ -3,15 +3,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerInputModule : MonoBehaviour
+public class PlayerInputGameplay : MonoBehaviour
 {
     private IPlayerInputHost _playerInputHost;
 
     private Camera _mainCamera;
     private Vector2 _screenPoint;
 
-    private bool _isTowerBuild = false;
-    private bool _isTowerMaintenance = false;
 
     private void Awake()
     {
@@ -49,30 +47,19 @@ public class PlayerInputModule : MonoBehaviour
             else if (hit.transform.CompareTag("Tower"))
             {
                 _playerInputHost.RequestSelectTower(hit.transform);
-                _isTowerMaintenance = true;
             }
         }
     }
 
     public void OnTowerBuildButtonClick()
     {
-        _isTowerBuild = true;
         _playerInputHost.RequestEnterTowerBuild();
     }
 
     private void OnEscape()
     {
-        if (_isTowerBuild)
-        {
-            _isTowerBuild = false;
-            _playerInputHost.RequestCancelTowerBuild();
-        }
 
-        if (_isTowerMaintenance)
-        {
-            _isTowerMaintenance = false;
-            _playerInputHost.RequestCancelTowerMaintenance();
-        }
+        _playerInputHost.RequestCancelPlayerAction();
 
 
     }

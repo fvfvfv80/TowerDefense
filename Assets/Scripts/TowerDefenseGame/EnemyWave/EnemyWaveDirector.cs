@@ -10,14 +10,14 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
     public class EnemyWaveDirector : MonoBehaviour
     {
         [SerializeField]
-        private EnemyWaveGamePlay enemyWaveGamePlay;
+        private EnemyWaveGameplay enemyWaveGameplay;
 
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;
 
         private IFlowCreator _flowCreator;
 
-        public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGamePlay.CurrentWaveEnemyList;
+        public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
 
 
@@ -25,7 +25,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         {
             _flowCreator = flowCreator;
 
-            enemyWaveGamePlay.Init(_flowCreator);
+            enemyWaveGameplay.Init(_flowCreator);
         }
 
         
@@ -38,13 +38,13 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         private void HandleWaveStart()
         {
-            enemyWaveGamePlay.StartWave();
+            enemyWaveGameplay.StartWave();
         }
 
 
         public void DespawnWaveEnemy(EnemyActor enemyActor)
         {
-            enemyWaveGamePlay.RemoveWaveEnemy(enemyActor);
+            enemyWaveGameplay.RemoveWaveEnemy(enemyActor);
 
             enemySpawnModule.DespawnEnemy(enemyActor);
 

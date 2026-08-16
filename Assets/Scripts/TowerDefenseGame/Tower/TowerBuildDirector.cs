@@ -12,13 +12,17 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     {
 
         [SerializeField]
-        private SystemTextViewer systemTextViewer;
-
-        [SerializeField]
         private TowerTemplateSO towerData;
 
         [SerializeField]
         private TowerSpawnModule towerSpawnModule;
+
+
+        [SerializeField]
+        private PopupTowerUIViewer towerPopup;
+
+        [SerializeField]
+        private SystemTextViewer systemTextViewer;
 
         private IFlowCreator _flowCreator;
 
@@ -82,6 +86,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public bool TryDemolishTower(TowerActor towerActor, out int sellPrice)
         {
             _towerPlacementDict[towerActor].IsBuildTower = false;
+            _towerPlacementDict.Remove(towerActor);
 
             towerSpawnModule.DespawnTower(towerActor);
 
@@ -100,14 +105,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
 
 
-
-
-        //메인테넌스 디렉터 합쳐보기//////////////////////////////////////////////////////////////
-
-        [SerializeField]
-        private PopupTowerUIViewer towerPopup;
-
-
         public void ShowTowerDetail(TowerActor towerActor)
         {
             towerPopup.ShowPopup(towerActor);
@@ -117,9 +114,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public bool TryUpgradeTower(TowerActor tower, int currentGold, out int upgradeCost)
         {
 
-            int cost = tower.TowerBaseModule.UpgradeCost;
-            upgradeCost = 0;
-            if (currentGold < cost)
+            upgradeCost = tower.TowerBaseModule.UpgradeCost;
+            if (currentGold < upgradeCost)
             {
                 //실패 피드백
                 systemTextViewer.PrintText(MESSAGE.MONEY);
@@ -128,12 +124,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
             }
 
-            upgradeCost = tower.TowerBaseModule.CurrentTowerWeaponData.cost;
-
             tower.UpgradeTower();
             towerPopup.UpdatePopup();
-
-
 
             return true;
         }

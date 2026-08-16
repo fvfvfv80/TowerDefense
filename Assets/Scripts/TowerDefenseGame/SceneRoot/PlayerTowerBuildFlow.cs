@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Player;
 using Assets.Scripts.TowerDefenseGame.Tower;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.SceneRoot
@@ -14,7 +15,9 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         private GameObject _followTowerPreview;
 
-        public bool IsRunning { get; private set; } = true;
+
+
+        public event Action Completed;
 
 
         public PlayerTowerBuildFlow(TowerBuildDirector towerBuildDirector,PlayerGoldModule playerGold)
@@ -27,7 +30,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         {
             if (!_towerBuildDirector.CheckGoldEnough(_playerGoldModule.CurrentGold))
             {
-                EndFlow();
+                Completed?.Invoke();
                 return;
             }
                 
@@ -38,15 +41,11 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         public void BuildTower(Transform tileTransform)
         {
-            if (!IsRunning)
-                return;
-
-
             if(_towerBuildDirector.TryBuildTower(tileTransform, out int cost))
             {
                 _playerGoldModule.CurrentGold -= cost;
-                
-                EndFlow();
+
+                Completed?.Invoke();
             }
         }
 
@@ -55,9 +54,8 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         public void EndFlow()
         {
             //프리팹 Release할거있으면 하기
-            if(_followTowerPreview)
-                Object.Destroy(_followTowerPreview);
-            IsRunning = false;
+            if (_followTowerPreview != null)
+                GameObject.Destroy(_followTowerPreview);
         }
 
 

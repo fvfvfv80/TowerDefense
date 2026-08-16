@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Player;
 using Assets.Scripts.TowerDefenseGame.Tower;
+using System;
 
 namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 {
@@ -12,6 +13,8 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         private TowerActor _selectedTower;
 
+
+        public event Action Completed;
 
         public SelectedTowerMaintenanceFlow(TowerBuildDirector towerBuildDirector, PlayerGoldModule playerGoldModule)
         {
@@ -38,7 +41,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
                
             }
 
-            EndMaintenance();
+            Completed?.Invoke();
 
         }
 
@@ -52,7 +55,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             }
         }
 
-        public void EndMaintenance()
+        public void EndFlow()
         {
             _selectedTower = null;
             _towerBuildDirector.HideTowerDetail();

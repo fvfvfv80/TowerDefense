@@ -11,7 +11,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private float _currentHP;
         private bool _isDie = false;
 
-        private IEnemyModuleHost _enemyEventHandler;
+        private IEnemyModuleHost _enemyModuleHost;
 
         public Action<EnemyHPModule> OnHpChanged;
 
@@ -22,12 +22,13 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public void Init(IEnemyModuleHost enemyEventHandler)
         {
-            _enemyEventHandler = enemyEventHandler;
+            _enemyModuleHost = enemyEventHandler;
         }
 
         public void Setup()
         {
             _currentHP = maxHP;
+            _isDie = false;
         }
 
 
@@ -38,12 +39,12 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
             _currentHP -= damage;
 
-            _enemyEventHandler.HandleHit();
+            _enemyModuleHost.RequestHit();
 
             if (_currentHP <= 0)
             {
                 _isDie = true;
-                _enemyEventHandler.HandleDespawn(EnemyDestroyType.Kill);
+                _enemyModuleHost.RequestReachGoal(EnemyDestroyType.Kill);
             }
             OnHpChanged?.Invoke(this);
         }

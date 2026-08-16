@@ -5,7 +5,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 {
 
     // 모듈을 확장하는 것을 게임플레이라고 할까 모듈이라 할까.. 강화 기능이면 게임플레이가 맞는것 같기도하고
-    public class TowerUpgradeModule : MonoBehaviour
+    public class TowerUpgradeGameplay : MonoBehaviour
     {
         private ITowerModuleHost _towerHost;
 

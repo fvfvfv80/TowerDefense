@@ -1756,8 +1756,8 @@ GameObject:
   m_Component:
   - component: {fileID: 413607952}
   - component: {fileID: 413607951}
-  - component: {fileID: 413607950}
   - component: {fileID: 413607949}
+  - component: {fileID: 413607953}
   m_Layer: 0
   m_Name: EnemyWaveDirector
   m_TagString: Untagged
@@ -1779,7 +1779,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.EnemyWave.EnemySpawnModule
   enemyHPPrefab: {fileID: 7507515672026167412, guid: 121b90f84820bdd44ae29a7e13fbb00b, type: 3}
   hpUIParent: {fileID: 640524141}
---- !u!114 &413607950
+--- !u!114 &413607951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413607948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d155f98b7ae714095e4e605827b45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.EnemyWave.EnemyWaveDirector
+  enemyWaveGameplay: {fileID: 413607953}
+  enemySpawnModule: {fileID: 413607949}
+--- !u!4 &413607952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413607948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &413607953
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1790,7 +1819,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e1bd83db8eeca747b3463ff5f4e6d27, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.EnemyWave.EnemyWaveGamePlay
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.EnemyWave.EnemyWaveGameplay
   enemySpawnModule: {fileID: 413607949}
   waves:
   - spawnTime: 0.5
@@ -1834,35 +1863,6 @@ MonoBehaviour:
   - {fileID: 1362129719}
   - {fileID: 1655656953}
   - {fileID: 1192697658}
---- !u!114 &413607951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413607948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d155f98b7ae714095e4e605827b45d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.EnemyWave.EnemyWaveDirector
-  enemyWaveGamePlay: {fileID: 413607950}
-  enemySpawnModule: {fileID: 413607949}
---- !u!4 &413607952
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413607948}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &414858263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3396,10 +3396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b2c6471db0670409c628eb1acc00ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerBuildDirector
-  systemTextViewer: {fileID: 1719821392}
   towerData: {fileID: 11400000, guid: 751663ca3ffeff5488ba1af4e8453d6e, type: 2}
   towerSpawnModule: {fileID: 705289477}
   towerPopup: {fileID: 2050257165}
+  systemTextViewer: {fileID: 1719821392}
 --- !u!1001 &725201416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4707,7 +4707,7 @@ MonoBehaviour:
   playerGold: {fileID: 767594217}
   textWave: {fileID: 655725376}
   textEnemy: {fileID: 1537216560}
-  enemyWaveGamePlay: {fileID: 413607950}
+  enemyWaveGameplay: {fileID: 413607953}
 --- !u!1 &1038638603
 GameObject:
   m_ObjectHideFlags: 0
