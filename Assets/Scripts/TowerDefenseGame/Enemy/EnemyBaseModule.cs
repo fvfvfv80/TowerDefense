@@ -9,7 +9,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private int gold = 10;
 
-        public int Gold => gold;
+        public int RewardGold => gold;
 
         
     }

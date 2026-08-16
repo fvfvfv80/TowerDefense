@@ -5,9 +5,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class EnemySystem:MonoBehaviour
+    public class EnemySpawnModule:MonoBehaviour
     {
-
 
         private List<EnemyActor> _enemyActorList = new(); //TODO: 오브젝트 풀화시키기 
 

@@ -5,28 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputModule : MonoBehaviour
 {
-    private IPlayerHandler _playerHandler;
+    private IPlayerInputHost _playerInputHost;
 
     private Camera _mainCamera;
     private Vector2 _screenPoint;
+
+    private bool _isTowerBuild = false;
+    private bool _isTowerMaintenance = false;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
     }
 
-    public void Init(IPlayerHandler playerHandler)
+    public void Init(IPlayerInputHost playerHandler)
     {
-        _playerHandler = playerHandler;
+        _playerInputHost = playerHandler;
     }
 
-    public Vector3 GetPointerWorldPosition()
-    {
-        Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(_screenPoint);
-        worldPosition.z = 0f;
-
-        return worldPosition;
-    }
 
     public void OnPoint(InputAction.CallbackContext context)
     {
@@ -48,14 +44,63 @@ public class PlayerInputModule : MonoBehaviour
         {
             if (hit.transform.CompareTag("Tile"))
             {
-                _playerHandler.BuildTower(hit.transform);
+                _playerInputHost.RequesteBuildTower(hit.transform);
             }
             else if (hit.transform.CompareTag("Tower"))
             {
-                _playerHandler.SelectTower(hit.transform);
+                _playerInputHost.RequestSelectTower(hit.transform);
+                _isTowerMaintenance = true;
             }
-        } 
+        }
     }
+
+    public void OnTowerBuildButtonClick()
+    {
+        _isTowerBuild = true;
+        _playerInputHost.RequestEnterTowerBuild();
+    }
+
+    private void OnEscape()
+    {
+        if (_isTowerBuild)
+        {
+            _isTowerBuild = false;
+            _playerInputHost.RequestCancelTowerBuild();
+        }
+
+        if (_isTowerMaintenance)
+        {
+            _isTowerMaintenance = false;
+            _playerInputHost.RequestCancelTowerMaintenance();
+        }
+
+
+    }
+
+    public void OnTowerUpgradeButtonClick()
+    {
+        _playerInputHost.RequestUpgradeTower();
+    }
+
+    public void OnTowerSellButtonClick()
+    {
+        _playerInputHost.RequestSellTower();
+    }
+
+
+
+
+    private void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame ||
+            Mouse.current.rightButton.wasPressedThisFrame)
+
+        {
+            OnEscape();
+        }
+    }
+
+
 
 
 }

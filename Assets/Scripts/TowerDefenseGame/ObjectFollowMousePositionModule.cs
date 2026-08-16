@@ -1,24 +1,46 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.Scripts.TowerDefenseGame
 {
     public class ObjectFollowMousePositionModule : MonoBehaviour
     {
 
-        private PlayerInputModule _playerInput;
+
+        private Camera _mainCamera;
+
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
 
         public void Setup(PlayerInputModule playerInput)
         {
-            _playerInput = playerInput;
+           
         }
+
+
+        public Vector3 GetPointerWorldPosition()
+        {
+            Vector2 screenPosition = Mouse.current.position.ReadValue();
+
+
+            Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
+
+            worldPosition.z = 0f;
+
+
+            return worldPosition;
+        }
+
+
 
         private void Update()
         {
-            if (_playerInput == null)
-                return;
 
-            transform.position = _playerInput.GetPointerWorldPosition();
+            transform.position = GetPointerWorldPosition();
+
         }
     }
 }

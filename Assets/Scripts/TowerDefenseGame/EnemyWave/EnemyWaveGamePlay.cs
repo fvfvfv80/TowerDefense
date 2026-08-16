@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.TowerDefenseGame.Enemy;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.TowerDefenseGame.Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,20 +16,20 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
     }
 
-    public interface IEnemyWaveFlowHost
+
+    public class EnemyWaveGamePlay : MonoBehaviour
     {
-        public EnemyActor SpawnEnemy(GameObject enemyPrefab);
+        [SerializeField]
+        private EnemySpawnModule enemySpawnModule;
 
-
-    }
-
-    public class EnemyWaveFlow : MonoBehaviour
-    {
         [SerializeField]
         private Wave[] waves;
 
         [SerializeField]
-        private IEnemyWaveFlowHost enemyWaveFlowHost;
+        private Transform[] wayPoints; //시스템으로 갈수도있음
+
+
+        private IFlowCreator _flowCreater;
 
         private int _currentWaveIndex = -1;
 
@@ -47,38 +48,41 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         public int MaxWave => waves.Length;
 
 
-        public void BindFlowHost(IEnemyWaveFlowHost flowHost)
+        public void Init(IFlowCreator flowCreator)
         {
-            enemyWaveFlowHost = flowHost;
+            _flowCreater = flowCreator;
         }
 
-        public void TryStartWave()
+        public void StartWave()
         {
-            if (_currentWaveIndex < waves.Length - 1)
+            if (CurrentEnemyCount == 0 && _currentWaveIndex < waves.Length - 1)
             {
                 _currentWaveIndex++;
 
-                StartWave(waves[_currentWaveIndex]);
+                _currentWave = waves[_currentWaveIndex];
+
+                StartCoroutine(nameof(SpawnEnemy));
             }
         }
 
-        public void StartWave(Wave wave)
-        {
-            _currentWave = wave;
-
-            StartCoroutine(nameof(SpawnEnemy));
-        }
 
         private IEnumerator SpawnEnemy()
         {
             int spawnEnemyCount = 0;
 
-            while (CurrentEnemyCount == 0 && spawnEnemyCount < _currentWave.maxEnemyCount)
+            while (spawnEnemyCount < _currentWave.maxEnemyCount)
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
 
-                var enemyActor = enemyWaveFlowHost.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+                var enemyFlow = _flowCreater.CreateFlow<EnemyRoleFlow>();
+
+                var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+                //enemyWaveFlowHost.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
                 //enemySpawner.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
+
+                enemyActor.SetupRoleFlow(enemyFlow);
+                enemyActor.SetupPath(wayPoints);
+                enemyActor.StartEnemy();
 
                 _currentWaveEnemyList.Add(enemyActor);
 
@@ -89,7 +93,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         }
 
 
-        public void DespawnEnemy(EnemyActor enemyActor)
+        public void RemoveWaveEnemy(EnemyActor enemyActor)
         {
             _currentWaveEnemyList.Remove(enemyActor);
         }

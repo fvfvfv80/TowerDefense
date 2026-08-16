@@ -3,20 +3,15 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
-    public class EnemySpawnFlow : MonoBehaviour
+    public class EnemySpawnModule : MonoBehaviour
     {
 
-        [SerializeField]
-        private TowerDefenseEnemyRolePlay enemyRole;
 
         [SerializeField]
         private GameObject enemyHPPrefab;
 
         [SerializeField]
         private Transform hpUIParent;
-
-        [SerializeField]
-        private Transform[] wayPoints; //시스템으로 갈수도있음
 
 
 
@@ -27,8 +22,8 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             GameObject clone = Instantiate(enemyPrefab);
             var enemyActor = clone.GetComponent<EnemyActor>();
 
-            enemyActor.Init(enemyRole);
-            enemyActor.Setup(wayPoints);
+            enemyActor.Init();
+            enemyActor.Setup();
 
             SpawnEnemyHP(enemyActor);
             return enemyActor;
@@ -52,9 +47,9 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         public void DespawnEnemy(EnemyActor enemyActor)
         {
-           // enemySystem.ReturnEnemy(enemyActor);
+            enemyActor.Release();
+            Destroy(enemyActor.gameObject);
         }
-
 
     }
 }

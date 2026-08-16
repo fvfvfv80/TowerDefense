@@ -13,6 +13,8 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
             enemyHP.OnHpChanged += UpdateHPView;
 
+            UpdateHPView(enemyHP);
+
         }
 
         //인터페이스로 가능 IHPModule

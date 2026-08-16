@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
@@ -8,7 +9,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private Transform hudPoint;
 
-        private TowerDefenseEnemyRolePlay _enemyRolePlay;
+        private EnemyRoleFlow _enemyRoleFlow;
 
         public EnemyBaseModule EnemyBase { get; private set; }
 
@@ -33,22 +34,37 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-
-        public void Init(TowerDefenseEnemyRolePlay enemyRolePlay)
+        public void SetupRoleFlow(EnemyRoleFlow enemyRoleFlow)
         {
-            _enemyRolePlay = enemyRolePlay;
+            _enemyRoleFlow = enemyRoleFlow;
+        }
 
+        public void SetupPath(Transform[] wayPoints)
+        {
+            EnemyMovement.Setup(wayPoints);
+        }
+
+        public void Init()
+        {
             EnemyMovement.Init(this);
             EnemyHP.Init(this);
         }
 
 
-        public void Setup(Transform[] wayPoints)
+        public void Setup()
         {
             EnemyHP.Setup();
-            EnemyMovement.Setup(wayPoints);
+            
+        }
 
+        public void StartEnemy()
+        {
             EnemyMovement.StartMove();
+        }
+
+        public void Release()
+        {
+            _enemyRoleFlow.EndFlow(this);
         }
 
         #region EnemyHandle
@@ -62,16 +78,16 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyRolePlay.OrderAttackPlayer();
+                _enemyRoleFlow.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyRolePlay.OrderDropGold(EnemyBase.Gold);
+                _enemyRoleFlow.NotifyKilled(this);
             }
 
-            _enemyRolePlay.OrderDespawnEnemy(this);
-
         }
+
+
 
 
         #endregion

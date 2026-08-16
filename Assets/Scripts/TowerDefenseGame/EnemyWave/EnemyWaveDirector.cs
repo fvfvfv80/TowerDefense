@@ -1,53 +1,53 @@
-﻿using Assets.Scripts.TowerDefenseGame.Enemy;
+﻿using Assets.Scripts.Core;
+using Assets.Scripts.TowerDefenseGame.Enemy;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
 
-    public class WaveInfo
-    {
-        public int WaveEnemyCount;
-    }
 
-    public class EnemyWaveDirector : MonoBehaviour , IEnemyWaveFlowHost
+    public class EnemyWaveDirector : MonoBehaviour
     {
         [SerializeField]
-        private EnemySpawnFlow enemySpawnFlow;
+        private EnemyWaveGamePlay enemyWaveGamePlay;
 
         [SerializeField]
-        private EnemyWaveFlow enemyWaveFlow;
+        private EnemySpawnModule enemySpawnModule;
 
-        public List<EnemyActor> CurrentWaveEnemyList => enemyWaveFlow.CurrentWaveEnemyList;
+        private IFlowCreator _flowCreator;
+
+        public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGamePlay.CurrentWaveEnemyList;
 
 
-        private void Awake()
+
+        public void Init(IFlowCreator flowCreator)
         {
-            Init();
+            _flowCreator = flowCreator;
+
+            enemyWaveGamePlay.Init(_flowCreator);
         }
 
-        public void Init()
+        
+
+
+        public void OnEnemyWaveStartButtonClick()
         {
-            enemyWaveFlow.BindFlowHost(this);
+            HandleWaveStart();
         }
 
-        public void OrderWaveStart()
+        private void HandleWaveStart()
         {
-
-            enemyWaveFlow.TryStartWave();
-          
-        }
-
-        public EnemyActor SpawnEnemy(GameObject enemyPrefab)
-        {
-            var enemyActor = enemySpawnFlow.SpawnEnemy(enemyPrefab);
-            return enemyActor;
+            enemyWaveGamePlay.StartWave();
         }
 
 
-        public void DespawnEnemy(EnemyActor enemyActor)
+        public void DespawnWaveEnemy(EnemyActor enemyActor)
         {
-            enemyWaveFlow.DespawnEnemy(enemyActor);
+            enemyWaveGamePlay.RemoveWaveEnemy(enemyActor);
+
+            enemySpawnModule.DespawnEnemy(enemyActor);
+
         }
     }
 }

@@ -32,14 +32,9 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             OffPopup();
         }
 
-        private void Update()
-        {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
-                OffPopup();
-        }
 
-        //이름이..
-        public void OnPopup(TowerActor towerActor)
+
+        public void ShowPopup(TowerActor towerActor)
         {
             _currentTower = towerActor;
 
@@ -59,15 +54,15 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         private void UpdatetowerData()
         {
             var towerWeapon = _currentTower.TowerWeaponModule;
-            var towerBase = _currentTower.towerBaseModule;
+            var towerBase = _currentTower.TowerBaseModule;
             imageTower.sprite = towerBase.TowerImage;
 
             textDamage.text = $"Damage: {towerWeapon.Damage}";
             textRate.text = $"Rate: {towerWeapon.Rate}";
             textRange.text = $"Range: {towerWeapon.Range}";
-            textLevel.text = $"Level: {towerBase.Level}";
+            textLevel.text = $"Level: {towerBase.Level + 1}";
 
-            buttonUpgrade.interactable = towerBase.Level < towerBase.MaxLevel;
+            buttonUpgrade.interactable = towerBase.Level + 1 < towerBase.MaxLevel;
         }
 
         public void UpdatePopup()

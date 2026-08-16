@@ -2,7 +2,16 @@
 using System.Collections;
 using UnityEngine;
 
+public enum WeaponType { Cannon = 0, }
+
 public enum WeaponState { SearchClosestTarget = 0, AttackToTarget }
+
+public struct TowerWeaponStat
+{
+    public float Damage;
+    public float Rate;
+    public float Range;
+}
 
 public class TowerWeaponModule : MonoBehaviour
 {
@@ -19,37 +28,22 @@ public class TowerWeaponModule : MonoBehaviour
     [SerializeField]
     private float attackDamage = 1;
 
-    private TowerTemplateSO _towerTemplate;
     private Transform _attackTarget = null;
     private WeaponState _weaponState;
-    private int _weaponLevel;
 
-    private ITowerWeaponHandler _weaponHandler;
+    private ITowerWeaponHost _weaponHandler;
 
     public float Damage => attackDamage;
     public float Rate => attackRate;
     public float Range => attackRange;
 
-    public void Init(ITowerWeaponHandler weaponHandler)
+    public void Init(ITowerWeaponHost weaponHandler)
     {
         _weaponHandler = weaponHandler;
-
-        _towerTemplate = _weaponHandler.TowerTemplate;
-
-        UpdateTowerStat();
     }
 
-    public void Init(BaseActor baseActor, ITowerWeaponHandler weaponHandler)
-    {
-        _weaponHandler = weaponHandler;
-        // BaseActor의 모듈로 Get해도 상관없을듯 
-        var towerBase = baseActor.GetActorCompoent<TowerBaseModule>("TowerBase");//아직 등록안함 조심
-        _towerTemplate = towerBase.TowerTemplate;
 
-        //또는 weaponHandler에 모듈 자체를 Get가능하게 해보던가
-    }
-
-    public void Setup()
+    public void StartTower()
     {
         ChangeState(WeaponState.SearchClosestTarget);
     }
@@ -72,21 +66,15 @@ public class TowerWeaponModule : MonoBehaviour
     }
 
 
-    public void Upgrade()
+    public void SetWeaponStat(TowerWeaponStat weaponStat)
     {
-        _weaponLevel++;
-        UpdateTowerStat();
-        
+        attackDamage = weaponStat.Damage;
+        attackRate = weaponStat.Rate;
+        attackRange = weaponStat.Range;
     }
+
+
     
-    private void UpdateTowerStat()
-    {
-        attackDamage = _towerTemplate.weapon[_weaponLevel].damage;
-        attackRate = _towerTemplate.weapon[_weaponLevel].rate;
-        attackRange = _towerTemplate.weapon[_weaponLevel].range;
-    }
-
-
     private void RotateToTarget()
     {
         float dx = _attackTarget.position.x - transform.position.x;

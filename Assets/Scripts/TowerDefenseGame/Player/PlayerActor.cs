@@ -2,16 +2,17 @@
 
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
-    public class PlayerActor : BaseActor, IPlayerHandler
+    public class PlayerActor : BaseActor
     {
-        [SerializeField]
-        private TowerDefensePlayerRole playerRole;
 
+        //직렬화 가능
         private PlayerHPModule _playerHP;
 
-        private PlayerInputModule _playerBuildInput;
-
         private PlayerGoldModule _playerGold;
+
+        public PlayerHPModule HPModule => _playerHP;
+
+        public PlayerGoldModule GoldModule => _playerGold;
 
         private void Awake()
         {
@@ -21,21 +22,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         public void Init()
         {
             _playerHP = GetComponent<PlayerHPModule>();
-            _playerBuildInput = GetComponent<PlayerInputModule>();
             _playerGold = GetComponent<PlayerGoldModule>();
-
-            _playerBuildInput.Init(this);
-        }
-        #region PlayerHandle
-        public void BuildTower(Transform tileTransform)
-        {
-            playerRole.TryBuildTower(tileTransform);
         }
 
-        public void SelectTower(Transform towerTransform)
-        {
-            playerRole.SelectTower(towerTransform);
-        }
-        #endregion
+
     }
 }
