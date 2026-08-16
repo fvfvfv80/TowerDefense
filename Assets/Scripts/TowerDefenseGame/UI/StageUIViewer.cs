@@ -23,13 +23,10 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         private TextMeshProUGUI textWave;
 
         [SerializeField]
-        private EnemyWaveSequenceFlow waveSequenceFlow;
-
-        [SerializeField]
         private TextMeshProUGUI textEnemy;
 
         [SerializeField]
-        private EnemyWaveFlow enemyWaveFlow;
+        private EnemyWaveGameplay enemyWaveGameplay;
 
 
         private void Update()
@@ -38,9 +35,9 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
             textPlayerGold.text = $"{playerGold.CurrentGold}";
 
-            textWave.text = $"{waveSequenceFlow.CurrentWaveCount}/{waveSequenceFlow.MaxWave}";
+            textWave.text = $"{enemyWaveGameplay.CurrentWaveCount}/{enemyWaveGameplay.MaxWave}";
 
-            textEnemy.text = $"{enemyWaveFlow.CurrentEnemyCount}/{enemyWaveFlow.MaxEnemyCount}";
+            textEnemy.text = $"{enemyWaveGameplay.CurrentEnemyCount}/{enemyWaveGameplay.MaxWaveEnemyCount}";
         }
         
     }

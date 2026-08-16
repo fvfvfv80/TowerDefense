@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
@@ -7,25 +8,27 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private float maxHP;
 
-        [SerializeField]
-        private EnemyBaseModule enemyBase;
-
         private float _currentHP;
         private bool _isDie = false;
+
+        private IEnemyModuleHost _enemyModuleHost;
+
+        public Action<EnemyHPModule> OnHpChanged;
 
         public float MaxHP => maxHP;
         public float CurrentHP => _currentHP;
 
-        private IEnemyHandler _enemyEventHandler;
+        
 
-        public void Init(IEnemyHandler enemyEventHandler)
+        public void Init(IEnemyModuleHost enemyEventHandler)
         {
-            _enemyEventHandler = enemyEventHandler;
+            _enemyModuleHost = enemyEventHandler;
         }
 
         public void Setup()
         {
             _currentHP = maxHP;
+            _isDie = false;
         }
 
 
@@ -36,13 +39,14 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
             _currentHP -= damage;
 
-            _enemyEventHandler.Hit();
+            _enemyModuleHost.RequestHit();
 
             if (_currentHP <= 0)
             {
                 _isDie = true;
-                _enemyEventHandler.Despawn(EnemyDestroyType.Kill);
+                _enemyModuleHost.RequestDespawn(EnemyDestroyType.Kill);
             }
+            OnHpChanged?.Invoke(this);
         }
 
 

@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class EnemyActor : BaseActor, IEnemyHandler
+    public class EnemyActor : BaseActor, IEnemyModuleHost
     {
 
         [SerializeField]
         private Transform hudPoint;
 
-        private TowerDefenseEnemyRole _enemyRole;
+        private EnemyRoleFlow _enemyRoleFlow;
 
         public EnemyBaseModule EnemyBase { get; private set; }
 
@@ -33,45 +34,60 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-
-        public void Init(TowerDefenseEnemyRole enemyRole)
+        public void SetupRoleFlow(EnemyRoleFlow enemyRoleFlow)
         {
-            _enemyRole = enemyRole;
+            _enemyRoleFlow = enemyRoleFlow;
+        }
 
+        public void SetupPath(Transform[] wayPoints)
+        {
+            EnemyMovement.Setup(wayPoints);
+        }
+
+        public void Init()
+        {
             EnemyMovement.Init(this);
             EnemyHP.Init(this);
         }
 
 
-        public void Setup(Transform[] wayPoints)
+        public void Setup()
         {
             EnemyHP.Setup();
-            EnemyMovement.Setup(wayPoints);
+            
+        }
 
+        public void StartEnemy()
+        {
             EnemyMovement.StartMove();
+        }
+
+        public void Release()
+        {
+            _enemyRoleFlow.EndFlow(this);
         }
 
         #region EnemyHandle
 
-        public void Hit()
+        public void RequestHit()
         {
             EnemyAnimation.PlayHitAnimation();
         }
 
-        public void Despawn(EnemyDestroyType type)
+        public void RequestDespawn(EnemyDestroyType type)
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyRole.AttackPlayer();
+                _enemyRoleFlow.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyRole.DropGold(EnemyBase.Gold);
+                _enemyRoleFlow.NotifyKilled(this);
             }
 
-            _enemyRole.DespawnEnemy(this);
-
         }
+
+
 
 
         #endregion

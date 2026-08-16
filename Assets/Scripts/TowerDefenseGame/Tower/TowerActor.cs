@@ -1,46 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public class TowerActor : BaseActor, ITowerWeaponHandler
+    public class TowerActor : BaseActor, ITowerModuleHost
     {
-        private TowerBaseModule _towerBase;
+        private TowerBaseModule _towerBaseModule;
 
-        private TowerWeaponModule _towerWeapon;
+        private TowerWeaponModule _towerWeaponModule;
 
-        private TowerDefenseTowerRole _towerRole;
+        private TowerUpgradeGameplay _towerUpgradeGameplay;
+
+        private TowerRoleFlow _towerRoleFlow;
 
 
-        public TowerBaseModule towerBaseModule => _towerBase;
-        public TowerWeaponModule TowerWeaponModule => _towerWeapon;
 
-        public TowerTemplateSO TowerTemplate => _towerBase.TowerTemplate;
+        public TowerBaseModule TowerBaseModule => _towerBaseModule;
+        public TowerWeaponModule TowerWeaponModule => _towerWeaponModule;
+        public TowerTemplateSO TowerTemplate => _towerBaseModule.TowerTemplate;
 
-        public void Init(TowerDefenseTowerRole towerRole)
+
+        public void Init()
         {
-            _towerRole = towerRole;
+            _towerBaseModule = GetComponent<TowerBaseModule>();
+            _towerWeaponModule = GetComponent<TowerWeaponModule>();
+            _towerUpgradeGameplay = GetComponent<TowerUpgradeGameplay>();
 
-            _towerBase = GetComponent<TowerBaseModule>();
-            _towerWeapon = GetComponent<TowerWeaponModule>();
-
-            _towerWeapon.Init(this);
+            _towerWeaponModule.Init(this);
+            _towerUpgradeGameplay.Init(this);
         }
 
         public void Setup()
         {
-            _towerWeapon.Setup();
+ 
         }
 
+        public void SetupRoleFlow(TowerRoleFlow towerRoleFlow)
+        {
+            _towerRoleFlow = towerRoleFlow;
+        }
+
+        public void StartTower()
+        {
+            _towerWeaponModule.StartTower();
+        }
+        
         public void UpgradeTower()
         {
-            _towerBase.Upgrade();
-            _towerWeapon.Upgrade();
+            _towerUpgradeGameplay.UpgradeTower();
         }
 
+        public void Release()
+        {
+            _towerRoleFlow.EndFlow();
+        }
+
+        #region TowerHandle
         public IEnumerable<BaseActor> GetTargetList()
         {
-            return _towerRole.FindTargetList();
+            return _towerRoleFlow.FindTargetList();
         }
+
+
+        #endregion
     }
 }

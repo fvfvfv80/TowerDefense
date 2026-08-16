@@ -5,10 +5,10 @@ using System.Text;
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
     public enum EnemyDestroyType { Kill = 0, Arrive }
-    public interface IEnemyHandler
+    public interface IEnemyModuleHost
     {
-        public void Hit();
+        public void RequestHit();
 
-        public void Despawn(EnemyDestroyType type);
+        public void RequestDespawn(EnemyDestroyType type);
     }
 }

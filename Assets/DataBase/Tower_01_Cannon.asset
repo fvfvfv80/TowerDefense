@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tower_01_Cannon
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerTemplateSO
   towerPrefab: {fileID: 5005878003273553492, guid: 3215ed28a9a475f4d9443fc7b60e2c4f, type: 3}
+  followTowerPrefab: {fileID: 5638940115927823235, guid: 9bddbc4e6585d28409a77df357759eed, type: 3}
   weapon:
   - sprite: {fileID: 21300000, guid: 13873cc7578093547a6fd34245a1b9c9, type: 3}
     damage: 1

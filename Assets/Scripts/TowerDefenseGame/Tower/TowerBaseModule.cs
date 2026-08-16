@@ -13,7 +13,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private int _level;
 
-        public int Level => _level + 1;
+        public int Level => _level;
 
         public Sprite TowerImage => towerRenderer.sprite;
 
@@ -25,16 +25,17 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public TowerTemplateSO TowerTemplate => towerTemplate;
 
-        public void ChangeTowerSprite(int level)
+        public TowerTemplateSO.Weapon CurrentTowerWeaponData => TowerTemplate.weapon[_level];
+
+
+        public void UpgradeLevel()
         {
-            towerRenderer.sprite = towerTemplate.weapon[level].sprite;
+            _level = Math.Min(MaxLevel - 1, _level + 1);
         }
 
-        public void Upgrade()
+        public void ChangeTowerSprite(Sprite towerSprite)
         {
-            _level++;
-            ChangeTowerSprite(_level);
-
+            towerRenderer.sprite = towerSprite;
         }
 
 

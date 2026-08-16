@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6036065688658813569}
-  - component: {fileID: 8977424674896302401}
   - component: {fileID: 1873400494716449991}
   - component: {fileID: 5514503301242792961}
   - component: {fileID: 2532650270384174179}
+  - component: {fileID: 8977424674896302401}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -36,20 +36,6 @@ Transform:
   - {fileID: 8562215247348930584}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8977424674896302401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7016052964007739534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86326899f6ee20428adee504e06df4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Movement2D
-  moveSpeed: 5
-  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!58 &1873400494716449991
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -125,6 +111,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108123c35cbe2d84f9171d4473d50a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
+--- !u!114 &8977424674896302401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7016052964007739534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c86326899f6ee20428adee504e06df4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement2D
+  moveSpeed: 5
+  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &7741216086170745314
 GameObject:
   m_ObjectHideFlags: 0
