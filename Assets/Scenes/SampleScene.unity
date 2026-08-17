@@ -1831,18 +1831,18 @@ MonoBehaviour:
     enemyPrefabs:
     - {fileID: 2088452908903734244, guid: 15fec48129108864b863b627c7abac7d, type: 3}
   - spawnTime: 0.5
-    maxEnemyCount: 50
+    maxEnemyCount: 30
     enemyPrefabs:
     - {fileID: 2088452908903734244, guid: 15fec48129108864b863b627c7abac7d, type: 3}
     - {fileID: 2088452908903734244, guid: 9c69d57024918494d80189e199e5865d, type: 3}
   - spawnTime: 0.5
-    maxEnemyCount: 80
+    maxEnemyCount: 40
     enemyPrefabs:
     - {fileID: 2088452908903734244, guid: 15fec48129108864b863b627c7abac7d, type: 3}
     - {fileID: 2088452908903734244, guid: 9c69d57024918494d80189e199e5865d, type: 3}
     - {fileID: 2088452908903734244, guid: b785458cb97aefa4f85b318be7fbe979, type: 3}
   - spawnTime: 0.5
-    maxEnemyCount: 100
+    maxEnemyCount: 50
     enemyPrefabs:
     - {fileID: 2088452908903734244, guid: 15fec48129108864b863b627c7abac7d, type: 3}
     - {fileID: 2088452908903734244, guid: 9c69d57024918494d80189e199e5865d, type: 3}
@@ -8924,7 +8924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0382f1d8b9b684e439b82b8005845ee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Player.PlayerInputDirector
-  playerInputModule: {fileID: 1741533841}
+  playerInputGameplay: {fileID: 0}
 --- !u!4 &1741533843
 Transform:
   m_ObjectHideFlags: 0
