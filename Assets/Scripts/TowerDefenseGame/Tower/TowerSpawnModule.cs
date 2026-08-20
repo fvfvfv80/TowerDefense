@@ -30,7 +30,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public void DespawnTower(TowerActor towerActor)
         {
-            towerActor.Release();
+            towerActor.ReleaseContext();
             Destroy(towerActor.gameObject);
 
         }

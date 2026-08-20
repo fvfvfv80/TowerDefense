@@ -7,21 +7,20 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     // 모듈을 확장하는 것을 게임플레이라고 할까 모듈이라 할까.. 강화 기능이면 게임플레이가 맞는것 같기도하고
     public class TowerUpgradeGameplay : MonoBehaviour
     {
-        private ITowerModuleHost _towerHost;
+        [SerializeField]
+        private TowerBaseModule towerBaseModule;
+        [SerializeField]
+        private TowerWeaponModule towerWeaponModule;
 
-        public void Init(ITowerModuleHost towerHost)
-        {
-            _towerHost = towerHost;
-        }
 
         public void UpgradeTower()
         {
-            var towerBase = _towerHost.TowerBaseModule;
 
-            towerBase.UpgradeLevel();
 
-            var towerWeaponData = towerBase.CurrentTowerWeaponData;
-            var towerWeapon = _towerHost.TowerWeaponModule;
+            towerBaseModule.UpgradeLevel();
+
+            var towerWeaponData = towerBaseModule.CurrentTowerWeaponData;
+          
 
             var weaponStat = new TowerWeaponStat()
             {
@@ -30,11 +29,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
                 Range = towerWeaponData.range
             };
 
-            towerWeapon.SetWeaponStat(weaponStat);
+            towerWeaponModule.SetWeaponStat(weaponStat);
 
             //이미지 업그레이드 용 //렌더러나 애니메이션 모듈로 빼면 그걸가져와야함
-            var towerRender = _towerHost.TowerBaseModule;
-            towerRender.ChangeTowerSprite(towerWeaponData.sprite);
+            towerBaseModule.ChangeTowerSprite(towerWeaponData.sprite);
         }
     }
 }

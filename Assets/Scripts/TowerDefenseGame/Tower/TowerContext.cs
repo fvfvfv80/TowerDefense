@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public class TowerRoleFlow : IFlow
+    public class TowerContext : IContext
     {
         private EnemyWaveDirector _enemyWaveDirector;
 
 
-        public TowerRoleFlow(EnemyWaveDirector enemyWaveDirector)
+        public TowerContext(EnemyWaveDirector enemyWaveDirector)
         {
             _enemyWaveDirector = enemyWaveDirector;
         }
@@ -21,7 +21,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             return _enemyWaveDirector.CurrentWaveEnemyList;
         }
 
-        public void EndFlow()
+        public void Release()
         {
 
         }
