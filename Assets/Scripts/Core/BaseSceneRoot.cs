@@ -29,7 +29,7 @@ namespace Assets.Scripts.Core
         {
             if (!_contextCreationDict.TryGetValue(typeof(T), out var creation))
             {
-                throw new InvalidOperationException($"{gameObject.name}::CreateRole: {typeof(T).Name} is not registered.");
+                throw new InvalidOperationException($"{gameObject.name}::CreateContext: {typeof(T).Name} is not registered.");
             }
 
             return (T)creation();

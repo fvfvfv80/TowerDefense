@@ -44,8 +44,6 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
         private SelectedTowerMaintenanceFlow _selectedTowerMaintenanceFlow;
 
-        private IFlowCreator _flowCreator;
-
         private PlayerInputDirectorContext _context;
 
 
@@ -58,15 +56,6 @@ namespace Assets.Scripts.TowerDefenseGame.Player
      
         }
 
-
-        public void Init(IFlowCreator flowCreator)
-        {
-            _flowCreator = flowCreator;
-
-            playerInputGameplay = GetComponent<PlayerInputGameplay>();
-
-            playerInputGameplay.Init(this);
-        }
 
         public void Init(PlayerInputDirectorContext context)
         {
@@ -99,8 +88,6 @@ namespace Assets.Scripts.TowerDefenseGame.Player
                 return;
 
             var towerActor = towerTransform.GetComponent<TowerActor>();
-
-          //  _selectedTowerMaintenanceFlow = _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
 
             _selectedTowerMaintenanceFlow = _context.CreateTowerMaintenanceFlow();
 
@@ -148,8 +135,6 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             //진행중인 플로우 종료
             EndMaintenanceFlow();
             EndBuildFlow();
-
-       //     _playerTowerBuildFlow = _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
 
             _playerTowerBuildFlow = _context.CreateTowerBuildFlow();
 

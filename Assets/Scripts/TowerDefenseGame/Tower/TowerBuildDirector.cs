@@ -41,8 +41,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         [SerializeField]
         private SystemTextViewer systemTextViewer;
 
-        private IFlowCreator _flowCreator;
-
         private TowerBuildDirectorContext _context;
 
 
@@ -51,11 +49,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public int TowerCost => towerData.weapon[0].cost;
 
-
-        public void Init(IFlowCreator flowCreator)
-        {
-            _flowCreator = flowCreator;
-        }
 
         public void Init(TowerBuildDirectorContext context)
         {
@@ -93,7 +86,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             var towerActor = towerSpawnModule.SpawnTower(tile.transform);
 
             //타워 스폰 플로우로 생성받기
-            //var towerRoleFlow = _flowCreator.CreateFlow<TowerContext>();
             var towerContext = _context.CreateTowerContext();
             towerActor.SetupContext(towerContext);
             towerActor.StartTower();

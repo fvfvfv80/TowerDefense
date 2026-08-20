@@ -25,12 +25,12 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         private void Awake()
         {
-            RegisterFlows();
+            RegisterCreations();
 
             InitDirectors();
         }
 
-        private void RegisterFlows()
+        private void RegisterCreations()
         {
 
             RegisterFlowCreation(CreatePlayerTowerBuildFlow);
@@ -54,7 +54,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             enemyWaveDirector.Init(enemyWaveDirectorContext);
         }
 
-        #region FlowFactoy
+        #region FlowFactory
 
         private PlayerTowerBuildFlow CreatePlayerTowerBuildFlow()
         {
@@ -76,14 +76,14 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         private TowerContext CreateTowerContext()
         {
-            var flow = new TowerContext(enemyWaveDirector);
-            return flow;
+            var context = new TowerContext(enemyWaveDirector);
+            return context;
         }
 
         private EnemyContext CreateEnemyContext()
         {
-            var flow = new EnemyContext(enemyWaveDirector, player.HPModule, player.GoldModule);
-            return flow;
+            var context = new EnemyContext(enemyWaveDirector, player.HPModule, player.GoldModule);
+            return context;
         }
 
         #endregion

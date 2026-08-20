@@ -29,7 +29,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         private Transform[] wayPoints; //시스템으로 갈수도있음
 
 
-        private IFlowCreator _flowCreator;
 
         private EnemyWaveDirectorContext _hostContext;
 
@@ -77,7 +76,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             while (spawnEnemyCount < _currentWave.maxEnemyCount)
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
-
 
                 var enemyContext = _hostContext.CreateEnemyContext();
 
