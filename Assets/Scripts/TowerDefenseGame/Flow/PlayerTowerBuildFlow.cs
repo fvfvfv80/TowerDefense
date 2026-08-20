@@ -4,7 +4,7 @@ using Assets.Scripts.TowerDefenseGame.Tower;
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.SceneRoot
+namespace Assets.Scripts.TowerDefenseGame.Flow
 {
     public class PlayerTowerBuildFlow : IFlow
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public class TowerActor : BaseActor, ITowerModuleHost
+    public class TowerActor : BaseActor, ITowerWeaponHost
     {
         private TowerBaseModule _towerBaseModule;
 
@@ -12,7 +12,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private TowerUpgradeGameplay _towerUpgradeGameplay;
 
-        private TowerRoleFlow _towerRoleFlow;
+        private TowerContext _towerContext;
 
 
 
@@ -28,7 +28,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             _towerUpgradeGameplay = GetComponent<TowerUpgradeGameplay>();
 
             _towerWeaponModule.Init(this);
-            _towerUpgradeGameplay.Init(this);
+
         }
 
         public void Setup()
@@ -36,9 +36,9 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
  
         }
 
-        public void SetupRoleFlow(TowerRoleFlow towerRoleFlow)
+        public void SetupContext(TowerContext towerContext)
         {
-            _towerRoleFlow = towerRoleFlow;
+            _towerContext = towerContext;
         }
 
         public void StartTower()
@@ -51,15 +51,15 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             _towerUpgradeGameplay.UpgradeTower();
         }
 
-        public void Release()
+        public void ReleaseContext()
         {
-            _towerRoleFlow.EndFlow();
+            _towerContext.Release();
         }
 
         #region TowerHandle
         public IEnumerable<BaseActor> GetTargetList()
         {
-            return _towerRoleFlow.FindTargetList();
+            return _towerContext.FindTargetList();
         }
 
 

@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 1993547647128993172}
   - component: {fileID: 773830267930710100}
   - component: {fileID: 804355671395106312}
+  - component: {fileID: 7822700426389327238}
   - component: {fileID: 3398763859538215050}
   - component: {fileID: 508888955194423644}
-  - component: {fileID: 7822700426389327238}
   m_Layer: 0
   m_Name: Tower_01
   m_TagString: Tower
@@ -102,6 +102,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21cf76f7add32f4792c42eaa45e0b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerActor
+--- !u!114 &7822700426389327238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005878003273553492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d8144ed7b29394eb161f2ba5c775ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerUpgradeModule
+  towerBaseModule: {fileID: 3398763859538215050}
+  towerWeaponModule: {fileID: 508888955194423644}
 --- !u!114 &3398763859538215050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,18 +147,6 @@ MonoBehaviour:
   attackRate: 0.5
   attackRange: 2
   attackDamage: 1
---- !u!114 &7822700426389327238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5005878003273553492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8144ed7b29394eb161f2ba5c775ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerUpgradeModule
 --- !u!1 &5986085397805861300
 GameObject:
   m_ObjectHideFlags: 0

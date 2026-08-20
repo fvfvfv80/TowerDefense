@@ -7,6 +7,23 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
 
+    public class TowerBuildDirectorContext: IContext
+    {
+        private readonly IFlowCreator _flowCreator;
+
+        private readonly IContextCreator _contextCreator;
+
+        public TowerBuildDirectorContext(IFlowCreator flowCreator, IContextCreator contextCreator)
+        {
+            _flowCreator = flowCreator;
+            _contextCreator = contextCreator;
+        }
+
+        public TowerContext CreateTowerContext()
+        {
+            return _contextCreator.CreateContext<TowerContext>();
+        }
+    }
 
     public class TowerBuildDirector : MonoBehaviour
     {
@@ -26,6 +43,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private IFlowCreator _flowCreator;
 
+        private TowerBuildDirectorContext _context;
+
 
         private readonly Dictionary<TowerActor, Tile> _towerPlacementDict = new();
 
@@ -36,6 +55,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public void Init(IFlowCreator flowCreator)
         {
             _flowCreator = flowCreator;
+        }
+
+        public void Init(TowerBuildDirectorContext context)
+        {
+            _context = context;
         }
 
         public bool CheckGoldEnough(int gold)
@@ -69,8 +93,9 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             var towerActor = towerSpawnModule.SpawnTower(tile.transform);
 
             //타워 스폰 플로우로 생성받기
-            var towerRoleFlow = _flowCreator.CreateFlow<TowerRoleFlow>();
-            towerActor.SetupRoleFlow(towerRoleFlow);
+            //var towerRoleFlow = _flowCreator.CreateFlow<TowerContext>();
+            var towerContext = _context.CreateTowerContext();
+            towerActor.SetupContext(towerContext);
             towerActor.StartTower();
 
             _towerPlacementDict[towerActor] = tile;

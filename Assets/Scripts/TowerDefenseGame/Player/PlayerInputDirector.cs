@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Core;
-using Assets.Scripts.TowerDefenseGame.SceneRoot;
+using Assets.Scripts.TowerDefenseGame.Enemy;
+using Assets.Scripts.TowerDefenseGame.Flow;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using System;
 using UnityEngine;
@@ -8,6 +9,31 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
+
+    public class PlayerInputDirectorContext : IContext
+    {
+        private readonly IFlowCreator _flowCreator;
+        private readonly IContextCreator _contextCreator;
+
+
+        public PlayerInputDirectorContext(IFlowCreator flowCreator, IContextCreator contextCreator)
+        {
+            _flowCreator = flowCreator;
+            _contextCreator = contextCreator;
+        }
+
+        public PlayerTowerBuildFlow CreateTowerBuildFlow()
+        {
+            return _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
+        }
+
+        public SelectedTowerMaintenanceFlow CreateTowerMaintenanceFlow()
+        {
+            return _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
+        }
+
+    }
+     
     public class PlayerInputDirector : MonoBehaviour, IPlayerInputHost
     {
 
@@ -19,6 +45,8 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         private SelectedTowerMaintenanceFlow _selectedTowerMaintenanceFlow;
 
         private IFlowCreator _flowCreator;
+
+        private PlayerInputDirectorContext _context;
 
 
         private bool IsBuilding => _playerTowerBuildFlow != null;
@@ -34,6 +62,15 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         public void Init(IFlowCreator flowCreator)
         {
             _flowCreator = flowCreator;
+
+            playerInputGameplay = GetComponent<PlayerInputGameplay>();
+
+            playerInputGameplay.Init(this);
+        }
+
+        public void Init(PlayerInputDirectorContext context)
+        {
+            _context = context;
 
             playerInputGameplay = GetComponent<PlayerInputGameplay>();
 
@@ -63,7 +100,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
             var towerActor = towerTransform.GetComponent<TowerActor>();
 
-            _selectedTowerMaintenanceFlow = _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
+          //  _selectedTowerMaintenanceFlow = _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
+
+            _selectedTowerMaintenanceFlow = _context.CreateTowerMaintenanceFlow();
 
             _selectedTowerMaintenanceFlow.Completed += HandleMaintenanceFlowEnd;
 
@@ -110,7 +149,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
             EndMaintenanceFlow();
             EndBuildFlow();
 
-            _playerTowerBuildFlow = _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
+       //     _playerTowerBuildFlow = _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
+
+            _playerTowerBuildFlow = _context.CreateTowerBuildFlow();
 
             _playerTowerBuildFlow.Completed += HandleBuildFlowComplete;
 

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
+using Assets.Scripts.TowerDefenseGame.Flow;
 using Assets.Scripts.TowerDefenseGame.Player;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using UnityEngine;
@@ -32,18 +33,25 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         private void RegisterFlows()
         {
 
-            RegisterFlow(CreatePlayerTowerBuildFlow);
-            RegisterFlow(CreateSelectedTowerMaintenanceFlow);
-            RegisterFlow(CreateTowerRoleFlow);
-            RegisterFlow(CreateEnemyRoleFlow);
+            RegisterFlowCreation(CreatePlayerTowerBuildFlow);
+            RegisterFlowCreation(CreateSelectedTowerMaintenanceFlow);
+
+            RegisterContextCreation(CreateTowerContext);
+            RegisterContextCreation(CreateEnemyContext);
 
         }
 
         private void InitDirectors()
         {
-            playerInputDirector.Init(this);
-            towerBuildDirector.Init(this);
-            enemyWaveDirector.Init(this);
+
+            var playerInputDirectorContext = new PlayerInputDirectorContext(this,this);
+            playerInputDirector.Init(playerInputDirectorContext);
+
+            var towerBuildDirectorContext = new TowerBuildDirectorContext(this, this);
+            towerBuildDirector.Init(towerBuildDirectorContext);
+
+            var enemyWaveDirectorContext = new EnemyWaveDirectorContext(this, this);
+            enemyWaveDirector.Init(enemyWaveDirectorContext);
         }
 
         #region FlowFactoy
@@ -60,18 +68,23 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             return flow;
         }
 
-        private TowerRoleFlow CreateTowerRoleFlow()
+
+
+        #endregion
+
+        #region ContextFactory
+
+        private TowerContext CreateTowerContext()
         {
-            var flow = new TowerRoleFlow(enemyWaveDirector);
+            var flow = new TowerContext(enemyWaveDirector);
             return flow;
         }
 
-        private EnemyRoleFlow CreateEnemyRoleFlow()
+        private EnemyContext CreateEnemyContext()
         {
-            var flow = new EnemyRoleFlow(enemyWaveDirector,player.HPModule,player.GoldModule);
+            var flow = new EnemyContext(enemyWaveDirector, player.HPModule, player.GoldModule);
             return flow;
         }
-
 
         #endregion
     }

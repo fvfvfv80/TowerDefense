@@ -9,7 +9,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private Transform hudPoint;
 
-        private EnemyRoleFlow _enemyRoleFlow;
+        private EnemyContext _enemyContext;
 
         public EnemyBaseModule EnemyBase { get; private set; }
 
@@ -34,9 +34,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        public void SetupRoleFlow(EnemyRoleFlow enemyRoleFlow)
+        public void SetupContext(EnemyContext enemyContext)
         {
-            _enemyRoleFlow = enemyRoleFlow;
+            _enemyContext = enemyContext;
         }
 
         public void SetupPath(Transform[] wayPoints)
@@ -62,9 +62,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             EnemyMovement.StartMove();
         }
 
-        public void Release()
+        public void ReleaseContext()
         {
-            _enemyRoleFlow.EndFlow(this);
+            _enemyContext.Release(this);
         }
 
         #region EnemyHandle
@@ -78,11 +78,11 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyRoleFlow.NotifyReachGoal(this);
+                _enemyContext.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyRoleFlow.NotifyKilled(this);
+                _enemyContext.NotifyKilled(this);
             }
 
         }

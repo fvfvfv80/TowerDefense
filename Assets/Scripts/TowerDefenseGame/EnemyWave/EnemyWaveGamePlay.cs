@@ -29,7 +29,9 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         private Transform[] wayPoints; //시스템으로 갈수도있음
 
 
-        private IFlowCreator _flowCreater;
+        private IFlowCreator _flowCreator;
+
+        private EnemyWaveDirectorContext _hostContext;
 
         private int _currentWaveIndex = -1;
 
@@ -48,9 +50,11 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         public int MaxWave => waves.Length;
 
 
-        public void Init(IFlowCreator flowCreator)
+
+
+        public void Init(EnemyWaveDirectorContext hostContext)
         {
-            _flowCreater = flowCreator;
+            _hostContext = hostContext;
         }
 
         public void StartWave()
@@ -74,13 +78,12 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
 
-                var enemyFlow = _flowCreater.CreateFlow<EnemyRoleFlow>();
+
+                var enemyContext = _hostContext.CreateEnemyContext();
 
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
-                //enemyWaveFlowHost.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
-                //enemySpawner.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
-                enemyActor.SetupRoleFlow(enemyFlow);
+                enemyActor.SetupContext(enemyContext);
                 enemyActor.SetupPath(wayPoints);
                 enemyActor.StartEnemy();
 

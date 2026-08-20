@@ -3,7 +3,7 @@ using Assets.Scripts.TowerDefenseGame.Player;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using System;
 
-namespace Assets.Scripts.TowerDefenseGame.SceneRoot
+namespace Assets.Scripts.TowerDefenseGame.Flow
 {
     public class SelectedTowerMaintenanceFlow : IFlow
     {
