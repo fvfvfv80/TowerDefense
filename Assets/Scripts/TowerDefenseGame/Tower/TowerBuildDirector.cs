@@ -134,6 +134,13 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
 
             upgradeCost = tower.UpgradeCost;
+
+            if (tower.IsMaxLevel)
+            {
+                return false;
+            }
+
+
             if (currentGold < upgradeCost)
             {
                 //실패 피드백
@@ -142,6 +149,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
                 return false;
 
             }
+
+
 
             tower.UpgradeTower();
             towerPopup.UpdatePopup();

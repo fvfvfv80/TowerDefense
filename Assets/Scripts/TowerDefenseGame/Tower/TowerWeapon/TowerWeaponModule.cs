@@ -4,16 +4,9 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
 {
 
-    public enum WeaponType { Cannon = 0, Laser }
+    public enum WeaponState { SearchClosestTarget = 0, TryAttackWeapon }
 
-    public enum WeaponState { SearchClosestTarget = 0, TryAttackWeapon, TryAttackCannon, TryAttackLaser }
 
-    public struct TowerWeaponStat
-    {
-        public float Damage;
-        public float Rate;
-        public float Range;
-    }
 
 
     public class TowerWeaponModule : MonoBehaviour
@@ -22,7 +15,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
         [SerializeField]
         TowerTemplateSO towerTemplate;
         [SerializeField]
-        public Transform spawnPoint;
+        private Transform spawnPoint;
         [SerializeField]
         private float attackRate = 0.5f;
         [SerializeField]
@@ -38,7 +31,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
 
         private ITowerWeaponHost _weaponHandler;
 
-        private int _weaponLevel = 1; //이게 필요하게되면 그냥 템플릿 넘겨도될듯
+        private int _weaponLevel = 0;
         private Transform _attackTarget = null;
         private WeaponState _weaponState;
 
@@ -57,9 +50,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
             _weaponHandler = weaponHandler;
 
             weaponAttackModule.Init(this);
-
-            SetWeaponLevel(1);
-
         }
 
         public void StartTower()
@@ -76,15 +66,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
             StartCoroutine(_weaponState.ToString());
         }
 
-        public void UpgradeWeapon()
-        {
-            _weaponLevel++;
-            attackDamage = towerTemplate.weapon[_weaponLevel].damage;
-            attackRate = towerTemplate.weapon[_weaponLevel].rate;
-            attackRange = towerTemplate.weapon[_weaponLevel].range;
-
-            weaponAttackModule.ApplyWeaponLevel(_weaponLevel);
-        }
 
 
         public void SetWeaponLevel(int level)

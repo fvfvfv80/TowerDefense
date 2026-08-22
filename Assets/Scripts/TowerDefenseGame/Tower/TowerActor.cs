@@ -25,11 +25,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private int _towerLevel;
 
-
-
         public int Level => _towerLevel;
 
         public int MaxLevel => towerTemplate.weapon.Length;
+
+        public bool IsMaxLevel => _towerLevel == (MaxLevel - 1);
 
         public int UpgradeCost => towerTemplate.weapon[Mathf.Min(MaxLevel - 1, _towerLevel + 1)].cost;
 
@@ -45,6 +45,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public void Init()
         {
             _towerWeaponModule.Init(this);
+            _towerWeaponModule.SetWeaponLevel(_towerLevel);
 
         }
 

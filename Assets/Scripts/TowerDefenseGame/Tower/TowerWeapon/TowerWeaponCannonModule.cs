@@ -18,7 +18,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
 
         private void SpawnProjectile()
         {
-            var clone = Instantiate(projectilePrefab, _weaponModule.spawnPoint.position, Quaternion.identity);
+            var clone = Instantiate(projectilePrefab, _weaponModule.SpawnPoint.position, Quaternion.identity);
 
             clone.GetComponent<Projectile>().Setup(_weaponModule.AttackTarget, _weaponModule.Damage);
         }
