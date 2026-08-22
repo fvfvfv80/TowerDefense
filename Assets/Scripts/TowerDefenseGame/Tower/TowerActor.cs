@@ -1,35 +1,36 @@
-﻿using Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Scripts.TowerDefenseGame.Tower.TowerTemplateSO;
 
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
+    public enum TowerType
+    {
+        Cannon,
+        Laser,
+        Slow
+    }
     public class TowerActor : BaseActor, ITowerWeaponHost
     {
-        [SerializeField]
+        public TowerType towerType;
+        [SerializeField] 
         private TowerTemplateSO towerTemplate;
-
-        [SerializeField]
+        [SerializeField] 
         private SpriteRenderer towerRenderer;
-
-
-        [SerializeField]
-        private TowerWeaponModule _towerWeaponModule;
-
-
-
+        [SerializeField] 
+        private TowerFeatureModule[] featureModules;
 
         private TowerContext _towerContext;
-
-
         private int _towerLevel;
 
         public int Level => _towerLevel;
 
         public int MaxLevel => towerTemplate.weapon.Length;
 
-        public bool IsMaxLevel => _towerLevel == (MaxLevel - 1);
+        public bool IsMaxLevel => _towerLevel == MaxLevel - 1;
+
+        public WeaponSpec CurrentSpec => towerTemplate.weapon[_towerLevel];
 
         public int UpgradeCost => towerTemplate.weapon[Mathf.Min(MaxLevel - 1, _towerLevel + 1)].cost;
 
@@ -37,21 +38,19 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public Sprite TowerSprite => towerRenderer.sprite;
 
-        public TowerWeaponModule TowerWeaponModule => _towerWeaponModule;
-
-
-   
 
         public void Init()
         {
-            _towerWeaponModule.Init(this);
-            _towerWeaponModule.SetWeaponLevel(_towerLevel);
-
+            foreach (var featureModule in featureModules)
+            {
+                featureModule.Init(this);
+                featureModule.ApplyLevel(_towerLevel);
+            }
         }
 
         public void Setup()
         {
- 
+
         }
 
         public void SetupContext(TowerContext towerContext)
@@ -61,22 +60,28 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public void StartTower()
         {
-            _towerWeaponModule.StartTower();
+            foreach (var featureModule in featureModules)
+                featureModule.StartFeature();
         }
+
         public void UpgradeTower()
         {
             _towerLevel = Mathf.Min(MaxLevel - 1, _towerLevel + 1);
-            _towerWeaponModule.SetWeaponLevel(_towerLevel);
+
+            foreach (var featureModule in featureModules)
+                featureModule.ApplyLevel(_towerLevel);
+
             towerRenderer.sprite = towerTemplate.weapon[_towerLevel].sprite;
-
-
         }
-
 
         public void ReleaseContext()
         {
+            foreach (var featureModule in featureModules)
+                featureModule.Release();
+
             _towerContext.Release();
         }
+
 
         #region TowerHandle
 

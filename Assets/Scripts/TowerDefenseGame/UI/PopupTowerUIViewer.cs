@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Tower;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.TowerDefenseGame.UI
@@ -41,7 +40,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             UpdatetowerData();
             gameObject.SetActive(true);
 
-            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerWeaponModule.Range);
+            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.CurrentSpec.range);
         }
 
 
@@ -53,13 +52,24 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
         private void UpdatetowerData()
         {
-            var towerWeapon = _currentTower.TowerWeaponModule;
-            //var towerBase = _currentTower.TowerBaseModule;
+            var towerType = _currentTower.towerType;
+            var towerSpec = _currentTower.CurrentSpec;
+
+            if(towerType == TowerType.Cannon|| towerType == TowerType.Laser)
+            {
+                imageTower.rectTransform.sizeDelta = new Vector2(88, 59);
+                textDamage.text = $"Damage: {towerSpec.damage}";
+            }
+            else
+            {
+                imageTower.rectTransform.sizeDelta = new Vector2(59, 59);
+                textDamage.text = $"Slow: {towerSpec.slow * 100}%";
+            }
+
             imageTower.sprite = _currentTower.TowerSprite;
 
-            textDamage.text = $"Damage: {towerWeapon.Damage}";
-            textRate.text = $"Rate: {towerWeapon.Rate}";
-            textRange.text = $"Range: {towerWeapon.Range}";
+            textRate.text = $"Rate: {towerSpec.rate}";
+            textRange.text = $"Range: {towerSpec.range}";
             textLevel.text = $"Level: {_currentTower.Level + 1}";
 
             buttonUpgrade.interactable = _currentTower.Level + 1 < _currentTower.MaxLevel;
@@ -68,7 +78,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         public void UpdatePopup()
         {
             UpdatetowerData();
-            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerWeaponModule.Range);
+            towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.CurrentSpec.range);
         }
 
     }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
+namespace Assets.Scripts.TowerDefenseGame.Weapon
 {
-    public class TowerWeaponCannonModule : TowerWeaponAttackModule
+    public class CannonAttackModule : WeaponAttackModule
     {
         [SerializeField]
         private Transform projectilePrefab;
@@ -21,8 +18,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
             var clone = Instantiate(projectilePrefab, _weaponModule.SpawnPoint.position, Quaternion.identity);
 
             clone.GetComponent<Projectile>().Setup(_weaponModule.AttackTarget, _weaponModule.Damage);
+
         }
-
-
     }
 }

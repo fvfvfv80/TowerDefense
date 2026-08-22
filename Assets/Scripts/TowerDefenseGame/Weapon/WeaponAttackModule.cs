@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon
+namespace Assets.Scripts.TowerDefenseGame.Weapon
 {
-    public abstract class TowerWeaponAttackModule : MonoBehaviour
+    public abstract class WeaponAttackModule : MonoBehaviour
     {
-        protected TowerWeaponModule _weaponModule;
+        protected WeaponModule _weaponModule;
 
-        public virtual void Init(TowerWeaponModule weaponModule)
+        public virtual void Init(WeaponModule weaponModule)
         {
             _weaponModule = weaponModule;
         }

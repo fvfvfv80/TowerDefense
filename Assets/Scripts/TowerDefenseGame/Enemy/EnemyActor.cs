@@ -9,15 +9,20 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private Transform hudPoint;
 
-        private EnemyContext _enemyContext;
-
-        public EnemyBaseModule EnemyBase { get; private set; }
+        [SerializeField]
+        private int gold = 10;
 
         public EnemyAnimationModule EnemyAnimation { get; private set; }
 
         public EnemyMovementModule EnemyMovement { get; private set; }
 
         public EnemyHPModule EnemyHP { get; private set; }
+
+        private EnemyContext _enemyContext;
+
+
+        public int RewardGold => gold;
+
 
         public Transform HUDPoint => hudPoint;
 
@@ -27,7 +32,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private void Awake()
         {
             //init에서 실행될수도있음
-            EnemyBase = GetComponent<EnemyBaseModule>();
             EnemyAnimation = GetComponent<EnemyAnimationModule>();
             EnemyMovement = GetComponent<EnemyMovementModule>();
             EnemyHP = GetComponent<EnemyHPModule>();

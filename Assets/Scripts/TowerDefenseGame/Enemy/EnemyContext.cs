@@ -31,7 +31,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public void NotifyKilled(EnemyActor enemyActor)
         {
-            int gold = enemyActor.EnemyBase.RewardGold;
+            int gold = enemyActor.RewardGold;
             DropGold(gold);
 
             _enemyWaveDirector.DespawnWaveEnemy(enemyActor);
