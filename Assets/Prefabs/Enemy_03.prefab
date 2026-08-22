@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1307897197778378025}
   - component: {fileID: -2296257546868487985}
   - component: {fileID: -5813597679605673509}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_03
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyHPModule
   maxHP: 10
-  enemyBase: {fileID: -5547406944408241163}
 --- !u!114 &-5813597679605673509
 MonoBehaviour:
   m_ObjectHideFlags: 0

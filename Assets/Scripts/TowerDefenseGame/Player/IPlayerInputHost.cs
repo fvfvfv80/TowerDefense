@@ -9,7 +9,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         void RequestBuildTower(Transform tileTransform);
         void RequestSelectTower(Transform towerTransform);
 
-        void RequestEnterTowerBuild();
+        void RequestEnterTowerBuild(int towerType);
 
         void RequestUpgradeTower();
 

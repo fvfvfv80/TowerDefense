@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Tower.Legacy
 {
     public class TowerBaseModule : MonoBehaviour
     {

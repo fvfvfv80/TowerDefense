@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class EnemyHPModule : MonoBehaviour
+    public class EnemyHPModule : MonoBehaviour, IHPModule
     {
         [SerializeField]
         private float maxHP;

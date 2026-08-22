@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon;
+using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Tower.Legacy
 {
 
     // 모듈을 확장하는 것을 게임플레이라고 할까 모듈이라 할까.. 강화 기능이면 게임플레이가 맞는것 같기도하고

@@ -7,18 +7,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 {
     public class TowerSpawnModule : MonoBehaviour
     {
-
-        [SerializeField]
-        private TowerTemplateSO towerTemplate;
-
-
-
-
-        public TowerActor SpawnTower(Transform tileTransform)
+        public TowerActor SpawnTower(GameObject towerPrefab, Transform tileTransform)
         {
             Vector3 position = tileTransform.position + Vector3.back;
 
-            var clone = Instantiate(towerTemplate.towerPrefab, position, quaternion.identity);
+            var clone = Instantiate(towerPrefab, position, quaternion.identity);
 
             var towerActor = clone.GetComponent<TowerActor>();
 

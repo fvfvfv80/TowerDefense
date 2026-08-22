@@ -72,9 +72,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         //인풋 모듈이면 여기 있는게 자연스럽고 게임플레이면 아래 메소드들은 게임플레이쪽이 자연스러울지도..
         #region HandlePlayerInput 
 
-        public void RequestEnterTowerBuild()
+        public void RequestEnterTowerBuild(int towerType)
         {
-            HandleBuildEnterRequest();
+            HandleBuildEnterRequest(towerType);
         }
 
         public void RequestBuildTower(Transform tileTransform)
@@ -130,7 +130,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         #endregion
 
 
-        private void HandleBuildEnterRequest()
+        private void HandleBuildEnterRequest(int towerType)
         {
             //진행중인 플로우 종료
             EndMaintenanceFlow();
@@ -140,7 +140,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
             _playerTowerBuildFlow.Completed += HandleBuildFlowComplete;
 
-            _playerTowerBuildFlow.EnterBuildReady();
+            _playerTowerBuildFlow.EnterBuildReady(towerType);
 
         }
 

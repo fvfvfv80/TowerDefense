@@ -54,15 +54,15 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         private void UpdatetowerData()
         {
             var towerWeapon = _currentTower.TowerWeaponModule;
-            var towerBase = _currentTower.TowerBaseModule;
-            imageTower.sprite = towerBase.TowerImage;
+            //var towerBase = _currentTower.TowerBaseModule;
+            imageTower.sprite = _currentTower.TowerSprite;
 
             textDamage.text = $"Damage: {towerWeapon.Damage}";
             textRate.text = $"Rate: {towerWeapon.Rate}";
             textRange.text = $"Range: {towerWeapon.Range}";
-            textLevel.text = $"Level: {towerBase.Level + 1}";
+            textLevel.text = $"Level: {_currentTower.Level + 1}";
 
-            buttonUpgrade.interactable = towerBase.Level + 1 < towerBase.MaxLevel;
+            buttonUpgrade.interactable = _currentTower.Level + 1 < _currentTower.MaxLevel;
         }
 
         public void UpdatePopup()

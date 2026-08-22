@@ -29,7 +29,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     {
 
         [SerializeField]
-        private TowerTemplateSO towerData;
+        private TowerTemplateSO[] towerTemplates;
 
         [SerializeField]
         private TowerSpawnModule towerSpawnModule;
@@ -47,17 +47,16 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         private readonly Dictionary<TowerActor, Tile> _towerPlacementDict = new();
 
 
-        public int TowerCost => towerData.weapon[0].cost;
-
 
         public void Init(TowerBuildDirectorContext context)
         {
             _context = context;
         }
 
-        public bool CheckGoldEnough(int gold)
+        public bool CheckTowerBuildCostEnough(int towerType,int gold)
         {
-            if(TowerCost>gold)
+            var towerCost = towerTemplates[towerType].weapon[0].cost;
+            if(towerCost > gold)
             {
                 systemTextViewer.PrintText(MESSAGE.MONEY);
                 return false;
@@ -67,7 +66,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         }
 
 
-        public bool TryBuildTower(Transform tileTransform, out int buildCost)
+        public bool TryBuildTower(int towerType, Transform tileTransform, out int buildCost)
         {
             var tile = tileTransform.GetComponent<Tile>();
             buildCost = 0;
@@ -81,9 +80,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
             tile.IsBuildTower = true;
 
+            var towerPrefab = towerTemplates[towerType].towerPrefab;
 
             //선택한 위치에 타워 생성
-            var towerActor = towerSpawnModule.SpawnTower(tile.transform);
+            var towerActor = towerSpawnModule.SpawnTower(towerPrefab,tile.transform);
 
             //타워 스폰 플로우로 생성받기
             var towerContext = _context.CreateTowerContext();
@@ -94,7 +94,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
 
             //결과 반환
-            buildCost = TowerCost;
+            buildCost = towerTemplates[towerType].weapon[0].cost;
 
             return true;
         }
@@ -103,7 +103,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public bool TryDemolishTower(TowerActor towerActor, out int sellPrice)
         {
 
-            sellPrice = towerData.weapon[towerActor.TowerBaseModule.Level].sell;
+            sellPrice = towerActor.SellGold;
 
 
             _towerPlacementDict[towerActor].IsBuildTower = false;
@@ -116,9 +116,9 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         }
 
 
-        public GameObject SpawnFollowTowerPreview()
+        public GameObject SpawnFollowTowerPreview(int towerType)
         {
-            var clone = Instantiate(towerData.followTowerPrefab);
+            var clone = Instantiate(towerTemplates[towerType].followTowerPrefab);
             return clone;
         }
 
@@ -133,7 +133,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public bool TryUpgradeTower(TowerActor tower, int currentGold, out int upgradeCost)
         {
 
-            upgradeCost = tower.TowerBaseModule.UpgradeCost;
+            upgradeCost = tower.UpgradeCost;
             if (currentGold < upgradeCost)
             {
                 //실패 피드백

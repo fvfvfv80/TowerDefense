@@ -25,9 +25,9 @@ namespace Assets.Scripts.TowerDefenseGame.Legacy
         public bool TryUpgradeTower(TowerActor tower, int currentGold, out int upgradeCost)
         {
 
-            int cost = tower.TowerBaseModule.UpgradeCost;
-            upgradeCost = 0;
-            if (currentGold < cost)
+            upgradeCost = tower.UpgradeCost;
+   
+            if (currentGold < upgradeCost)
             {
                 //실패 피드백
                 systemTextViewer.PrintText(MESSAGE.MONEY);
@@ -36,12 +36,8 @@ namespace Assets.Scripts.TowerDefenseGame.Legacy
 
             }
 
-            upgradeCost = tower.TowerBaseModule.CurrentTowerWeaponData.cost;
-
             tower.UpgradeTower();
             towerPopup.UpdatePopup();
-
-        
 
             return true;
         }

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.TowerDefenseGame.Enemy;
+﻿using Assets.Scripts.TowerDefenseGame;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         if (collision.transform != _target)
             return;
 
-        collision.GetComponent<EnemyHPModule>().TakeDamage(_damage);
+        collision.GetComponent<IHPModule>().TakeDamage(_damage);
         Destroy(gameObject);
     }
 
