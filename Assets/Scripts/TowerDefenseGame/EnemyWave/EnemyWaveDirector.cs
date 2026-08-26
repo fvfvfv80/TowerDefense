@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Enemy;
+using Assets.Scripts.TowerDefenseGame.Scenario;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,16 +37,16 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;
 
-        private EnemyWaveDirectorContext _context;
+        private EnemyWaveScenario _enemyWaveScenario;
 
         public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
 
 
 
-        public void Init(EnemyWaveDirectorContext enemyWaveDirectorContext)
+        public void Init(EnemyWaveScenario enemyWaveScenario)
         {
-            _context = enemyWaveDirectorContext;
+            _enemyWaveScenario = enemyWaveScenario;
             enemyWaveGameplay.Init(this);
         }
 
@@ -71,9 +73,11 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         }
 
 
-        public EnemyRoleFlow CreateEnemyRoleFlow()
+        public void RequestBindEnemy(EnemyActor enemyActor)
         {
-            return _context.CreateEnemyRoleFlow();
+            _enemyWaveScenario.BindEnemy(enemyActor);
         }
+
+
     }
 }

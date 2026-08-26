@@ -10,4 +10,15 @@ namespace Assets.Scripts.Core
     {
         public T CreateContext<T>() where T : IContext;
     }
+
+
+    public interface IScenario { }
+
+    public interface IScenarioContext: IScenarioCreator, IFlowCreator { }
+
+
+    public interface IScenarioCreator
+    {
+        public T CreateScenario<T>() where T : IScenario;
+    }
 }

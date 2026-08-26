@@ -3,6 +3,7 @@ using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
 using Assets.Scripts.TowerDefenseGame.Flow;
 using Assets.Scripts.TowerDefenseGame.Player;
+using Assets.Scripts.TowerDefenseGame.Scenario;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using UnityEngine;
 
@@ -40,25 +41,25 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             RegisterFlowCreation(CreateSelectedTowerMaintenanceFlow);
             RegisterFlowCreation(CreateTowerBindFlow);
 
-            RegisterFlowCreation(CreateTowerRoleFlow);
-            RegisterFlowCreation(CreateEnemyRoleFlow);
+            RegisterScenarioCreation(CreateTowerScenario);
+            RegisterScenarioCreation(CreateEnemyScenario);
 
         }
 
         private void InitDirectors()
         {
 
-            var playerInputDirectorContext = new PlayerInputDirectorContext(this);
-            playerInputDirector.Init(playerInputDirectorContext);
+            var playerInputScenario = new PlayerInputScenario(this);
+            playerInputDirector.Init(playerInputScenario);
 
-            var towerBuildDirectorContext = new TowerBuildDirectorContext(this);
-            towerBuildDirector.Init(towerBuildDirectorContext);
+            var towerBuildScenario = new TowerBuildScenario(this);
+            towerBuildDirector.Init(towerBuildScenario);
 
-            var towerBuffDirectorContext = new TowerBuffDirectorContext(this);
-            towerBuffDirector.Init(towerBuffDirectorContext);
+    
+            towerBuffDirector.Init();
 
-            var enemyWaveDirectorContext = new EnemyWaveDirectorContext(this);
-            enemyWaveDirector.Init(enemyWaveDirectorContext);
+            var enemyWaveScenario = new EnemyWaveScenario(this);
+            enemyWaveDirector.Init(enemyWaveScenario);
 
 
         }
@@ -83,18 +84,21 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             return flow;
         }
 
-        private TowerRoleFlow CreateTowerRoleFlow()
+
+        #endregion
+        #region ScenarioFactory
+
+        private TowerScenario CreateTowerScenario()
         {
-            var flow = new TowerRoleFlow(enemyWaveDirector,towerBuffDirector);
-            return flow;
+            var scenario = new TowerScenario(enemyWaveDirector, towerBuffDirector);
+            return scenario;
         }
 
-        private EnemyRoleFlow CreateEnemyRoleFlow()
+        private EnemyScenario CreateEnemyScenario()
         {
-            var flow = new EnemyRoleFlow(enemyWaveDirector, player.HPModule, player.GoldModule);
-            return flow;
+            var scenario = new EnemyScenario(enemyWaveDirector, player.HPModule, player.GoldModule);
+            return scenario;
         }
-
         #endregion
 
     }

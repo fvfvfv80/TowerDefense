@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.TowerDefenseGame.Tower.Feature;
+﻿using Assets.Scripts.TowerDefenseGame.Scenario;
+using Assets.Scripts.TowerDefenseGame.Tower.Feature;
 using Assets.Scripts.TowerDefenseGame.Tower.Gameplay;
 using Assets.Scripts.TowerDefenseGame.Weapon;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         [SerializeField]
         private TowerGameplay towerGameplay;
 
-        private TowerRoleFlow _towerRole;
+        private TowerScenario _towerScenario;
 
         private int _towerLevel;
 
@@ -68,9 +69,9 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             towerGameplay.Setup();
         }
 
-        public void SetupRole(TowerRoleFlow towerRole)
+        public void SetupScenario(TowerScenario towerScenario)
         {
-            _towerRole = towerRole;
+            _towerScenario = towerScenario;
         }
 
         public void StartTower()
@@ -111,12 +112,12 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public IEnumerable<BaseActor> RequestBuffTargetList()
         {
-            return _towerRole.FindBuffTargetList();
+            return _towerScenario.FindBuffTargetList();
         }
 
         public IEnumerable<BaseActor> RequestTargetList()
         {
-            return _towerRole.FindAttackTargetList();
+            return _towerScenario.FindAttackTargetList();
         }
 
         public void RequestUpdateStat()

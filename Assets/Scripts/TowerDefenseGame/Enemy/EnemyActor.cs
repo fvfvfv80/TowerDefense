@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.TowerDefenseGame.Scenario;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
@@ -18,7 +19,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public EnemyHPModule EnemyHP { get; private set; }
 
-        private EnemyRoleFlow _enemyRole;
+        private EnemyScenario _enemyScenario;
 
 
         public int RewardGold => gold;
@@ -38,9 +39,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        public void SetupRole(EnemyRoleFlow enemyRole)
+        public void SetupScenario(EnemyScenario enemyScenario)
         {
-            _enemyRole = enemyRole;
+            _enemyScenario = enemyScenario;
         }
 
         public void SetupPath(Transform[] wayPoints)
@@ -82,11 +83,11 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyRole.NotifyReachGoal(this);
+                _enemyScenario.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyRole.NotifyKilled(this);
+                _enemyScenario.NotifyKilled(this);
             }
 
         }

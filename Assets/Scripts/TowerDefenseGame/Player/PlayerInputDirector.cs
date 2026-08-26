@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Core;
-using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.Flow;
-using Assets.Scripts.TowerDefenseGame.Tower;
-using System;
+using Assets.Scripts.TowerDefenseGame.Scenario;
 using UnityEngine;
 
 
@@ -10,27 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
 
-    public class PlayerInputDirectorContext : IContext
-    {
-        private readonly IFlowCreator _flowCreator;
 
-
-        public PlayerInputDirectorContext(IFlowCreator flowCreator)
-        {
-            _flowCreator = flowCreator;
-        }
-
-        public PlayerTowerBuildFlow CreateTowerBuildFlow()
-        {
-            return _flowCreator.CreateFlow<PlayerTowerBuildFlow>();
-        }
-
-        public SelectedTowerMaintenanceFlow CreateTowerMaintenanceFlow()
-        {
-            return _flowCreator.CreateFlow<SelectedTowerMaintenanceFlow>();
-        }
-
-    }
      
     public class PlayerInputDirector : MonoBehaviour, IPlayerInputHost
     {
@@ -38,15 +16,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         [SerializeField]
         private PlayerInputGameplay playerInputGameplay;
 
-        private PlayerTowerBuildFlow _playerTowerBuildFlow;
-
-        private SelectedTowerMaintenanceFlow _selectedTowerMaintenanceFlow;
-
-        private PlayerInputDirectorContext _context;
-
-
-        private bool IsBuilding => _playerTowerBuildFlow != null;
-        private bool IsMaintaining => _selectedTowerMaintenanceFlow != null;
+        private PlayerInputScenario _playerInputScenario;
 
 
         private void Awake()
@@ -55,9 +25,9 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         }
 
 
-        public void Init(PlayerInputDirectorContext context)
+        public void Init(PlayerInputScenario scenario)
         {
-            _context = context;
+            _playerInputScenario = scenario;
 
             playerInputGameplay = GetComponent<PlayerInputGameplay>();
 
@@ -66,105 +36,45 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
 
 
-
         //인풋 모듈이면 여기 있는게 자연스럽고 게임플레이면 아래 메소드들은 게임플레이쪽이 자연스러울지도..
         #region HandlePlayerInput 
 
         public void RequestEnterTowerBuild(int towerType)
         {
-            HandleBuildEnterRequest(towerType);
+            _playerInputScenario.StartBuild(towerType);
         }
 
         public void RequestBuildTower(Transform tileTransform)
         {
-            _playerTowerBuildFlow?.BuildTower(tileTransform);
+            _playerInputScenario.BuildTower(tileTransform);
         }
 
         public void RequestSelectTower(Transform towerTransform)
         {
-            if (IsBuilding)
-                return;
-
-            var towerActor = towerTransform.GetComponent<TowerActor>();
-
-            _selectedTowerMaintenanceFlow = _context.CreateTowerMaintenanceFlow();
-
-            _selectedTowerMaintenanceFlow.Completed += HandleMaintenanceFlowEnd;
-
-            _selectedTowerMaintenanceFlow.StartMaintenance(towerActor);
+            _playerInputScenario.SelectTower(towerTransform);
 
         }
 
-
-
         public void RequestUpgradeTower()
         {
-            _selectedTowerMaintenanceFlow.UpgradeTower();
+            _playerInputScenario.UpgradeTower();
         }
 
         public void RequestSellTower()
         {
-            _selectedTowerMaintenanceFlow.SellTower();
+            _playerInputScenario.SellTower();
 
         }
-
 
         public void RequestCancelPlayerAction()
         {
-            //정비중이면 먼저 꺼지게?
-            if (IsMaintaining)
-            {
-                EndMaintenanceFlow();
-            }
-            else if (IsBuilding)
-            {
-                EndBuildFlow();
-            }
-          
+            _playerInputScenario.CancelPlayerAction();
+
         }
-
-
-
         #endregion
 
 
-        private void HandleBuildEnterRequest(int towerType)
-        {
-            //진행중인 플로우 종료
-            EndMaintenanceFlow();
-            EndBuildFlow();
-
-            _playerTowerBuildFlow = _context.CreateTowerBuildFlow();
-
-            _playerTowerBuildFlow.Completed += HandleBuildFlowComplete;
-
-            _playerTowerBuildFlow.EnterBuildReady(towerType);
-
-        }
-
-        private void HandleBuildFlowComplete()
-        {
-            EndBuildFlow();
-        }
-
-        private void HandleMaintenanceFlowEnd()
-        {
-            EndMaintenanceFlow();
-        }
-
-
-        private void EndBuildFlow()
-        {
-            _playerTowerBuildFlow?.EndFlow();
-            _playerTowerBuildFlow = null;
-        }
-
-        private void EndMaintenanceFlow()
-        {
-            _selectedTowerMaintenanceFlow?.EndFlow();
-            _selectedTowerMaintenanceFlow = null;
-        }
-
+    
 
 
     }

@@ -1,34 +1,24 @@
 ﻿using Assets.Scripts.Core;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public class TowerBuffDirectorContext:IContext
-    {
-        private IFlowCreator _flowCreator;
 
-        public TowerBuffDirectorContext(IFlowCreator flowCreator)
-        {
-            _flowCreator = flowCreator;
-        }
-    }
 
 
     public class TowerBuffDirector : MonoBehaviour
     {
 
-        private TowerBuffDirectorContext _context;
 
         private readonly HashSet<TowerActor> _towerSet = new();
 
         public List<TowerActor> CurrentTowers => _towerSet.ToList();
 
-        public void Init(TowerBuffDirectorContext context)
+        public void Init()
         {
-            _context = context;
+
         }
 
 
