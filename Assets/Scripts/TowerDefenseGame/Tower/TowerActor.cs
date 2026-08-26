@@ -5,10 +5,8 @@ using Assets.Scripts.TowerDefenseGame.Weapon;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-
 
     public enum TowerType
     {
@@ -23,16 +21,15 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         IEnumerable<BaseActor> FindBuffTargetList();
     }
 
-
     public class TowerActor : BaseActor, ITowerSupportHost, IWeaponModuleHost, ITowerStatHost
     {
         [SerializeField]
         private TowerType towerType;
 
-        [SerializeField] 
+        [SerializeField]
         private TowerTemplateSO towerTemplate;
 
-        [SerializeField] 
+        [SerializeField]
         private SpriteRenderer towerRenderer;
 
         [SerializeField]
@@ -53,7 +50,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public bool IsMaxLevel => _towerLevel == MaxLevel - 1;
 
-
         public int UpgradeCost => towerTemplate.weapon[Mathf.Min(MaxLevel - 1, _towerLevel + 1)].cost;
 
         public int SellCost => towerTemplate.weapon[_towerLevel].sell;
@@ -63,7 +59,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public TowerStatModule StatModule => towerStatModule;
 
         public IStatGetter TowerStat => towerStatModule;
-
 
         public void Init()
         {
@@ -111,22 +106,28 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
             towerGameplay.Release();
 
-
         }
 
 
-        #region TowerModuleHandle
-
+        #region ITowerSupportHost
 
         public IEnumerable<BaseActor> RequestBuffTargetList()
         {
             return _towerScenario.FindBuffTargetList();
         }
 
+        #endregion
+
+        #region IWeaponModuleHost
+
         public IEnumerable<BaseActor> RequestTargetList()
         {
             return _towerScenario.FindAttackTargetList();
         }
+
+        #endregion
+
+        #region ITowerStatHost
 
         public void RequestUpdateStat()
         {

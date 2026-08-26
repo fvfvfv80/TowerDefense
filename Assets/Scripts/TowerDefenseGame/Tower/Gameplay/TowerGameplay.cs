@@ -9,8 +9,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
     public struct TowerGameplayCommand
     {
         public TowerGameplayCommandType type;
-        public TowerActor buffTargetTower; 
-
+        public TowerActor buffTargetTower;
 
     }
     public abstract class TowerGameplay : MonoBehaviour
@@ -23,7 +22,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
         public abstract void StartGameplay();
 
         public virtual void ApplyLevel(int level) { }
-   
+
         public virtual void HandleCommand(TowerGameplayCommand command) { }
 
         public abstract void Release();

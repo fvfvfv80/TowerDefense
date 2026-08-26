@@ -2,14 +2,11 @@
 using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
 
-
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class EnemyWaveScenario: IEnemyWaveScenario,IScenario
+    public class EnemyWaveScenario : IEnemyWaveScenario, IScenario
     {
         private readonly IScenarioContext _scenarioContext;
-
-
 
         public EnemyWaveScenario(IScenarioContext scenarioContext)
         {

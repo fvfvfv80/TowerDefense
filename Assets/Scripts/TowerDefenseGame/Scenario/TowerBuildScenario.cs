@@ -10,7 +10,6 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         private readonly TowerBindFlow _towerBindFlow;
 
-
         public TowerBuildScenario(IScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -19,6 +18,7 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         }
 
+        #region ITowerBuildScenario
 
         public void NotifyTowerBuilt(TowerActor towerActor)
         {
@@ -32,5 +32,7 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
         {
             _towerBindFlow.UnbindTower(towerActor);
         }
+
+        #endregion
     }
 }

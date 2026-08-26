@@ -4048,7 +4048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158f0f4f426425a499d28e730ffdf9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.SceneRoot.TowerDefenseGameSceneRoot
-  playerInputDirector: {fileID: 1741533842}
+  playerActionDirector: {fileID: 1741533842}
   towerBuildDirector: {fileID: 705289478}
   towerBuffDirector: {fileID: 186350281}
   enemyWaveDirector: {fileID: 413607951}
@@ -10258,7 +10258,7 @@ GameObject:
   - component: {fileID: 1741533842}
   - component: {fileID: 1741533841}
   m_Layer: 0
-  m_Name: PlayerInputDirector
+  m_Name: PlayerActionDirector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

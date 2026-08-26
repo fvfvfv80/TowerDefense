@@ -20,7 +20,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         [SerializeField]
         private TowerSpawnModule towerSpawnModule;
 
-
         [SerializeField]
         private PopupTowerUIViewer towerPopup;
 
@@ -29,22 +28,17 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private ITowerBuildScenario _towerBuildScenario;
 
-
         private readonly Dictionary<TowerActor, Tile> _towerPlacementDict = new();
-
-
 
         public void Init(ITowerBuildScenario scenario)
         {
             _towerBuildScenario = scenario;
-
- 
         }
 
-        public bool CheckTowerBuildCostEnough(int towerType,int gold)
+        public bool CheckTowerBuildCostEnough(int towerType, int gold)
         {
             var towerCost = towerTemplates[towerType].weapon[0].cost;
-            if(towerCost > gold)
+            if (towerCost > gold)
             {
                 systemTextViewer.PrintText(MESSAGE.MONEY);
                 return false;
@@ -53,16 +47,15 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             return true;
         }
 
-
         public bool TryBuildTower(int towerType, Transform tileTransform, out int buildCost)
         {
             var tile = tileTransform.GetComponent<Tile>();
             buildCost = 0;
             if (tile.IsBuildTower)
             {
-                
+
                 systemTextViewer.PrintText(MESSAGE.BUILD);
-                
+
                 return false;
             }
 
@@ -70,40 +63,32 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
             var towerPrefab = towerTemplates[towerType].towerPrefab;
 
-     
-            var towerActor = towerSpawnModule.SpawnTower(towerPrefab,tile.transform);
+            var towerActor = towerSpawnModule.SpawnTower(towerPrefab, tile.transform);
 
             _towerBuildScenario.NotifyTowerBuilt(towerActor);
             towerActor.StartTower();
 
             _towerPlacementDict[towerActor] = tile;
 
-
-
             buildCost = towerTemplates[towerType].weapon[0].cost;
 
             return true;
         }
 
-       
         public bool TryDemolishTower(TowerActor towerActor, out int sellPrice)
         {
 
             sellPrice = towerActor.SellCost;
 
-
             _towerPlacementDict[towerActor].IsBuildTower = false;
             _towerPlacementDict.Remove(towerActor);
-
 
             _towerBuildScenario.NotifyTowerDemolished(towerActor);
 
             towerSpawnModule.DespawnTower(towerActor);
 
-
             return true;
         }
-
 
         public GameObject SpawnFollowTowerPreview(int towerType)
         {
@@ -111,13 +96,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             return clone;
         }
 
-
-
         public void ShowTowerDetail(TowerActor towerActor)
         {
             towerPopup.ShowPopup(towerActor);
         }
-
 
         public bool TryUpgradeTower(TowerActor tower, int currentGold, out int upgradeCost)
         {
@@ -129,24 +111,20 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
                 return false;
             }
 
-
             if (currentGold < upgradeCost)
             {
-                //실패 피드백
+
                 systemTextViewer.PrintText(MESSAGE.MONEY);
 
                 return false;
 
             }
 
-
-
             tower.UpgradeTower();
             towerPopup.UpdatePopup();
 
             return true;
         }
-
 
         public void HideTowerDetail()
         {

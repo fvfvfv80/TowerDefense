@@ -14,18 +14,37 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         private SelectedTowerMaintenanceFlow _selectedTowerMaintenanceFlow;
 
-
         private bool IsBuilding => _playerTowerBuildFlow != null;
         private bool IsMaintaining => _selectedTowerMaintenanceFlow != null;
-
-
 
         public PlayerActionScenario(IScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
+        private void HandleBuildFlowComplete()
+        {
+            EndBuildFlow();
+        }
 
+        private void HandleMaintenanceFlowEnd()
+        {
+            EndMaintenanceFlow();
+        }
+
+        private void EndBuildFlow()
+        {
+            _playerTowerBuildFlow?.EndFlow();
+            _playerTowerBuildFlow = null;
+        }
+
+        private void EndMaintenanceFlow()
+        {
+            _selectedTowerMaintenanceFlow?.EndFlow();
+            _selectedTowerMaintenanceFlow = null;
+        }
+
+        #region IPlayerActionScenario
         public void BeginTowerBuild(int towerType)
         {
             EndMaintenanceFlow();
@@ -82,28 +101,7 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         }
 
-        private void HandleBuildFlowComplete()
-        {
-            EndBuildFlow();
-        }
-
-        private void HandleMaintenanceFlowEnd()
-        {
-            EndMaintenanceFlow();
-        }
-
-        private void EndBuildFlow()
-        {
-            _playerTowerBuildFlow?.EndFlow();
-            _playerTowerBuildFlow = null;
-        }
-
-        private void EndMaintenanceFlow()
-        {
-            _selectedTowerMaintenanceFlow?.EndFlow();
-            _selectedTowerMaintenanceFlow = null;
-        }
-
+        #endregion
 
     }
 }

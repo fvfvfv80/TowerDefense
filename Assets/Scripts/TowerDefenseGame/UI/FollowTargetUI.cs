@@ -9,7 +9,6 @@ public class FollowTargetUI : MonoBehaviour
     private RectTransform _rectTransform;
     private Camera _mainCamera;
 
-
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();

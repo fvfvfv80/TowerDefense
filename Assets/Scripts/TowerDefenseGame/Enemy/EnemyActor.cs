@@ -15,17 +15,16 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private Transform hudPoint;
 
         [SerializeField]
-        public EnemyHPModule enemyHP;
+        private EnemyHPModule enemyHP;
 
         [SerializeField]
-        public EnemyAnimationModule enemyAnimationModule;
+        private EnemyAnimationModule enemyAnimationModule;
 
         [SerializeField]
-        public EnemyMovementModule enemyMovement;
+        private EnemyMovementModule enemyMovement;
 
         [SerializeField]
         private int gold = 10;
-
 
         private IEnemyScenario _enemyScenario;
 
@@ -33,10 +32,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public int RewardGold => gold;
 
-
         public Transform HUDPoint => hudPoint;
-
-
 
         public void SetupScenario(IEnemyScenario enemyScenario)
         {
@@ -54,11 +50,10 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             enemyHP.Init(this);
         }
 
-
         public void Setup()
         {
             enemyHP.Setup();
-            
+
         }
 
         public void StartEnemy()
@@ -71,7 +66,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        #region EnemyHandle
+        #region IEnemyModuleHost
 
         public void RequestHit()
         {
@@ -92,5 +87,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         }
 
         #endregion
+
+
+
+
     }
 }

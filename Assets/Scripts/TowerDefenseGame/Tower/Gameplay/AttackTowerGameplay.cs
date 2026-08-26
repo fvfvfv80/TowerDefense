@@ -6,10 +6,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
     public class AttackTowerGameplay : TowerGameplay
     {
 
-        [SerializeField] 
+        [SerializeField]
         private TowerWeaponModule towerWeaponModule;
-
-
 
         public override void Init(TowerActor towerActor)
         {
@@ -37,9 +35,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
 
         public override void Release()
         {
-            
-        }
 
+        }
 
     }
 }

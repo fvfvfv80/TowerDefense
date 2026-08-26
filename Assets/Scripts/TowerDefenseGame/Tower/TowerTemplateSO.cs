@@ -22,6 +22,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             public int cost;        // 필요 골드
             public int sell;        // 타워 판매 시 획득 골드
         }
-       
+
     }
 }

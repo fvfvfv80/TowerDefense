@@ -3,7 +3,6 @@
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
 
-    
     public interface IPlayerInputHost
     {
         void RequestBuildTower(Transform tileTransform);

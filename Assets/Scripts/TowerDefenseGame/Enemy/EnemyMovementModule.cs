@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
     public class EnemyMovementModule : MonoBehaviour
@@ -19,11 +18,8 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             set => timeOffset = Mathf.Min(value, 5.0f);
         }
 
-
-
         private int _wayPointCount;
         private int _currentIndex = 0;
-
 
         private IEnemyModuleHost _enemyHandler;
 
@@ -92,7 +88,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
             transform.position = end;
         }
-
 
     }
 }

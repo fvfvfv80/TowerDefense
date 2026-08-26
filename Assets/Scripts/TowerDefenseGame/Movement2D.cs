@@ -11,7 +11,6 @@ public class Movement2D : MonoBehaviour
 
     public float MoveSpeed => moveSpeed;
 
-
     private void Update()
     {
         transform.position += moveDirection * MoveSpeed * Time.deltaTime;

@@ -32,7 +32,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
 
         public override void HandleCommand(TowerGameplayCommand command)
         {
-            switch(command.type)
+            switch (command.type)
             {
                 case TowerGameplayCommandType.ApplyBuff:
                     towerSupportModule.TryApplyBuff(command.buffTargetTower);
@@ -44,7 +44,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
         {
             towerSupportModule.EndSupport();
         }
-
 
     }
 }

@@ -7,7 +7,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
     {
         [SerializeField]
         private TowerStatModule towerStatModule;
-        [SerializeField] 
+        [SerializeField]
         private AreaEffectEmitterModule areaEffectEmitterModule;
 
         public void Init(TowerActor towerActor)
@@ -17,13 +17,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 
         public void ApplyLevel(int level)
         {
-            
 
             var effectData = new EffectData()
             {
                 slow = towerStatModule.BaseSpec.slow
             };
-
 
             var stat = new EmitterStat(towerStatModule.BaseSpec.range, effectData);
 

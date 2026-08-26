@@ -2,14 +2,12 @@ using Assets.Scripts.TowerDefenseGame.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class PlayerInputGameplay : MonoBehaviour
 {
     private IPlayerInputHost _playerInputHost;
 
     private Camera _mainCamera;
     private Vector2 _screenPoint;
-
 
     private void Awake()
     {
@@ -20,7 +18,6 @@ public class PlayerInputGameplay : MonoBehaviour
     {
         _playerInputHost = playerHandler;
     }
-
 
     public void OnPoint(InputAction.CallbackContext context)
     {
@@ -61,7 +58,6 @@ public class PlayerInputGameplay : MonoBehaviour
 
         _playerInputHost.RequestCancelPlayerAction();
 
-
     }
 
     public void OnTowerUpgradeButtonClick()
@@ -74,9 +70,6 @@ public class PlayerInputGameplay : MonoBehaviour
         _playerInputHost.RequestSellTower();
     }
 
-
-
-
     private void Update()
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame ||
@@ -86,8 +79,5 @@ public class PlayerInputGameplay : MonoBehaviour
             OnEscape();
         }
     }
-
-
-
 
 }

@@ -40,6 +40,5 @@ namespace Assets.Scripts.Core
             _scenarioCreationDict.Add(typeof(T), creation);
         }
 
-
     }
 }

@@ -5,18 +5,12 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
 
-
-
     public class TowerBuffDirector : MonoBehaviour
     {
 
         private readonly HashSet<TowerActor> _towerSet = new();
 
         public List<TowerActor> CurrentTowers => _towerSet.ToList();
-
-        public void Init() { }
-
-
 
         public void RegisterTower(TowerActor towerActor)
         {
@@ -31,8 +25,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
             _towerSet.Remove(towerActor);
         }
-
-
 
     }
 }

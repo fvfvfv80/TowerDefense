@@ -34,15 +34,12 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         [SerializeField]
         private TowerAttackRangeDisplayModule towerAttackRange;
 
-
         private TowerActor _currentTower;
 
         private void Awake()
         {
             OffPopup();
         }
-
-
 
         public void ShowPopup(TowerActor towerActor)
         {
@@ -53,7 +50,6 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
             towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerStat.BaseSpec.range);
         }
-
 
         public void OffPopup()
         {
@@ -66,10 +62,10 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             var towerType = _currentTower.TowerType;
             var towerStat = _currentTower.TowerStat; // 이걸 모듈이아니라 dto로 넘겨줄수도있음 
 
-            if(towerType == TowerType.Cannon|| towerType == TowerType.Laser)
+            if (towerType == TowerType.Cannon || towerType == TowerType.Laser)
             {
                 imageTower.rectTransform.sizeDelta = new Vector2(88, 59);
-                textDamage.text = $"Damage: {towerStat.BaseSpec.damage}"+
+                textDamage.text = $"Damage: {towerStat.BaseSpec.damage}" +
                                   $" + <color=red>{towerStat.AddedDamage:F1}</color>";
             }
             else
@@ -87,7 +83,6 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             textRate.text = $"Rate: {towerStat.BaseSpec.rate}";
             textRange.text = $"Range: {towerStat.BaseSpec.range}";
             textLevel.text = $"Level: {_currentTower.Level + 1}";
-
 
             textUpgradeCost.text = $"{_currentTower.UpgradeCost}";
             textSellCost.text = $"{_currentTower.SellCost}";

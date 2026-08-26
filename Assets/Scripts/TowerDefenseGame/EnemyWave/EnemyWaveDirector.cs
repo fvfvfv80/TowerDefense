@@ -13,7 +13,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         void NotifyEnemySpawned(EnemyActor enemyActor);
     }
 
-
     public class EnemyWaveDirector : MonoBehaviour
     {
         [SerializeField]
@@ -26,17 +25,11 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
-
-
-
         public void Init(IEnemyWaveScenario enemyWaveScenario)
         {
             _enemyWaveScenario = enemyWaveScenario;
             enemyWaveGameplay.Init(this);
         }
-
-      
-
 
         public void OnEnemyWaveStartButtonClick()
         {
@@ -48,7 +41,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             enemyWaveGameplay.StartWave();
         }
 
-
         public void DespawnWaveEnemy(EnemyActor enemyActor)
         {
             enemyWaveGameplay.RemoveWaveEnemy(enemyActor);
@@ -57,12 +49,10 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         }
 
-
         public void NotifyEnemySpawned(EnemyActor enemyActor)
         {
             _enemyWaveScenario.NotifyEnemySpawned(enemyActor);
         }
-
 
     }
 }

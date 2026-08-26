@@ -3,7 +3,6 @@ using Assets.Scripts.TowerDefenseGame.EnemyWave;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using System.Collections.Generic;
 
-
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
     public class TowerScenario : ITowerScenario, IScenario
@@ -11,7 +10,6 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
         private EnemyWaveDirector _enemyWaveDirector;
 
         private TowerBuffDirector _towerBuffDirector;
-
 
         public TowerScenario(EnemyWaveDirector enemyWaveDirector, TowerBuffDirector towerBuffDirector)
         {

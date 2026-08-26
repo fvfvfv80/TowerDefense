@@ -17,7 +17,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
     }
 
-    public class TowerStatModule : MonoBehaviour,IStatGetter
+    public class TowerStatModule : MonoBehaviour, IStatGetter
     {
         [SerializeField]
         private TowerTemplateSO towerTemplate;
@@ -36,7 +36,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private readonly TowerDamageBuffStack _damageBuffStack = new();
 
-
         public float BaseDamage => _baseDamage;
 
         public TowerTemplateSO.WeaponSpec BaseSpec => towerTemplate.weapon[_level];
@@ -49,12 +48,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public float Range => _range;
 
-        
         public void Init(ITowerStatHost host)
         {
             _host = host;
         }
-        
+
         public void Setup()
         {
             ApplyLevel(0);
@@ -72,7 +70,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             UpdateStat();
 
         }
-
 
         //버프 받는 모듈로 따로 분리 가능성 있음
 

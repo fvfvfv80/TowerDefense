@@ -9,12 +9,9 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
     {
         private EnemyWaveDirector _enemyWaveDirector;
 
-
         private PlayerHPModule _playerHP;
 
-
         private PlayerGoldModule _playerGold;
-
 
         public EnemyScenario(EnemyWaveDirector enemyWaveDirector, PlayerHPModule playerHPModule, PlayerGoldModule playerGoldModule)
         {
@@ -44,7 +41,6 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
             _enemyWaveDirector.DespawnWaveEnemy(enemyActor);
 
         }
-
 
     }
 }

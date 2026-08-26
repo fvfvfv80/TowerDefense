@@ -14,7 +14,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
         [SerializeField]
         private LayerMask targetLayer;
 
-
         public override void Init(WeaponModule weaponModule)
         {
             base.Init(weaponModule);
@@ -41,14 +40,12 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             DisableLaser();
         }
 
-
         public override void ApplyWeaponLevel(int level)
         {
             lineRenderer.startWidth = 0.05f + level * 0.05f;
 
             lineRenderer.endWidth = 0.05f;
         }
-
 
         private void EnableLaser()
         {
@@ -61,7 +58,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             lineRenderer.gameObject.SetActive(false);
             hitEffect.gameObject.SetActive(false);
         }
-
 
         private void UpdateLaserPosition()
         {

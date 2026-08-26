@@ -7,7 +7,6 @@ public class Projectile : MonoBehaviour
     private Transform _target;
     private float _damage;
 
-
     public void Init()
     {
         _movement2D = GetComponent<Movement2D>();

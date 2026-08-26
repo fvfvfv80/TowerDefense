@@ -25,6 +25,5 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         }
 
-
     }
 }

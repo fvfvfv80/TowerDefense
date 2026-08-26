@@ -18,10 +18,9 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
             towerEffectModule.ApplyLevel(0);
         }
 
-
         public override void StartGameplay()
         {
-            
+
         }
 
         public override void ApplyLevel(int level)
@@ -31,12 +30,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
 
         public override void UpdateStat() { }
 
-
         public override void Release()
         {
-            
-        }
 
+        }
 
     }
 }

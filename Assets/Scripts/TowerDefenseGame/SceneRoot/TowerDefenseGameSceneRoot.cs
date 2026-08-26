@@ -11,7 +11,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
     public class TowerDefenseGameSceneRoot : BaseSceneRoot
     {
         [SerializeField]
-        private PlayerActionDirector playerInputDirector;
+        private PlayerActionDirector playerActionDirector;
 
         [SerializeField]
         private TowerBuildDirector towerBuildDirector;
@@ -24,7 +24,6 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
         [SerializeField]
         private PlayerActor player;
-
 
         private void Awake()
         {
@@ -48,18 +47,14 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         private void InitDirectors()
         {
 
-            var playerInputScenario = new PlayerActionScenario(this);
-            playerInputDirector.Init(playerInputScenario);
+            var playerActionScenario = new PlayerActionScenario(this);
+            playerActionDirector.Init(playerActionScenario);
 
             var towerBuildScenario = new TowerBuildScenario(this);
             towerBuildDirector.Init(towerBuildScenario);
 
-    
-            towerBuffDirector.Init();
-
             var enemyWaveScenario = new EnemyWaveScenario(this);
             enemyWaveDirector.Init(enemyWaveScenario);
-
 
         }
 
@@ -82,7 +77,6 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             var flow = new TowerBindFlow(towerBuffDirector);
             return flow;
         }
-
 
         #endregion
         #region ScenarioFactory

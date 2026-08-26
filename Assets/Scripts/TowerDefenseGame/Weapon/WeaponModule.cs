@@ -36,7 +36,7 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
         [SerializeField]
         private Transform spawnPoint;
 
-        [SerializeField] 
+        [SerializeField]
         private Transform rotateTarget;
 
         [SerializeField]
@@ -57,7 +57,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
         public float Damage => _stat.damage;
         public float Rate => _stat.rate;
         public float Range => _stat.range;
-
 
         public void Init(IWeaponModuleHost host)
         {
@@ -87,7 +86,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             StartCoroutine(_weaponState.ToString());
         }
 
-
         private void Update()
         {
             if (_attackTarget != null)
@@ -105,7 +103,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
 
             rotateTarget.rotation = Quaternion.Euler(0, 0, degree);
         }
-
 
         private IEnumerator SearchClosestTarget()
         {
@@ -142,7 +139,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             }
         }
 
-
         private Transform FindClosestTarget()
         {
             Transform closestTarget = null;
@@ -153,7 +149,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             foreach (var target in targetList)
             {
                 float distance = Vector3.Distance(target.transform.position, transform.position);
-
 
                 if (distance <= _stat.range && distance < closestDistance)
                 {
@@ -174,7 +169,6 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
             }
 
             float distance = Vector3.Distance(_attackTarget.position, transform.position);
-
 
             if (distance > _stat.range)
             {

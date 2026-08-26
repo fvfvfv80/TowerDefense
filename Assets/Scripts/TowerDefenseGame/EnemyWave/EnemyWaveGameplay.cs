@@ -16,7 +16,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
     }
 
-
     public class EnemyWaveGameplay : MonoBehaviour
     {
         [SerializeField]
@@ -26,9 +25,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         private Wave[] waves;
 
         [SerializeField]
-        private Transform[] wayPoints; 
-
-
+        private Transform[] wayPoints;
 
         private EnemyWaveDirector _enemyWaveDirector;
 
@@ -48,9 +45,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         public int MaxWave => waves.Length;
 
-
-
-
         public void Init(EnemyWaveDirector enemyWaveDirector)
         {
             _enemyWaveDirector = enemyWaveDirector;
@@ -68,7 +62,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             }
         }
 
-
         private IEnumerator SpawnEnemy()
         {
             int spawnEnemyCount = 0;
@@ -76,8 +69,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             while (spawnEnemyCount < _currentWave.maxEnemyCount)
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
-
-
 
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
@@ -93,7 +84,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
                 yield return new WaitForSeconds(_currentWave.spawnTime);
             }
         }
-
 
         public void RemoveWaveEnemy(EnemyActor enemyActor)
         {

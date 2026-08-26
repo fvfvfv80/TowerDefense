@@ -28,7 +28,6 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         [SerializeField]
         private EnemyWaveGameplay enemyWaveGameplay;
 
-
         private void Update()
         {
             textPlayerHP.text = $"{playerHP.CurrentHP}/{playerHP.MaxHP}";
@@ -39,6 +38,6 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
             textEnemy.text = $"{enemyWaveGameplay.CurrentEnemyCount}/{enemyWaveGameplay.MaxWaveEnemyCount}";
         }
-        
+
     }
 }

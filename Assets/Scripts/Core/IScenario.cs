@@ -8,7 +8,6 @@ namespace Assets.Scripts.Core
 
     public interface IScenarioContext : IScenarioCreator, IFlowCreator { }
 
-
     public interface IScenarioCreator
     {
         public T CreateScenario<T>() where T : IScenario;

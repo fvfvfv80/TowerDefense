@@ -42,8 +42,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
             OnBuffAroundTower();
         }
 
-
-
         public void StartSupport()
         {
             OnBuffAroundTower();
@@ -54,13 +52,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
             OffBuffAroundTower();
         }
 
-        
-
         public void OnBuffAroundTower()
         {
             var buffTargetList = _supportHost.RequestBuffTargetList();
 
-            foreach(var target in buffTargetList)
+            foreach (var target in buffTargetList)
             {
                 if (target is TowerActor towerActor)
                 {

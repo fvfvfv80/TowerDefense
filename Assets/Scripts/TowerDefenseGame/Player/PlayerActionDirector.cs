@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-
-
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
 
@@ -21,61 +19,52 @@ namespace Assets.Scripts.TowerDefenseGame.Player
         [SerializeField]
         private PlayerInputGameplay playerInputGameplay;
 
-        private IPlayerActionScenario _playerInputScenario;
-
-
+        private IPlayerActionScenario _playerActionScenario;
 
         public void Init(IPlayerActionScenario scenario)
         {
-            _playerInputScenario = scenario;
+            _playerActionScenario = scenario;
 
             playerInputGameplay = GetComponent<PlayerInputGameplay>();
 
             playerInputGameplay.Init(this);
         }
 
-
-
-        //인풋 모듈이면 여기 있는게 자연스럽고 게임플레이면 아래 메소드들은 게임플레이쪽이 자연스러울지도..
-        #region HandlePlayerInput 
+        #region IPlayerInputHost
 
         public void RequestEnterTowerBuild(int towerType)
         {
-            _playerInputScenario.BeginTowerBuild(towerType);
+            _playerActionScenario.BeginTowerBuild(towerType);
         }
 
         public void RequestBuildTower(Transform tileTransform)
         {
-            _playerInputScenario.BuildTower(tileTransform);
+            _playerActionScenario.BuildTower(tileTransform);
         }
 
         public void RequestSelectTower(Transform towerTransform)
         {
-            _playerInputScenario.SelectTower(towerTransform);
+            _playerActionScenario.SelectTower(towerTransform);
 
         }
 
         public void RequestUpgradeTower()
         {
-            _playerInputScenario.UpgradeTower();
+            _playerActionScenario.UpgradeTower();
         }
 
         public void RequestSellTower()
         {
-            _playerInputScenario.SellTower();
+            _playerActionScenario.SellTower();
 
         }
 
         public void RequestCancelPlayerAction()
         {
-            _playerInputScenario.CancelPlayerAction();
+            _playerActionScenario.CancelPlayerAction();
 
         }
         #endregion
-
-
-    
-
 
     }
 
