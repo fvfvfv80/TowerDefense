@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower.GamePlay
+namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
 {
     public enum TowerGameplayCommandType
     {
@@ -28,5 +27,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.GamePlay
         public virtual void HandleCommand(TowerGameplayCommand command) { }
 
         public abstract void Release();
+
+        public abstract void UpdateStat();
+
     }
 }

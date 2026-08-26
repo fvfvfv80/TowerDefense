@@ -17,7 +17,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             _flowCreator = flowCreator;
         }
 
-        public TowerRoleFlow CreateTowerFlow()
+        public TowerRoleFlow CreateTowerRoleFlow()
         {
             return _flowCreator.CreateFlow<TowerRoleFlow>();
         }
@@ -96,8 +96,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             _towerBindFlow.BindTower(towerActor);
 
             //타워 스폰 플로우로 생성받기
-            var towerRoleFlow = _context.CreateTowerFlow();
-            towerActor.SetupContext(towerRoleFlow);
+            var towerRoleFlow = _context.CreateTowerRoleFlow();
+            towerActor.SetupRole(towerRoleFlow);
             towerActor.StartTower();
 
             _towerPlacementDict[towerActor] = tile;

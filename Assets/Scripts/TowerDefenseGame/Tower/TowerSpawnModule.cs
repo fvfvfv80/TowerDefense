@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Core;
-using System.Collections;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
@@ -11,7 +8,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
             Vector3 position = tileTransform.position + Vector3.back;
 
-            var clone = Instantiate(towerPrefab, position, quaternion.identity);
+            var clone = Instantiate(towerPrefab, position, Quaternion.identity);
 
             var towerActor = clone.GetComponent<TowerActor>();
 

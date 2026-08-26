@@ -1,16 +1,19 @@
 ﻿using Assets.Scripts.TowerDefenseGame.TowerBuff;
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
 
+    public interface ITowerStatHost
+    {
+        void RequestUpdateStat();
+    }
+
     public interface IStatGetter
     {
         TowerTemplateSO.WeaponSpec BaseSpec { get; }
 
-        public float AddedDamage { get; }
+        float AddedDamage { get; }
 
     }
 
@@ -18,6 +21,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     {
         [SerializeField]
         private TowerTemplateSO towerTemplate;
+
+        private ITowerStatHost _host;
 
         private int _level;
 
@@ -45,7 +50,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public float Range => _range;
 
         
-
+        public void Init(ITowerStatHost host)
+        {
+            _host = host;
+        }
         
         public void Setup()
         {
@@ -83,6 +91,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         private void UpdateStat()
         {
             _addedDamage = _baseDamage * _damageBuffStack.Multiple;
+
+            _host.RequestUpdateStat();
         }
     }
 }

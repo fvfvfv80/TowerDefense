@@ -48,7 +48,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         {
             _currentTower = towerActor;
 
-            UpdatetowerData();
+            UpdateTowerData();
             gameObject.SetActive(true);
 
             towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerStat.BaseSpec.range);
@@ -61,7 +61,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
             towerAttackRange.OffAttackRange();
         }
 
-        private void UpdatetowerData()
+        private void UpdateTowerData()
         {
             var towerType = _currentTower.TowerType;
             var towerStat = _currentTower.TowerStat; // 이걸 모듈이아니라 dto로 넘겨줄수도있음 
@@ -97,7 +97,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
 
         public void UpdatePopup()
         {
-            UpdatetowerData();
+            UpdateTowerData();
             towerAttackRange.OnAttackRange(_currentTower.transform.position, _currentTower.TowerStat.BaseSpec.range);
         }
 

@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.TowerDefenseGame.TowerBuff;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
@@ -63,9 +62,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 
             foreach(var target in buffTargetList)
             {
-                var towerActor = target as TowerActor;
-
-                TryApplyBuff(towerActor);
+                if (target is TowerActor towerActor)
+                {
+                    TryApplyBuff(towerActor);
+                }
             }
         }
 
@@ -75,9 +75,10 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 
             foreach (var target in buffTargetList)
             {
-                var towerActor = target as TowerActor;
-
-                TryRemoveBuff(towerActor);
+                if (target is TowerActor towerActor)
+                {
+                    TryRemoveBuff(towerActor);
+                }
             }
         }
 

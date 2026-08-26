@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Tower.Feature;
-using Assets.Scripts.TowerDefenseGame.Tower.GamePlay;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
@@ -29,6 +28,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
             towerSupportModule.ApplyLevel(level);
         }
 
+        public override void UpdateStat() { }
+
         public override void HandleCommand(TowerGameplayCommand command)
         {
             switch(command.type)
@@ -43,8 +44,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
         {
             towerSupportModule.EndSupport();
         }
-
-
 
 
     }

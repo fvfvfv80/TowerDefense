@@ -38,7 +38,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        public void SetupContext(EnemyRoleFlow enemyRole)
+        public void SetupRole(EnemyRoleFlow enemyRole)
         {
             _enemyRole = enemyRole;
         }

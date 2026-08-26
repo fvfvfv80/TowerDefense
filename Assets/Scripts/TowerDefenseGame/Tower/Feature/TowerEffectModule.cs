@@ -3,27 +3,29 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 {
-    public class TowerEffectModule : TowerFeatureModule
+    public class TowerEffectModule : MonoBehaviour
     {
-        [SerializeField] private TowerTemplateSO towerTemplate;
-        [SerializeField] private AreaEffectEmitterModule areaEffectEmitterModule;
+        [SerializeField]
+        private TowerStatModule towerStatModule;
+        [SerializeField] 
+        private AreaEffectEmitterModule areaEffectEmitterModule;
 
-        public override void Init(TowerActor towerActor)
+        public void Init(TowerActor towerActor)
         {
             areaEffectEmitterModule.Init("Enemy");
         }
 
-        public override void ApplyLevel(int level)
+        public void ApplyLevel(int level)
         {
-            var levelData = towerTemplate.weapon[level];
+            
 
             var effectData = new EffectData()
             {
-                slow = levelData.slow
+                slow = towerStatModule.BaseSpec.slow
             };
 
 
-            var stat = new EmitterStat(levelData.range, effectData);
+            var stat = new EmitterStat(towerStatModule.BaseSpec.range, effectData);
 
             areaEffectEmitterModule.ApplyStat(stat);
         }

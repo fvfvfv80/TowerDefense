@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Tower.Feature;
-using Assets.Scripts.TowerDefenseGame.Tower.GamePlay;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
@@ -30,11 +29,13 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Gameplay
             towerEffectModule.ApplyLevel(level);
         }
 
+        public override void UpdateStat() { }
+
+
         public override void Release()
         {
             
         }
-
 
 
     }

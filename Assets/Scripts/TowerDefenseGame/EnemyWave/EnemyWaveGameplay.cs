@@ -81,7 +81,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
-                enemyActor.SetupContext(enemyRoleFlow);
+                enemyActor.SetupRole(enemyRoleFlow);
                 enemyActor.SetupPath(wayPoints);
                 enemyActor.StartEnemy();
 

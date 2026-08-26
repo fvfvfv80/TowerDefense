@@ -5039,7 +5039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7c81a93cb308b4eac3a8103fdcadaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.Feature.TowerEffectModule
-  towerTemplate: {fileID: 11400000, guid: e8a263cd97581ca44ae817cbe679a872, type: 2}
+  towerStatModule: {fileID: 2165842229498512974}
   areaEffectEmitterModule: {fileID: 8021278045849606260}
 --- !u!114 &8021278045849606260
 MonoBehaviour:
