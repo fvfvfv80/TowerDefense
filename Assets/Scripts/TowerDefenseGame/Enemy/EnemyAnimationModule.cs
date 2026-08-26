@@ -35,5 +35,3 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
     }
 }
 
-
-    

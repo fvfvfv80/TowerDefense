@@ -15,14 +15,11 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
 
         private GameObject _followTowerPreview;
 
-
         private int _selectedTowerType;
-
 
         public event Action Completed;
 
-
-        public PlayerTowerBuildFlow(TowerBuildDirector towerBuildDirector,PlayerGoldModule playerGold)
+        public PlayerTowerBuildFlow(TowerBuildDirector towerBuildDirector, PlayerGoldModule playerGold)
         {
             _towerBuildDirector = towerBuildDirector;
             _playerGoldModule = playerGold;
@@ -30,7 +27,7 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
 
         public void EnterBuildReady(int towerType)
         {
-            if (!_towerBuildDirector.CheckTowerBuildCostEnough(towerType,_playerGoldModule.CurrentGold))
+            if (!_towerBuildDirector.CheckTowerBuildCostEnough(towerType, _playerGoldModule.CurrentGold))
             {
                 Completed?.Invoke();
                 return;
@@ -44,7 +41,7 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
 
         public void BuildTower(Transform tileTransform)
         {
-            if(_towerBuildDirector.TryBuildTower(_selectedTowerType,tileTransform, out int cost))
+            if (_towerBuildDirector.TryBuildTower(_selectedTowerType, tileTransform, out int cost))
             {
                 _playerGoldModule.CurrentGold -= cost;
 
@@ -52,15 +49,12 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
             }
         }
 
-
-
         public void EndFlow()
         {
             //프리팹 Release할거있으면 하기
             if (_followTowerPreview != null)
                 GameObject.Destroy(_followTowerPreview);
         }
-
 
     }
 }

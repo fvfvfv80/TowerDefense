@@ -18,9 +18,9 @@ namespace Assets.Scripts.TowerDefenseGame.AreaEffect
     {
         [SerializeField]
         private CircleCollider2D effectArea;
-        [SerializeField] 
+        [SerializeField]
         private string targetTag = "Enemy";
-        [SerializeField] 
+        [SerializeField]
         private EffectModule effectModule;
 
         public void Init(string targetTag)

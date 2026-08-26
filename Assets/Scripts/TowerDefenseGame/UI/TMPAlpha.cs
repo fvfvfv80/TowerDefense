@@ -24,7 +24,7 @@ namespace Assets.Scripts.TowerDefenseGame.UI
         private IEnumerator OnFade(float start, float end)
         {
             float percent = 0f;
-            while(percent<1f)
+            while (percent < 1f)
             {
                 percent += Time.deltaTime / duration;
 
@@ -37,7 +37,6 @@ namespace Assets.Scripts.TowerDefenseGame.UI
                 yield return null;
             }
         }
-
 
     }
 }

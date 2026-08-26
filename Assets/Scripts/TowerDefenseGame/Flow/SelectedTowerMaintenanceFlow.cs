@@ -13,7 +13,6 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
 
         private TowerActor _selectedTower;
 
-
         public event Action Completed;
 
         public SelectedTowerMaintenanceFlow(TowerBuildDirector towerBuildDirector, PlayerGoldModule playerGoldModule)
@@ -38,7 +37,6 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
                 //플레이어 골드 증가
                 _playerGoldModule.CurrentGold += sellPrice;
 
-               
             }
 
             Completed?.Invoke();
@@ -47,7 +45,7 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
 
         public void UpgradeTower()
         {
-            var result = _towerBuildDirector.TryUpgradeTower(_selectedTower, _playerGoldModule.CurrentGold,out var upgradeCost);
+            var result = _towerBuildDirector.TryUpgradeTower(_selectedTower, _playerGoldModule.CurrentGold, out var upgradeCost);
             if (result)
             {
                 //플레이어 골드 감소
@@ -60,7 +58,6 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
             _selectedTower = null;
             _towerBuildDirector.HideTowerDetail();
         }
-
 
     }
 }

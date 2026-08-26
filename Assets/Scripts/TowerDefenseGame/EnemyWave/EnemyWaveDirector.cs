@@ -1,30 +1,16 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Enemy;
+using Assets.Scripts.TowerDefenseGame.Scenario;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
 
-    public class EnemyWaveDirectorContext : IContext
+    public interface IEnemyWaveScenario
     {
-        private readonly IFlowCreator _flowCreator;
-
-
-
-        public EnemyWaveDirectorContext(IFlowCreator flowCreator )
-        {
-            _flowCreator = flowCreator;
-
-        }
-
-
-        public EnemyRoleFlow CreateEnemyRoleFlow()
-        {
-            return _flowCreator.CreateFlow<EnemyRoleFlow>();
-        }
-
-
+        void NotifyEnemySpawned(EnemyActor enemyActor);
     }
 
     public class EnemyWaveDirector : MonoBehaviour
@@ -35,21 +21,15 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;
 
-        private EnemyWaveDirectorContext _context;
+        private IEnemyWaveScenario _enemyWaveScenario;
 
         public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
-
-
-
-        public void Init(EnemyWaveDirectorContext enemyWaveDirectorContext)
+        public void Init(IEnemyWaveScenario enemyWaveScenario)
         {
-            _context = enemyWaveDirectorContext;
+            _enemyWaveScenario = enemyWaveScenario;
             enemyWaveGameplay.Init(this);
         }
-
-      
-
 
         public void OnEnemyWaveStartButtonClick()
         {
@@ -61,7 +41,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             enemyWaveGameplay.StartWave();
         }
 
-
         public void DespawnWaveEnemy(EnemyActor enemyActor)
         {
             enemyWaveGameplay.RemoveWaveEnemy(enemyActor);
@@ -70,10 +49,10 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         }
 
-
-        public EnemyRoleFlow CreateEnemyRoleFlow()
+        public void NotifyEnemySpawned(EnemyActor enemyActor)
         {
-            return _context.CreateEnemyRoleFlow();
+            _enemyWaveScenario.NotifyEnemySpawned(enemyActor);
         }
+
     }
 }

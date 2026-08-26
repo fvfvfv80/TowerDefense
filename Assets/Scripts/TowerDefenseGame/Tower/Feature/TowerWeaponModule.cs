@@ -4,13 +4,12 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 {
 
-
     public class TowerWeaponModule : MonoBehaviour
     {
         [SerializeField]
         private TowerStatModule towerStatModule;
 
-        [SerializeField] 
+        [SerializeField]
         private WeaponModule weaponModule;
 
         private int _weaponLevel;
@@ -38,7 +37,6 @@ namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
         {
             weaponModule.StartWeapon();
         }
-
 
     }
 }

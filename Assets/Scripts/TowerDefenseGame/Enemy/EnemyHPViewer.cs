@@ -18,11 +18,10 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         }
 
         //인터페이스로 가능 IHPModule
-        private void UpdateHPView(EnemyHPModule enemyHP) 
+        private void UpdateHPView(EnemyHPModule enemyHP)
         {
             _slider.value = enemyHP.CurrentHP / enemyHP.MaxHP;
         }
-       
 
     }
 

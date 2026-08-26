@@ -18,8 +18,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         public float MaxHP => maxHP;
         public float CurrentHP => _currentHP;
 
-        
-
         public void Init(IEnemyModuleHost enemyEventHandler)
         {
             _enemyModuleHost = enemyEventHandler;
@@ -30,7 +28,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             _currentHP = maxHP;
             _isDie = false;
         }
-
 
         public void TakeDamage(float damage)
         {
@@ -48,7 +45,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             }
             OnHpChanged?.Invoke(this);
         }
-
 
     }
 }

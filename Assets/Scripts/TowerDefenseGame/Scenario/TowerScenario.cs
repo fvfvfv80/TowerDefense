@@ -1,17 +1,17 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
+using Assets.Scripts.TowerDefenseGame.Tower;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class TowerRoleFlow : IFlow
+    public class TowerScenario : ITowerScenario, IScenario
     {
         private EnemyWaveDirector _enemyWaveDirector;
 
         private TowerBuffDirector _towerBuffDirector;
 
-
-        public TowerRoleFlow(EnemyWaveDirector enemyWaveDirector, TowerBuffDirector towerBuffDirector)
+        public TowerScenario(EnemyWaveDirector enemyWaveDirector, TowerBuffDirector towerBuffDirector)
         {
             _enemyWaveDirector = enemyWaveDirector;
 
@@ -27,6 +27,5 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         {
             return _towerBuffDirector.CurrentTowers;
         }
-
     }
 }

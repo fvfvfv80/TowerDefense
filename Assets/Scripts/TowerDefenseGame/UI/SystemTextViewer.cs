@@ -2,10 +2,9 @@
 using TMPro;
 using UnityEngine;
 
-
 namespace Assets.Scripts.TowerDefenseGame.UI
 {
-    public enum MESSAGE { MONEY=0,BUILD}
+    public enum MESSAGE { MONEY = 0, BUILD }
     public class SystemTextViewer : MonoBehaviour
     {
         private TextMeshProUGUI textSystem;

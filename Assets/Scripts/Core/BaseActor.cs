@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class BaseActor : MonoBehaviour
 {
     private Dictionary<string, Component> _actorComponents = new();
 
     private Dictionary<string, ComponentCacher> _transformComponents = new();
 
-    public void RegisterActorComponent(string key,Component component)
+    public void RegisterActorComponent(string key, Component component)
     {
         _actorComponents[key] = component;
     }
@@ -25,7 +24,7 @@ public class BaseActor : MonoBehaviour
         return component as T;
     }
 
-    public ComponentCacher RegisterTransformComponent(string transformName,Transform transform)
+    public ComponentCacher RegisterTransformComponent(string transformName, Transform transform)
     {
         return _transformComponents[transformName] = new ComponentCacher(transform);
     }

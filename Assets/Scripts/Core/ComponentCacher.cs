@@ -11,7 +11,6 @@ public class ComponentCacher
         _transform = transform;
     }
 
-
     public T GetCachedCompoent<T>() where T : Component
     {
         _cachedComponents.TryGetValue(nameof(T), out var component);

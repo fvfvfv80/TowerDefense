@@ -22,7 +22,6 @@ namespace Assets.Scripts.TowerDefenseGame.TowerBuff
 
         private readonly Dictionary<int, BuffEntry> _entries = new();
 
-
         //그리고 반환될 정보들 지금은 간단하게 곱셈부터시작
         public float Multiple { get; private set; } = 0f;
 
@@ -45,12 +44,10 @@ namespace Assets.Scripts.TowerDefenseGame.TowerBuff
             Refresh();
         }
 
-
         public void RemoveBuff(TowerDamageBuff buff)
         {
             if (!_entries.TryGetValue(buff.level, out var entry))
                 return;
-
 
             entry.count--;
 
@@ -58,7 +55,6 @@ namespace Assets.Scripts.TowerDefenseGame.TowerBuff
             {
                 _entries.Remove(buff.level);
             }
-                
 
             Refresh();
         }
@@ -80,7 +76,6 @@ namespace Assets.Scripts.TowerDefenseGame.TowerBuff
             Multiple = multiple;
         }
 
-
     }
 
     public struct TowerDamageBuff
@@ -89,13 +84,11 @@ namespace Assets.Scripts.TowerDefenseGame.TowerBuff
 
         public readonly float value;
 
-        public TowerDamageBuff(int level,float value)
+        public TowerDamageBuff(int level, float value)
         {
             this.level = level;
             this.value = value;
         }
     }
-
-
 
 }

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Core;
+﻿
 using Assets.Scripts.TowerDefenseGame.Enemy;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +16,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
     }
 
-
     public class EnemyWaveGameplay : MonoBehaviour
     {
         [SerializeField]
@@ -26,9 +25,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         private Wave[] waves;
 
         [SerializeField]
-        private Transform[] wayPoints; //시스템으로 갈수도있음
-
-
+        private Transform[] wayPoints;
 
         private EnemyWaveDirector _enemyWaveDirector;
 
@@ -48,9 +45,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         public int MaxWave => waves.Length;
 
-
-
-
         public void Init(EnemyWaveDirector enemyWaveDirector)
         {
             _enemyWaveDirector = enemyWaveDirector;
@@ -68,7 +62,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             }
         }
 
-
         private IEnumerator SpawnEnemy()
         {
             int spawnEnemyCount = 0;
@@ -77,11 +70,10 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
 
-                var enemyRoleFlow = _enemyWaveDirector.CreateEnemyRoleFlow();
-
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
-                enemyActor.SetupRole(enemyRoleFlow);
+                _enemyWaveDirector.NotifyEnemySpawned(enemyActor);
+
                 enemyActor.SetupPath(wayPoints);
                 enemyActor.StartEnemy();
 
@@ -92,7 +84,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
                 yield return new WaitForSeconds(_currentWave.spawnTime);
             }
         }
-
 
         public void RemoveWaveEnemy(EnemyActor enemyActor)
         {

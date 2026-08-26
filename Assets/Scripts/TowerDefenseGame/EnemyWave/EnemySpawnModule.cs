@@ -6,15 +6,11 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
     public class EnemySpawnModule : MonoBehaviour
     {
 
-
         [SerializeField]
         private GameObject enemyHPPrefab;
 
         [SerializeField]
         private Transform hpUIParent;
-
-
-
 
         public EnemyActor SpawnEnemy(GameObject enemyPrefab)
         {
@@ -29,7 +25,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             return enemyActor;
         }
 
-
         private void SpawnEnemyHP(EnemyActor enemyActor)
         {
             var clone = Instantiate(enemyHPPrefab);
@@ -37,7 +32,6 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             clone.transform.SetParent(hpUIParent);
 
             clone.transform.localScale = Vector3.one;
-
 
             //UI 바인딩
             clone.GetComponent<FollowTargetUI>().SetTarget(enemyActor.HUDPoint);
@@ -53,5 +47,4 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
     }
 }
-
 

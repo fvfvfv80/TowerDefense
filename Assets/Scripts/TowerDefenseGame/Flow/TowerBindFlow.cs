@@ -1,11 +1,8 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Tower;
 
-
 namespace Assets.Scripts.TowerDefenseGame.Flow
 {
-
-    //타워
     public class TowerBindFlow : IFlow
     {
 
@@ -20,7 +17,6 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
         {
             _towerBuffDirector.RegisterTower(towerActor);
         }
-
 
         public void UnbindTower(TowerActor towerActor)
         {

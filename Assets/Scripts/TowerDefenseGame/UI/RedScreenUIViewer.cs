@@ -7,7 +7,6 @@ public class RedScreenUIViewer : MonoBehaviour
     [SerializeField]
     private PlayerHPModule playerHP;
 
-
     private Image _imageScreen;
 
     private void Awake()
@@ -29,7 +28,7 @@ public class RedScreenUIViewer : MonoBehaviour
 
         _imageScreen.color = color;
 
-        while(color.a>=0.0f)
+        while (color.a >= 0.0f)
         {
             color.a -= Time.deltaTime;
             _imageScreen.color = color;

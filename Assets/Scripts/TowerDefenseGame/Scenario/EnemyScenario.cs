@@ -1,23 +1,19 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
 using Assets.Scripts.TowerDefenseGame.Player;
-using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Enemy
+namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class EnemyRoleFlow : IFlow
+    public class EnemyScenario : IEnemyScenario, IScenario
     {
-
         private EnemyWaveDirector _enemyWaveDirector;
-
 
         private PlayerHPModule _playerHP;
 
-
         private PlayerGoldModule _playerGold;
 
-
-        public EnemyRoleFlow(EnemyWaveDirector enemyWaveDirector, PlayerHPModule playerHPModule, PlayerGoldModule playerGoldModule)
+        public EnemyScenario(EnemyWaveDirector enemyWaveDirector, PlayerHPModule playerHPModule, PlayerGoldModule playerGoldModule)
         {
             _enemyWaveDirector = enemyWaveDirector;
             _playerHP = playerHPModule;
@@ -38,17 +34,13 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        public void NotifyReachGoal(EnemyActor enemyActor)
+        public void NotifyReachedGoal(EnemyActor enemyActor)
         {
             _playerHP.TakeDamage(1);
 
             _enemyWaveDirector.DespawnWaveEnemy(enemyActor);
-  
+
         }
-
-
-
-
 
     }
 }
