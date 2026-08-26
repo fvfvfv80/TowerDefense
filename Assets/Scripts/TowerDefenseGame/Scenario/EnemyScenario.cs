@@ -5,7 +5,7 @@ using Assets.Scripts.TowerDefenseGame.Player;
 
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class EnemyScenario: IScenario
+    public class EnemyScenario : IEnemyScenario, IScenario
     {
         private EnemyWaveDirector _enemyWaveDirector;
 
@@ -37,12 +37,14 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         }
 
-        public void NotifyReachGoal(EnemyActor enemyActor)
+        public void NotifyReachedGoal(EnemyActor enemyActor)
         {
             _playerHP.TakeDamage(1);
 
             _enemyWaveDirector.DespawnWaveEnemy(enemyActor);
 
         }
+
+
     }
 }

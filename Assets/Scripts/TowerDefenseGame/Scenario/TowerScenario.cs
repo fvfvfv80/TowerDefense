@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class TowerScenario:IScenario
+    public class TowerScenario : ITowerScenario, IScenario
     {
         private EnemyWaveDirector _enemyWaveDirector;
 

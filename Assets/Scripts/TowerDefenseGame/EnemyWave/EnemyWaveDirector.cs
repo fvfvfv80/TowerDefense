@@ -8,26 +8,11 @@ using UnityEngine;
 namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 {
 
-    public class EnemyWaveDirectorContext : IContext
+    public interface IEnemyWaveScenario
     {
-        private readonly IFlowCreator _flowCreator;
-
-
-
-        public EnemyWaveDirectorContext(IFlowCreator flowCreator )
-        {
-            _flowCreator = flowCreator;
-
-        }
-
-
-        public EnemyRoleFlow CreateEnemyRoleFlow()
-        {
-            return _flowCreator.CreateFlow<EnemyRoleFlow>();
-        }
-
-
+        void NotifyEnemySpawned(EnemyActor enemyActor);
     }
+
 
     public class EnemyWaveDirector : MonoBehaviour
     {
@@ -37,14 +22,14 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;
 
-        private EnemyWaveScenario _enemyWaveScenario;
+        private IEnemyWaveScenario _enemyWaveScenario;
 
         public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
 
 
 
-        public void Init(EnemyWaveScenario enemyWaveScenario)
+        public void Init(IEnemyWaveScenario enemyWaveScenario)
         {
             _enemyWaveScenario = enemyWaveScenario;
             enemyWaveGameplay.Init(this);
@@ -73,9 +58,9 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         }
 
 
-        public void RequestBindEnemy(EnemyActor enemyActor)
+        public void NotifyEnemySpawned(EnemyActor enemyActor)
         {
-            _enemyWaveScenario.BindEnemy(enemyActor);
+            _enemyWaveScenario.NotifyEnemySpawned(enemyActor);
         }
 
 

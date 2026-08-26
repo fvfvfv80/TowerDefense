@@ -1,10 +1,11 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Enemy;
+using Assets.Scripts.TowerDefenseGame.EnemyWave;
 
 
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class EnemyWaveScenario
+    public class EnemyWaveScenario: IEnemyWaveScenario,IScenario
     {
         private readonly IScenarioContext _scenarioContext;
 
@@ -16,8 +17,7 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         }
 
-
-        public void BindEnemy(EnemyActor enemyActor)
+        public void NotifyEnemySpawned(EnemyActor enemyActor)
         {
             var enemyScenario = _scenarioContext.CreateScenario<EnemyScenario>();
 

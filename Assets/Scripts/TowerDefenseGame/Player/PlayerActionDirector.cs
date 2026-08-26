@@ -1,31 +1,31 @@
-﻿using Assets.Scripts.Core;
-using Assets.Scripts.TowerDefenseGame.Flow;
-using Assets.Scripts.TowerDefenseGame.Scenario;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 
 namespace Assets.Scripts.TowerDefenseGame.Player
 {
 
+    public interface IPlayerActionScenario
+    {
+        void BeginTowerBuild(int towerType);
+        void BuildTower(Transform tileTransform);
+        void SelectTower(Transform towerTransform);
+        void UpgradeTower();
+        void SellTower();
+        void CancelPlayerAction();
+    }
 
-     
-    public class PlayerInputDirector : MonoBehaviour, IPlayerInputHost
+    public class PlayerActionDirector : MonoBehaviour, IPlayerInputHost
     {
 
         [SerializeField]
         private PlayerInputGameplay playerInputGameplay;
 
-        private PlayerInputScenario _playerInputScenario;
+        private IPlayerActionScenario _playerInputScenario;
 
 
-        private void Awake()
-        {
-     
-        }
 
-
-        public void Init(PlayerInputScenario scenario)
+        public void Init(IPlayerActionScenario scenario)
         {
             _playerInputScenario = scenario;
 
@@ -41,7 +41,7 @@ namespace Assets.Scripts.TowerDefenseGame.Player
 
         public void RequestEnterTowerBuild(int towerType)
         {
-            _playerInputScenario.StartBuild(towerType);
+            _playerInputScenario.BeginTowerBuild(towerType);
         }
 
         public void RequestBuildTower(Transform tileTransform)

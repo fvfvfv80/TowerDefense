@@ -1,14 +1,15 @@
-﻿using Assets.Scripts.Core;
-using Assets.Scripts.TowerDefenseGame.Flow;
-using Assets.Scripts.TowerDefenseGame.Scenario;
-using Assets.Scripts.TowerDefenseGame.UI;
+﻿using Assets.Scripts.TowerDefenseGame.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
 
-
+    public interface ITowerBuildScenario
+    {
+        void NotifyTowerBuilt(TowerActor towerActor);
+        void NotifyTowerDemolished(TowerActor towerActor);
+    }
 
     public class TowerBuildDirector : MonoBehaviour
     {
@@ -26,14 +27,14 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         [SerializeField]
         private SystemTextViewer systemTextViewer;
 
-        private TowerBuildScenario _towerBuildScenario;
+        private ITowerBuildScenario _towerBuildScenario;
 
 
         private readonly Dictionary<TowerActor, Tile> _towerPlacementDict = new();
 
 
 
-        public void Init(TowerBuildScenario scenario)
+        public void Init(ITowerBuildScenario scenario)
         {
             _towerBuildScenario = scenario;
 
@@ -59,7 +60,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             buildCost = 0;
             if (tile.IsBuildTower)
             {
-                //빌드 사유가 다양해지면 result 반환하기 //flow에서 메시지를 반영하게 만들기도가능
+                
                 systemTextViewer.PrintText(MESSAGE.BUILD);
                 
                 return false;
@@ -69,16 +70,16 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
             var towerPrefab = towerTemplates[towerType].towerPrefab;
 
-            //선택한 위치에 타워 생성
+     
             var towerActor = towerSpawnModule.SpawnTower(towerPrefab,tile.transform);
 
-            _towerBuildScenario.BindTower(towerActor);
+            _towerBuildScenario.NotifyTowerBuilt(towerActor);
             towerActor.StartTower();
 
             _towerPlacementDict[towerActor] = tile;
 
 
-            //결과 반환
+
             buildCost = towerTemplates[towerType].weapon[0].cost;
 
             return true;
@@ -95,7 +96,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             _towerPlacementDict.Remove(towerActor);
 
 
-            _towerBuildScenario.UnbindTower(towerActor);
+            _towerBuildScenario.NotifyTowerDemolished(towerActor);
 
             towerSpawnModule.DespawnTower(towerActor);
 

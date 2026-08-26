@@ -8,6 +8,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
+
+
     public enum TowerType
     {
         Cannon = 0,
@@ -15,6 +17,12 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         Slow,
         Buff
     }
+    public interface ITowerScenario
+    {
+        IEnumerable<BaseActor> FindAttackTargetList();
+        IEnumerable<BaseActor> FindBuffTargetList();
+    }
+
 
     public class TowerActor : BaseActor, ITowerSupportHost, IWeaponModuleHost, ITowerStatHost
     {
@@ -33,7 +41,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         [SerializeField]
         private TowerGameplay towerGameplay;
 
-        private TowerScenario _towerScenario;
+        private ITowerScenario _towerScenario;
 
         private int _towerLevel;
 
@@ -69,7 +77,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             towerGameplay.Setup();
         }
 
-        public void SetupScenario(TowerScenario towerScenario)
+        public void SetupScenario(ITowerScenario towerScenario)
         {
             _towerScenario = towerScenario;
         }

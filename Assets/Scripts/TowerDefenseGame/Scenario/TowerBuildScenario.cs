@@ -4,11 +4,11 @@ using Assets.Scripts.TowerDefenseGame.Tower;
 
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class TowerBuildScenario
+    public class TowerBuildScenario : ITowerBuildScenario
     {
         private readonly IScenarioContext _scenarioContext;
 
-        private TowerBindFlow _towerBindFlow;
+        private readonly TowerBindFlow _towerBindFlow;
 
 
         public TowerBuildScenario(IScenarioContext scenarioContext)
@@ -20,16 +20,15 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
         }
 
 
-        public void BindTower(TowerActor towerActor)
+        public void NotifyTowerBuilt(TowerActor towerActor)
         {
             _towerBindFlow.BindTower(towerActor);
 
-            //타워 스폰 플로우로 생성받기
             var towerScenario = _scenarioContext.CreateScenario<TowerScenario>();
             towerActor.SetupScenario(towerScenario);
         }
 
-        public void UnbindTower(TowerActor towerActor)
+        public void NotifyTowerDemolished(TowerActor towerActor)
         {
             _towerBindFlow.UnbindTower(towerActor);
         }

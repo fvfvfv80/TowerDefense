@@ -1,9 +1,13 @@
-﻿using Assets.Scripts.TowerDefenseGame.Scenario;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
+    public interface IEnemyScenario
+    {
+        void NotifyKilled(EnemyActor enemyActor);
+        void NotifyReachedGoal(EnemyActor enemyActor);
+    }
+
     public class EnemyActor : BaseActor, IEnemyModuleHost
     {
 
@@ -11,16 +15,21 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private Transform hudPoint;
 
         [SerializeField]
+        public EnemyHPModule enemyHP;
+
+        [SerializeField]
+        public EnemyAnimationModule enemyAnimationModule;
+
+        [SerializeField]
+        public EnemyMovementModule enemyMovement;
+
+        [SerializeField]
         private int gold = 10;
 
-        public EnemyAnimationModule EnemyAnimation { get; private set; }
 
-        public EnemyMovementModule EnemyMovement { get; private set; }
+        private IEnemyScenario _enemyScenario;
 
-        public EnemyHPModule EnemyHP { get; private set; }
-
-        private EnemyScenario _enemyScenario;
-
+        public EnemyHPModule EnemyHP => enemyHP;
 
         public int RewardGold => gold;
 
@@ -28,43 +37,33 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         public Transform HUDPoint => hudPoint;
 
 
-        //enemyActor는 prefab에 관련된 코드니까 prefab을 생성하는 enemyspawner를 알아도 상관없음
 
-        private void Awake()
-        {
-            //init에서 실행될수도있음
-            EnemyAnimation = GetComponent<EnemyAnimationModule>();
-            EnemyMovement = GetComponent<EnemyMovementModule>();
-            EnemyHP = GetComponent<EnemyHPModule>();
-
-        }
-
-        public void SetupScenario(EnemyScenario enemyScenario)
+        public void SetupScenario(IEnemyScenario enemyScenario)
         {
             _enemyScenario = enemyScenario;
         }
 
         public void SetupPath(Transform[] wayPoints)
         {
-            EnemyMovement.Setup(wayPoints);
+            enemyMovement.Setup(wayPoints);
         }
 
         public void Init()
         {
-            EnemyMovement.Init(this);
-            EnemyHP.Init(this);
+            enemyMovement.Init(this);
+            enemyHP.Init(this);
         }
 
 
         public void Setup()
         {
-            EnemyHP.Setup();
+            enemyHP.Setup();
             
         }
 
         public void StartEnemy()
         {
-            EnemyMovement.StartMove();
+            enemyMovement.StartMove();
         }
 
         public void Release()
@@ -76,14 +75,14 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public void RequestHit()
         {
-            EnemyAnimation.PlayHitAnimation();
+            enemyAnimationModule.PlayHitAnimation();
         }
 
         public void RequestDespawn(EnemyDestroyType type)
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyScenario.NotifyReachGoal(this);
+                _enemyScenario.NotifyReachedGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
@@ -91,9 +90,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             }
 
         }
-
-
-
 
         #endregion
     }

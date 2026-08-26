@@ -87,7 +87,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyActor
   hudPoint: {fileID: 8386460963243061895}
-  gold: 10
+  enemyHP: {fileID: -2296257546868487985}
+  enemyAnimationModule: {fileID: -5813597679605673509}
+  enemyMovement: {fileID: -1307897197778378025}
+  gold: 40
 --- !u!114 &-1307897197778378025
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Core;
-using Assets.Scripts.TowerDefenseGame.Enemy;
 using Assets.Scripts.TowerDefenseGame.EnemyWave;
 using Assets.Scripts.TowerDefenseGame.Flow;
 using Assets.Scripts.TowerDefenseGame.Player;
@@ -12,7 +11,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
     public class TowerDefenseGameSceneRoot : BaseSceneRoot
     {
         [SerializeField]
-        private PlayerInputDirector playerInputDirector;
+        private PlayerActionDirector playerInputDirector;
 
         [SerializeField]
         private TowerBuildDirector towerBuildDirector;
@@ -49,7 +48,7 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         private void InitDirectors()
         {
 
-            var playerInputScenario = new PlayerInputScenario(this);
+            var playerInputScenario = new PlayerActionScenario(this);
             playerInputDirector.Init(playerInputScenario);
 
             var towerBuildScenario = new TowerBuildScenario(this);

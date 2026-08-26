@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Core;
+﻿
 using Assets.Scripts.TowerDefenseGame.Enemy;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         private Wave[] waves;
 
         [SerializeField]
-        private Transform[] wayPoints; //시스템으로 갈수도있음
+        private Transform[] wayPoints; 
 
 
 
@@ -81,7 +81,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
-                _enemyWaveDirector.RequestBindEnemy(enemyActor);
+                _enemyWaveDirector.NotifyEnemySpawned(enemyActor);
 
                 enemyActor.SetupPath(wayPoints);
                 enemyActor.StartEnemy();

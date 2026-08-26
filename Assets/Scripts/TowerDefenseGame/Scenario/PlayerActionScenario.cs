@@ -1,13 +1,15 @@
 ﻿using Assets.Scripts.Core;
 using Assets.Scripts.TowerDefenseGame.Flow;
+using Assets.Scripts.TowerDefenseGame.Player;
 using Assets.Scripts.TowerDefenseGame.Tower;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Scenario
 {
-    public class PlayerInputScenario
+    public class PlayerActionScenario : IPlayerActionScenario
     {
         private readonly IScenarioContext _scenarioContext;
+
         private PlayerTowerBuildFlow _playerTowerBuildFlow;
 
         private SelectedTowerMaintenanceFlow _selectedTowerMaintenanceFlow;
@@ -18,16 +20,14 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
 
 
-        public PlayerInputScenario(IScenarioContext scenarioContext)
+        public PlayerActionScenario(IScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
 
-
-        public void StartBuild(int towerType)
+        public void BeginTowerBuild(int towerType)
         {
-            //진행중인 플로우 종료
             EndMaintenanceFlow();
             EndBuildFlow();
 
@@ -71,7 +71,6 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
 
         public void CancelPlayerAction()
         {
-            //정비중이면 먼저 꺼지게?
             if (IsMaintaining)
             {
                 EndMaintenanceFlow();
@@ -92,7 +91,6 @@ namespace Assets.Scripts.TowerDefenseGame.Scenario
         {
             EndMaintenanceFlow();
         }
-
 
         private void EndBuildFlow()
         {
