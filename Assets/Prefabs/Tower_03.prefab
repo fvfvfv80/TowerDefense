@@ -4939,6 +4939,7 @@ GameObject:
   - component: {fileID: 5980783256295602077}
   - component: {fileID: 5242200671169800565}
   - component: {fileID: 5541951849436356571}
+  - component: {fileID: 4255454371735950153}
   - component: {fileID: 8021278045849606260}
   - component: {fileID: 6365010805237889968}
   m_Layer: 0
@@ -5026,6 +5027,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4255454371735950153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6598553456717748219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a7c81a93cb308b4eac3a8103fdcadaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.Feature.TowerEffectModule
+  towerTemplate: {fileID: 11400000, guid: e8a263cd97581ca44ae817cbe679a872, type: 2}
+  areaEffectEmitterModule: {fileID: 8021278045849606260}
 --- !u!114 &8021278045849606260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5038,6 +5053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75db8cc83ab7fa3499fc78a6c8ff7205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.AreaEffect.AreaEffectEmitterModule
+  effectArea: {fileID: 5242200671169800565}
   targetTag: Enemy
   effectModule: {fileID: 6365010805237889968}
 --- !u!114 &6365010805237889968
@@ -5063,7 +5079,8 @@ GameObject:
   - component: {fileID: 7699512662037636278}
   - component: {fileID: 6639587806223753475}
   - component: {fileID: 4011696382036400006}
-  - component: {fileID: 8432080895271420982}
+  - component: {fileID: 2165842229498512974}
+  - component: {fileID: 9211358999317415170}
   m_Layer: 0
   m_Name: Tower_03
   m_TagString: Tower
@@ -5125,9 +5142,9 @@ MonoBehaviour:
   towerType: 2
   towerTemplate: {fileID: 11400000, guid: e8a263cd97581ca44ae817cbe679a872, type: 2}
   towerRenderer: {fileID: 8169616127697755195}
-  featureModules:
-  - {fileID: 8432080895271420982}
---- !u!114 &8432080895271420982
+  towerStatModule: {fileID: 2165842229498512974}
+  towerGameplay: {fileID: 9211358999317415170}
+--- !u!114 &2165842229498512974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5136,8 +5153,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6960416199497332020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a7c81a93cb308b4eac3a8103fdcadaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f122178e5fa0a04baff310cb164dee1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerEffectModule
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerStatModule
   towerTemplate: {fileID: 11400000, guid: e8a263cd97581ca44ae817cbe679a872, type: 2}
-  areaEffectEmitterModule: {fileID: 8021278045849606260}
+--- !u!114 &9211358999317415170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960416199497332020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94841263f356f0408f567801f62d27c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.Gameplay.EffectTowerGameplay
+  towerEffectModule: {fileID: 4255454371735950153}

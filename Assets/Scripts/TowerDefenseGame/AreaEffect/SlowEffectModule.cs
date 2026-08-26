@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.TowerDefenseGame.Enemy;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.AreaEffect
@@ -15,6 +14,7 @@ namespace Assets.Scripts.TowerDefenseGame.AreaEffect
 
         public override void ApplyEffect(Collider2D target)
         {
+            //모듈중에서 TimeOffset이 존재하거나 늦출 수 있는 존재여야함 IXXModule로 받아서 처리
             var enemyMovement = target.GetComponent<EnemyMovementModule>();
 
             if (enemyMovement == null) return;

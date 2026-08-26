@@ -16,8 +16,12 @@ namespace Assets.Scripts.TowerDefenseGame.AreaEffect
 
     public class AreaEffectEmitterModule : MonoBehaviour
     {
-        [SerializeField] private string targetTag = "Enemy";
-        [SerializeField] private EffectModule effectModule;
+        [SerializeField]
+        private CircleCollider2D effectArea;
+        [SerializeField] 
+        private string targetTag = "Enemy";
+        [SerializeField] 
+        private EffectModule effectModule;
 
         public void Init(string targetTag)
         {
@@ -27,6 +31,7 @@ namespace Assets.Scripts.TowerDefenseGame.AreaEffect
 
         public void ApplyStat(EmitterStat stat)
         {
+            effectArea.radius = stat.radius;
             effectModule.ApplyStat(stat);
         }
 

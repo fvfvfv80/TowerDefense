@@ -23,7 +23,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public void DespawnTower(TowerActor towerActor)
         {
-            towerActor.ReleaseContext();
+            towerActor.Release();
             Destroy(towerActor.gameObject);
 
         }

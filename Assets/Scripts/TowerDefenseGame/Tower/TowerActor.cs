@@ -1,28 +1,42 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.TowerDefenseGame.Tower.Feature;
+using Assets.Scripts.TowerDefenseGame.Tower.GamePlay;
+using Assets.Scripts.TowerDefenseGame.Weapon;
+using System.Collections.Generic;
 using UnityEngine;
-using static Assets.Scripts.TowerDefenseGame.Tower.TowerTemplateSO;
 
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
     public enum TowerType
     {
-        Cannon,
+        Cannon = 0,
         Laser,
-        Slow
+        Slow,
+        Buff
     }
-    public class TowerActor : BaseActor, ITowerWeaponHost
+
+    public class TowerActor : BaseActor, ITowerSupportHost, IWeaponModuleHost
     {
-        public TowerType towerType;
+        [SerializeField]
+        private TowerType towerType;
+
         [SerializeField] 
         private TowerTemplateSO towerTemplate;
+
         [SerializeField] 
         private SpriteRenderer towerRenderer;
-        [SerializeField] 
-        private TowerFeatureModule[] featureModules;
 
-        private TowerContext _towerContext;
+        [SerializeField]
+        private TowerStatModule towerStatModule;
+
+        [SerializeField]
+        private TowerGameplay towerGameplay;
+
+        private TowerRoleFlow _towerRole;
+
         private int _towerLevel;
+
+        public TowerType TowerType => towerType;
 
         public int Level => _towerLevel;
 
@@ -30,64 +44,80 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public bool IsMaxLevel => _towerLevel == MaxLevel - 1;
 
-        public WeaponSpec CurrentSpec => towerTemplate.weapon[_towerLevel];
+       // public TowerTemplateSO.WeaponSpec CurrentSpec => towerTemplate.weapon[_towerLevel];
 
         public int UpgradeCost => towerTemplate.weapon[Mathf.Min(MaxLevel - 1, _towerLevel + 1)].cost;
 
-        public int SellGold => towerTemplate.weapon[_towerLevel].sell;
+        public int SellCost => towerTemplate.weapon[_towerLevel].sell;
 
-        public Sprite TowerSprite => towerRenderer.sprite;
+        public Sprite Sprite => towerRenderer.sprite;
+
+        public TowerStatModule StatModule => towerStatModule;
+
+        public IStatGetter TowerStat => towerStatModule;
 
 
         public void Init()
         {
-            foreach (var featureModule in featureModules)
-            {
-                featureModule.Init(this);
-                featureModule.ApplyLevel(_towerLevel);
-            }
+
+            towerGameplay.Init(this);
         }
 
         public void Setup()
         {
-
+            towerStatModule.Setup();
+            towerGameplay.Setup();
         }
 
-        public void SetupContext(TowerContext towerContext)
+        public void SetupContext(TowerRoleFlow towerRole)
         {
-            _towerContext = towerContext;
+            _towerRole = towerRole;
         }
 
         public void StartTower()
         {
-            foreach (var featureModule in featureModules)
-                featureModule.StartFeature();
+            towerGameplay.StartGameplay();
         }
 
         public void UpgradeTower()
         {
             _towerLevel = Mathf.Min(MaxLevel - 1, _towerLevel + 1);
 
-            foreach (var featureModule in featureModules)
-                featureModule.ApplyLevel(_towerLevel);
+            towerStatModule.ApplyLevel(_towerLevel);
+
+            towerGameplay.ApplyLevel(_towerLevel);
 
             towerRenderer.sprite = towerTemplate.weapon[_towerLevel].sprite;
         }
 
-        public void ReleaseContext()
+        public void ApplyBuff(TowerActor anotherTower)
         {
-            foreach (var featureModule in featureModules)
-                featureModule.Release();
+            towerGameplay.HandleCommand(new TowerGameplayCommand()
+            {
+                type = TowerGameplayCommandType.ApplyBuff,
+                buffTargetTower = anotherTower
+            });
+        }
 
-            _towerContext.Release();
+        public void Release()
+        {
+            towerGameplay.Release();
+
+
         }
 
 
         #region TowerHandle
 
-        public IEnumerable<BaseActor> RequestTowerTargetList()
+
+        public IEnumerable<BaseActor> RequestBuffTargetList()
         {
-            return _towerContext.FindTargetList();
+            return _towerRole.FindBuffTargetList();
+        }
+
+        public IEnumerable<BaseActor> RequestTargetList()
+        {
+            return _towerRole.FindAttackTargetList();
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 {
     public abstract class TowerFeatureModule : MonoBehaviour
     {

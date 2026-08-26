@@ -6,24 +6,28 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
-    public class TowerContext : IContext
+    public class TowerRoleFlow : IFlow
     {
         private EnemyWaveDirector _enemyWaveDirector;
 
+        private TowerBuffDirector _towerBuffDirector;
 
-        public TowerContext(EnemyWaveDirector enemyWaveDirector)
+
+        public TowerRoleFlow(EnemyWaveDirector enemyWaveDirector, TowerBuffDirector towerBuffDirector)
         {
             _enemyWaveDirector = enemyWaveDirector;
+
+            _towerBuffDirector = towerBuffDirector;
         }
 
-        public IEnumerable<BaseActor> FindTargetList()
+        public IEnumerable<BaseActor> FindAttackTargetList()
         {
             return _enemyWaveDirector.CurrentWaveEnemyList;
         }
 
-        public void Release()
+        public IEnumerable<BaseActor> FindBuffTargetList()
         {
-
+            return _towerBuffDirector.CurrentTowers;
         }
 
     }

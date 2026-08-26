@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.TowerDefenseGame.AreaEffect;
 using UnityEngine;
 
-namespace Assets.Scripts.TowerDefenseGame.Tower
+namespace Assets.Scripts.TowerDefenseGame.Tower.Feature
 {
     public class TowerEffectModule : TowerFeatureModule
     {

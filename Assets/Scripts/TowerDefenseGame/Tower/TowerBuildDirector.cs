@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Core;
+using Assets.Scripts.TowerDefenseGame.Flow;
 using Assets.Scripts.TowerDefenseGame.UI;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,19 +11,24 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
     {
         private readonly IFlowCreator _flowCreator;
 
-        private readonly IContextCreator _contextCreator;
 
-        public TowerBuildDirectorContext(IFlowCreator flowCreator, IContextCreator contextCreator)
+        public TowerBuildDirectorContext(IFlowCreator flowCreator)
         {
             _flowCreator = flowCreator;
-            _contextCreator = contextCreator;
         }
 
-        public TowerContext CreateTowerContext()
+        public TowerRoleFlow CreateTowerFlow()
         {
-            return _contextCreator.CreateContext<TowerContext>();
+            return _flowCreator.CreateFlow<TowerRoleFlow>();
         }
+
+        public TowerBindFlow CreateTowerBindFlow()
+        {
+            return _flowCreator.CreateFlow<TowerBindFlow>();
+        }
+
     }
+
 
     public class TowerBuildDirector : MonoBehaviour
     {
@@ -43,6 +48,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         private TowerBuildDirectorContext _context;
 
+        private TowerBindFlow _towerBindFlow;
 
         private readonly Dictionary<TowerActor, Tile> _towerPlacementDict = new();
 
@@ -51,6 +57,8 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public void Init(TowerBuildDirectorContext context)
         {
             _context = context;
+
+            _towerBindFlow = _context.CreateTowerBindFlow();
         }
 
         public bool CheckTowerBuildCostEnough(int towerType,int gold)
@@ -85,9 +93,11 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
             //선택한 위치에 타워 생성
             var towerActor = towerSpawnModule.SpawnTower(towerPrefab,tile.transform);
 
+            _towerBindFlow.BindTower(towerActor);
+
             //타워 스폰 플로우로 생성받기
-            var towerContext = _context.CreateTowerContext();
-            towerActor.SetupContext(towerContext);
+            var towerRoleFlow = _context.CreateTowerFlow();
+            towerActor.SetupContext(towerRoleFlow);
             towerActor.StartTower();
 
             _towerPlacementDict[towerActor] = tile;
@@ -103,11 +113,14 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
         public bool TryDemolishTower(TowerActor towerActor, out int sellPrice)
         {
 
-            sellPrice = towerActor.SellGold;
+            sellPrice = towerActor.SellCost;
 
 
             _towerPlacementDict[towerActor].IsBuildTower = false;
             _towerPlacementDict.Remove(towerActor);
+
+
+            _towerBindFlow.UnbindTower(towerActor);
 
             towerSpawnModule.DespawnTower(towerActor);
 

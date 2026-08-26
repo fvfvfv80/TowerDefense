@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Enemy
 {
-    public class EnemyContext : IContext
+    public class EnemyRoleFlow : IFlow
     {
 
         private EnemyWaveDirector _enemyWaveDirector;
@@ -17,7 +17,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private PlayerGoldModule _playerGold;
 
 
-        public EnemyContext(EnemyWaveDirector enemyWaveDirector, PlayerHPModule playerHPModule, PlayerGoldModule playerGoldModule)
+        public EnemyRoleFlow(EnemyWaveDirector enemyWaveDirector, PlayerHPModule playerHPModule, PlayerGoldModule playerGoldModule)
         {
             _enemyWaveDirector = enemyWaveDirector;
             _playerHP = playerHPModule;
@@ -46,11 +46,6 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
   
         }
 
-        public void Release(EnemyActor enemyActor)
-        {
-            
-           
-        }
 
 
 

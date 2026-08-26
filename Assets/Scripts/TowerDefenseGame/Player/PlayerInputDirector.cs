@@ -13,13 +13,11 @@ namespace Assets.Scripts.TowerDefenseGame.Player
     public class PlayerInputDirectorContext : IContext
     {
         private readonly IFlowCreator _flowCreator;
-        private readonly IContextCreator _contextCreator;
 
 
-        public PlayerInputDirectorContext(IFlowCreator flowCreator, IContextCreator contextCreator)
+        public PlayerInputDirectorContext(IFlowCreator flowCreator)
         {
             _flowCreator = flowCreator;
-            _contextCreator = contextCreator;
         }
 
         public PlayerTowerBuildFlow CreateTowerBuildFlow()

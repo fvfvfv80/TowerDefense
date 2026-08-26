@@ -9,19 +9,19 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
     public class EnemyWaveDirectorContext : IContext
     {
         private readonly IFlowCreator _flowCreator;
-        private readonly IContextCreator _contextCreator;
 
 
-        public EnemyWaveDirectorContext(IFlowCreator flowCreator, IContextCreator contextCreator)
+
+        public EnemyWaveDirectorContext(IFlowCreator flowCreator )
         {
             _flowCreator = flowCreator;
-            _contextCreator = contextCreator;
+
         }
 
 
-        public EnemyContext CreateEnemyContext()
+        public EnemyRoleFlow CreateEnemyRoleFlow()
         {
-            return _contextCreator.CreateContext<EnemyContext>();
+            return _flowCreator.CreateFlow<EnemyRoleFlow>();
         }
 
 
@@ -35,17 +35,17 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
         [SerializeField]
         private EnemySpawnModule enemySpawnModule;
 
-        private EnemyWaveDirectorContext _enemyWaveHostContext;
+        private EnemyWaveDirectorContext _context;
 
         public List<EnemyActor> CurrentWaveEnemyList => enemyWaveGameplay.CurrentWaveEnemyList;
 
 
 
 
-        public void Init(EnemyWaveDirectorContext enemyWaveHostContext)
+        public void Init(EnemyWaveDirectorContext enemyWaveDirectorContext)
         {
-            _enemyWaveHostContext = enemyWaveHostContext;
-            enemyWaveGameplay.Init(_enemyWaveHostContext);
+            _context = enemyWaveDirectorContext;
+            enemyWaveGameplay.Init(this);
         }
 
       
@@ -68,6 +68,12 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
             enemySpawnModule.DespawnEnemy(enemyActor);
 
+        }
+
+
+        public EnemyRoleFlow CreateEnemyRoleFlow()
+        {
+            return _context.CreateEnemyRoleFlow();
         }
     }
 }

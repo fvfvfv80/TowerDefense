@@ -18,7 +18,7 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         public EnemyHPModule EnemyHP { get; private set; }
 
-        private EnemyContext _enemyContext;
+        private EnemyRoleFlow _enemyRole;
 
 
         public int RewardGold => gold;
@@ -38,9 +38,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
 
         }
 
-        public void SetupContext(EnemyContext enemyContext)
+        public void SetupContext(EnemyRoleFlow enemyRole)
         {
-            _enemyContext = enemyContext;
+            _enemyRole = enemyRole;
         }
 
         public void SetupPath(Transform[] wayPoints)
@@ -66,9 +66,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             EnemyMovement.StartMove();
         }
 
-        public void ReleaseContext()
+        public void Release()
         {
-            _enemyContext.Release(this);
+
         }
 
         #region EnemyHandle
@@ -82,11 +82,11 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyContext.NotifyReachGoal(this);
+                _enemyRole.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyContext.NotifyKilled(this);
+                _enemyRole.NotifyKilled(this);
             }
 
         }

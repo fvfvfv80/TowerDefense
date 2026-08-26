@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5147690816819656304}
+  - component: {fileID: 6216240461594130427}
   - component: {fileID: 1897394365052527762}
   - component: {fileID: 167061549865550676}
   m_Layer: 0
@@ -34,6 +35,20 @@ Transform:
   - {fileID: 1482371258484235892}
   m_Father: {fileID: 1993547647128993172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6216240461594130427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217859230550960343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47dea5c051100eb48b33b2e9610985ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon.TowerWeaponModule
+  towerStatModule: {fileID: 8926199603119966523}
+  weaponModule: {fileID: 1897394365052527762}
 --- !u!114 &1897394365052527762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +119,8 @@ GameObject:
   - component: {fileID: 1993547647128993172}
   - component: {fileID: 773830267930710100}
   - component: {fileID: 804355671395106312}
-  - component: {fileID: 6957322205370456543}
+  - component: {fileID: 8926199603119966523}
+  - component: {fileID: 6101873463967202340}
   m_Layer: 0
   m_Name: Tower_01
   m_TagString: Tower
@@ -162,11 +178,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21cf76f7add32f4792c42eaa45e0b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerActor
+  towerType: 0
   towerTemplate: {fileID: 11400000, guid: 751663ca3ffeff5488ba1af4e8453d6e, type: 2}
   towerRenderer: {fileID: 9216722736597025951}
-  featureModules:
-  - {fileID: 6957322205370456543}
---- !u!114 &6957322205370456543
+  towerStatModule: {fileID: 8926199603119966523}
+  towerGameplay: {fileID: 6101873463967202340}
+--- !u!114 &8926199603119966523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,11 +192,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 5005878003273553492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47dea5c051100eb48b33b2e9610985ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f122178e5fa0a04baff310cb164dee1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerWeapon.TowerWeaponModule
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.TowerStatModule
   towerTemplate: {fileID: 11400000, guid: 751663ca3ffeff5488ba1af4e8453d6e, type: 2}
-  weaponModule: {fileID: 1897394365052527762}
+--- !u!114 &6101873463967202340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005878003273553492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64a1725d1934d84ab894dad9b9169ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.TowerDefenseGame.Tower.Gameplay.AttackTowerGameplay
+  towerTemplate: {fileID: 11400000, guid: 751663ca3ffeff5488ba1af4e8453d6e, type: 2}
+  towerWeaponModule: {fileID: 6216240461594130427}
 --- !u!1 &5986085397805861300
 GameObject:
   m_ObjectHideFlags: 0

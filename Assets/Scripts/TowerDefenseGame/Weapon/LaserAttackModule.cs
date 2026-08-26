@@ -21,7 +21,7 @@ namespace Assets.Scripts.TowerDefenseGame.Weapon
 
             DisableLaser();
 
-            ApplyWeaponLevel(_weaponModule.Level);
+            ApplyWeaponLevel(0);
         }
 
         public override void BeginAttack()
