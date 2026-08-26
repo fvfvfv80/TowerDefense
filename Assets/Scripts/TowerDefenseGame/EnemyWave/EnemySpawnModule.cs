@@ -47,7 +47,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
         public void DespawnEnemy(EnemyActor enemyActor)
         {
-            enemyActor.ReleaseContext();
+            enemyActor.Release();
             Destroy(enemyActor.gameObject);
         }
 

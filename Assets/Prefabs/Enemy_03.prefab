@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 7262904608703012816}
   - component: {fileID: 6657622066898923256}
   - component: {fileID: -9110359367622317642}
-  - component: {fileID: -5547406944408241163}
   - component: {fileID: -1307897197778378025}
   - component: {fileID: -2296257546868487985}
   - component: {fileID: -5813597679605673509}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy_03
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -88,19 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyActor
   hudPoint: {fileID: 8386460963243061895}
---- !u!114 &-5547406944408241163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088452908903734244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d3c5f54037024849acd9d73f49bf006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyBaseModule
-  gold: 50
+  gold: 10
 --- !u!114 &-1307897197778378025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.Scripts.Enemy.EnemyHPModule
   maxHP: 10
-  enemyBase: {fileID: -5547406944408241163}
 --- !u!114 &-5813597679605673509
 MonoBehaviour:
   m_ObjectHideFlags: 0

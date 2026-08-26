@@ -51,9 +51,9 @@ public class PlayerInputGameplay : MonoBehaviour
         }
     }
 
-    public void OnTowerBuildButtonClick()
+    public void OnTowerBuildTypeButtonClick(int towerType)
     {
-        _playerInputHost.RequestEnterTowerBuild();
+        _playerInputHost.RequestEnterTowerBuild(towerType);
     }
 
     private void OnEscape()

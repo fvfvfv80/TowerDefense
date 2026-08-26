@@ -1,24 +1,14 @@
-﻿using Assets.Scripts.Core;
-using System.Collections;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.TowerDefenseGame.Tower
 {
     public class TowerSpawnModule : MonoBehaviour
     {
-
-        [SerializeField]
-        private TowerTemplateSO towerTemplate;
-
-
-
-
-        public TowerActor SpawnTower(Transform tileTransform)
+        public TowerActor SpawnTower(GameObject towerPrefab, Transform tileTransform)
         {
             Vector3 position = tileTransform.position + Vector3.back;
 
-            var clone = Instantiate(towerTemplate.towerPrefab, position, quaternion.identity);
+            var clone = Instantiate(towerPrefab, position, Quaternion.identity);
 
             var towerActor = clone.GetComponent<TowerActor>();
 
@@ -30,7 +20,7 @@ namespace Assets.Scripts.TowerDefenseGame.Tower
 
         public void DespawnTower(TowerActor towerActor)
         {
-            towerActor.ReleaseContext();
+            towerActor.Release();
             Destroy(towerActor.gameObject);
 
         }

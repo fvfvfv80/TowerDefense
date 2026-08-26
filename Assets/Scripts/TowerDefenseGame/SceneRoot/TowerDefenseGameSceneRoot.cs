@@ -17,6 +17,9 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
         private TowerBuildDirector towerBuildDirector;
 
         [SerializeField]
+        private TowerBuffDirector towerBuffDirector;
+
+        [SerializeField]
         private EnemyWaveDirector enemyWaveDirector;
 
         [SerializeField]
@@ -35,23 +38,29 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
 
             RegisterFlowCreation(CreatePlayerTowerBuildFlow);
             RegisterFlowCreation(CreateSelectedTowerMaintenanceFlow);
+            RegisterFlowCreation(CreateTowerBindFlow);
 
-            RegisterContextCreation(CreateTowerContext);
-            RegisterContextCreation(CreateEnemyContext);
+            RegisterFlowCreation(CreateTowerRoleFlow);
+            RegisterFlowCreation(CreateEnemyRoleFlow);
 
         }
 
         private void InitDirectors()
         {
 
-            var playerInputDirectorContext = new PlayerInputDirectorContext(this,this);
+            var playerInputDirectorContext = new PlayerInputDirectorContext(this);
             playerInputDirector.Init(playerInputDirectorContext);
 
-            var towerBuildDirectorContext = new TowerBuildDirectorContext(this, this);
+            var towerBuildDirectorContext = new TowerBuildDirectorContext(this);
             towerBuildDirector.Init(towerBuildDirectorContext);
 
-            var enemyWaveDirectorContext = new EnemyWaveDirectorContext(this, this);
+            var towerBuffDirectorContext = new TowerBuffDirectorContext(this);
+            towerBuffDirector.Init(towerBuffDirectorContext);
+
+            var enemyWaveDirectorContext = new EnemyWaveDirectorContext(this);
             enemyWaveDirector.Init(enemyWaveDirectorContext);
+
+
         }
 
         #region FlowFactory
@@ -68,24 +77,25 @@ namespace Assets.Scripts.TowerDefenseGame.SceneRoot
             return flow;
         }
 
+        private TowerBindFlow CreateTowerBindFlow()
+        {
+            var flow = new TowerBindFlow(towerBuffDirector);
+            return flow;
+        }
 
+        private TowerRoleFlow CreateTowerRoleFlow()
+        {
+            var flow = new TowerRoleFlow(enemyWaveDirector,towerBuffDirector);
+            return flow;
+        }
+
+        private EnemyRoleFlow CreateEnemyRoleFlow()
+        {
+            var flow = new EnemyRoleFlow(enemyWaveDirector, player.HPModule, player.GoldModule);
+            return flow;
+        }
 
         #endregion
 
-        #region ContextFactory
-
-        private TowerContext CreateTowerContext()
-        {
-            var context = new TowerContext(enemyWaveDirector);
-            return context;
-        }
-
-        private EnemyContext CreateEnemyContext()
-        {
-            var context = new EnemyContext(enemyWaveDirector, player.HPModule, player.GoldModule);
-            return context;
-        }
-
-        #endregion
     }
 }

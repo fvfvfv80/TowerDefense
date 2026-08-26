@@ -30,7 +30,7 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
 
 
-        private EnemyWaveDirectorContext _hostContext;
+        private EnemyWaveDirector _enemyWaveDirector;
 
         private int _currentWaveIndex = -1;
 
@@ -51,9 +51,9 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
 
 
 
-        public void Init(EnemyWaveDirectorContext hostContext)
+        public void Init(EnemyWaveDirector enemyWaveDirector)
         {
-            _hostContext = hostContext;
+            _enemyWaveDirector = enemyWaveDirector;
         }
 
         public void StartWave()
@@ -77,11 +77,11 @@ namespace Assets.Scripts.TowerDefenseGame.EnemyWave
             {
                 int enemyIndex = Random.Range(0, _currentWave.enemyPrefabs.Length);
 
-                var enemyContext = _hostContext.CreateEnemyContext();
+                var enemyRoleFlow = _enemyWaveDirector.CreateEnemyRoleFlow();
 
                 var enemyActor = enemySpawnModule.SpawnEnemy(_currentWave.enemyPrefabs[enemyIndex]);
 
-                enemyActor.SetupContext(enemyContext);
+                enemyActor.SetupRole(enemyRoleFlow);
                 enemyActor.SetupPath(wayPoints);
                 enemyActor.StartEnemy();
 

@@ -16,6 +16,8 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
         private GameObject _followTowerPreview;
 
 
+        private int _selectedTowerType;
+
 
         public event Action Completed;
 
@@ -26,22 +28,23 @@ namespace Assets.Scripts.TowerDefenseGame.Flow
             _playerGoldModule = playerGold;
         }
 
-        public void EnterBuildReady()
+        public void EnterBuildReady(int towerType)
         {
-            if (!_towerBuildDirector.CheckGoldEnough(_playerGoldModule.CurrentGold))
+            if (!_towerBuildDirector.CheckTowerBuildCostEnough(towerType,_playerGoldModule.CurrentGold))
             {
                 Completed?.Invoke();
                 return;
             }
-                
-            
-            _followTowerPreview = _towerBuildDirector.SpawnFollowTowerPreview();
+
+            _selectedTowerType = towerType;
+
+            _followTowerPreview = _towerBuildDirector.SpawnFollowTowerPreview(towerType);
 
         }
 
         public void BuildTower(Transform tileTransform)
         {
-            if(_towerBuildDirector.TryBuildTower(tileTransform, out int cost))
+            if(_towerBuildDirector.TryBuildTower(_selectedTowerType,tileTransform, out int cost))
             {
                 _playerGoldModule.CurrentGold -= cost;
 

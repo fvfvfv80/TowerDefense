@@ -9,15 +9,20 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         [SerializeField]
         private Transform hudPoint;
 
-        private EnemyContext _enemyContext;
-
-        public EnemyBaseModule EnemyBase { get; private set; }
+        [SerializeField]
+        private int gold = 10;
 
         public EnemyAnimationModule EnemyAnimation { get; private set; }
 
         public EnemyMovementModule EnemyMovement { get; private set; }
 
         public EnemyHPModule EnemyHP { get; private set; }
+
+        private EnemyRoleFlow _enemyRole;
+
+
+        public int RewardGold => gold;
+
 
         public Transform HUDPoint => hudPoint;
 
@@ -27,16 +32,15 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         private void Awake()
         {
             //init에서 실행될수도있음
-            EnemyBase = GetComponent<EnemyBaseModule>();
             EnemyAnimation = GetComponent<EnemyAnimationModule>();
             EnemyMovement = GetComponent<EnemyMovementModule>();
             EnemyHP = GetComponent<EnemyHPModule>();
 
         }
 
-        public void SetupContext(EnemyContext enemyContext)
+        public void SetupRole(EnemyRoleFlow enemyRole)
         {
-            _enemyContext = enemyContext;
+            _enemyRole = enemyRole;
         }
 
         public void SetupPath(Transform[] wayPoints)
@@ -62,9 +66,9 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
             EnemyMovement.StartMove();
         }
 
-        public void ReleaseContext()
+        public void Release()
         {
-            _enemyContext.Release(this);
+
         }
 
         #region EnemyHandle
@@ -78,11 +82,11 @@ namespace Assets.Scripts.TowerDefenseGame.Enemy
         {
             if (type == EnemyDestroyType.Arrive)
             {
-                _enemyContext.NotifyReachGoal(this);
+                _enemyRole.NotifyReachGoal(this);
             }
             else if (type == EnemyDestroyType.Kill)
             {
-                _enemyContext.NotifyKilled(this);
+                _enemyRole.NotifyKilled(this);
             }
 
         }
